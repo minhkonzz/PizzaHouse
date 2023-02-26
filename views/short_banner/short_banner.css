@@ -1,0 +1,25 @@
+.banner-short {
+  text-align: center;
+  padding: 300px 0 80px;
+  color: #fff;
+}
+
+.banner-short__title {
+  color: #fac122;
+  font-size: 40px;
+  font-family: 'Graviola Soft W01';
+}
+
+.banner-short__path {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff; 
+  font-size: 13px;
+  margin-top: 14px;
+}
+
+.banner-short__path ion-icon {
+  font-size: 16px;
+}
+

@@ -1,0 +1,72 @@
+/* ============== IMPORT FONTS USE ============== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url("https://db.onlinewebfonts.com/c/3e8c66479e166f48e44525609aebd682?family=Graviola+Soft+W01");
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Montserrat, sans-serif;
+}
+
+button, input, select, textarea {
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+input[type=text], input[type=password], input[type=date], select {
+  font-size: 14px;
+  padding-left: 21px;
+}
+
+select {
+  padding: 0 16px;
+}
+
+:root {
+  --primary-color: #C90014;
+  --green-color: #548c1d;
+  --primary-hover-color: #a50414;
+  --delay: all .2s ease;
+  --long-delay: all 1s ease;
+  --header-height: 4rem;
+}
+
+.hl__primary {
+  color: var(--primary-color);
+}
+
+/* ============== BREAKPOINTS ============== */
+@media (min-width: 320px) {
+
+}
+
+@media (min-width: 480px) {
+
+}
+
+@media (min-width: 640px) {
+
+}
+
+@media (min-width: 800px) {
+
+}
+
+@media (min-width: 960px) {
+
+}
+
+@media (min-width: 1024) {
+
+}
+
+@media (min-width: 1200px) {
+
+}

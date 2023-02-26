@@ -1,0 +1,53 @@
+.home__welcome {
+  max-height: 100vh;
+  padding: 120px 150px;
+}
+
+.home__welcome-main {
+  max-width: 1366px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2.5rem;
+}
+
+.home__welcome__titles {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.home__welcome__titles-top {
+  font: 600 42px 'Graviola Soft W01';
+  color: rgb(45, 45, 45);
+}
+
+.home__welcome__titles-center {
+  font-size: 15px;
+  color: #deb214;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.home__welcome__titles-bottom {
+  font-size: 14px;
+  color: #4d4d4d;
+  line-height: 1.8;
+}
+
+.home__welcome__titles-button {
+  border-radius: 100px;
+  padding: 16px 30px;
+  color: #fff;
+  background-color: var(--primary-color);
+  text-transform: uppercase;
+  font-size: 12px;
+  font-family: 'Graviola Soft W01';
+}
+
+.home__welcome__gifts {
+  display: flex;
+  justify-content: space-between;
+}

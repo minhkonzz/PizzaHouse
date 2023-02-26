@@ -1,0 +1,99 @@
+.home__delicious {
+  padding: 140px 150px;
+  background-image: url(http://pizzahouse.themerex.net/wp-content/uploads/2016/08/bg_wood.jpg?id=1164) !important
+}
+
+.home__delicious__titles {
+  text-align: center;
+}
+
+.home__delicious__titles-above {
+  color: rgb(245, 196, 0); 
+  font-family: 'Dancing Script', cursive;
+  font-size: 28px; 
+  margin-bottom: 20px;
+}
+
+.home__delicious__titles-under {
+  color: #fff; 
+  font-size: 38px;
+  font-weight: 600;
+}
+
+.home__delicious__list {
+  position: relative;
+  margin-top: 50px;
+}
+
+.home__delicious__prev-button,
+.home__delicious__next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.home__delicious__prev-button {
+  left: 0; 
+}
+
+.home__delicious__prev-button ion-icon,
+.home__delicious__next-button ion-icon {
+  font-size: 36px;
+  color: rgb(245, 196, 0);
+  transition: var(--delay);
+}
+
+.home__delicious__prev-button:hover ion-icon,
+.home__delicious__next-button:hover ion-icon {
+  color: var(--primary-color);
+}
+
+.home__delicious__next-button {
+  right: 0; 
+}
+
+.home__delicious__items {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.home__delicious__item {
+  height: auto; 
+  color: white;
+  text-align: center;
+  padding: 0 8px;
+}
+
+.home__delicious__item__select,
+.home__delicious__item__detail > * {
+  margin-top: 25px;
+}
+
+.home__delicious__item__image img {
+  width: 250px; 
+  height: 250px;
+  margin: 0 auto;
+}
+
+.home__delicious__item__name {
+  color: rgb(255, 225, 0);
+  font-size: 24px;
+  font-family: 'Graviola Soft W01', sans-serif;
+}
+
+.home__delicious__item__desc {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.home__delicious__item__select {
+  padding: 16px 40px;
+  background-color: var(--primary-color);
+  border-radius: 100px;
+  font-weight: 600;
+}
+
+.home__delicious__item__select a {
+  color: #fff;
+}
+

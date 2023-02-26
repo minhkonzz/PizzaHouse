@@ -1,0 +1,15 @@
+footer {
+  background-image: url("https://pizzahouse.themerex.net/wp-content/themes/pizzahouse/images/bg_wood.jpg");
+  padding: 70px 0;
+  text-align: center;
+}
+
+footer p {
+  font-size: 14px;
+  margin-top: 28px;
+  color: #fff;
+}
+
+footer p a {
+  color: yellow;
+}
