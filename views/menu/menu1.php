@@ -4,7 +4,7 @@
     require_once "./views/header/header.php";
     require_once "./views/short_banner/short_banner.php";
   ?>
-  <div style="padding: 40px 140px; border: .8px solid #000; display: grid; grid-template-columns: 1fr 3fr; column-gap: 1.5rem;">
+  <div style="padding: 40px 140px; display: grid; grid-template-columns: 1fr 3fr; column-gap: 1.5rem;">
     <aside>
       <div style="margin-bottom: 20px;">
         <div style="background-color: var(--primary-color); padding: 16px 12px;">
@@ -91,7 +91,7 @@
           <div style="border: .8px solid #000; text-align: center;">   
             <div style="position: relative; ">
               <a href="">
-                <img width="200" height="200" src="./public/images/products/<?= $product["image"] ?>" alt="">
+                <img width="200" height="200" src="<?= __DIR_ROOT__ ?>/public/images/products/<?= $product["image"] ?>" alt="">
                 <div style="display: flex; position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); column-gap: .5rem;">
                   <span style="display: flex; justify-content: center; align-items: center; color: #fff; width: 30px; height: 30px; background-color: var(--primary-color);"><ion-icon name="bag-add-outline"></ion-icon></span>
                   <span style="display: flex; justify-content: center; align-items: center; color: #fff; width: 30px; height: 30px; background-color: var(--primary-color);"><ion-icon name="search-outline"></ion-icon></span>

@@ -15,7 +15,7 @@
 
     // no-mapped 
     public static function getAllCategories() {
-      $query_str = Database::table("tbl_category")->selectAll();
+      $query_str = Database::table("tbl_category")->selectStar();
       return parent::perform($query_str, true);
     }
   }

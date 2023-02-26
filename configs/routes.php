@@ -3,7 +3,8 @@
 
   $router = new Router(new Request);
 
-  $router->get("/", function() {
-    echo '<h1 style="color: blue;">Hello World</h1>';
+  $router->get("/thuc-don", function() {
+    header("location: http://localhost/pizza-client/menu");
   });
+
 ?>

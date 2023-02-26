@@ -6,7 +6,7 @@
     public static function getInstance() {
       if (!isset(self::$instance)) {
         try {
-          self::$instance = new PDO("mysql:host=localhost;dbname=pizza-backup", "root", "");
+          self::$instance = new PDO("mysql:host=localhost;dbname=pizza-client", "root", "");
           self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
           die("Connect database failed: ".$e->getMessage());

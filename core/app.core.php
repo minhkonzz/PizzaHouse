@@ -25,6 +25,11 @@
       self::$controller = new $controller_class_name;
       unset($req[0]);
 
+      if (!isset($req[1])) {
+        self::$controller->init();
+        return;
+      }
+
       $action_name = $req[1] ?? "";
       self::$action = strtolower($action_name);
       unset($req[1]);

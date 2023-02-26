@@ -36,8 +36,16 @@
 
     // no-mapped
     public static function getAllProducts() {
-      $query_str = Database::table("tbl_product")->selectAll();
+      $query_str = Database::table("tbl_product")->selectStar();
       return parent::perform($query_str, true);
     }  
+
+    public static function getProductsByCategory($category_id) {
+      echo $category_id;
+      $query_str = Database::table("tbl_product")->selectStar()->where("category_id"); 
+      return parent::perform($query_str, true, [
+        "category_id" => $category_id
+      ]);
+    }
   }
 ?>

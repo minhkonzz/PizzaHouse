@@ -1,8 +1,8 @@
 <?php 
   class QueryBuilder {
 
-    private $behavior;
-    private $table_name; // select, insert, update, delete, ...
+    private $behavior; // select, insert, update, delete, ...
+    private $table_name; 
     private $fields = [];
     private $conditions = [];
     private $options = [];
@@ -38,7 +38,7 @@
       return $this;
     }
 
-    public function selectAll() {
+    public function selectStar() {
       $this->fields = ["*"];
       return $this;
     }
@@ -82,8 +82,8 @@
       return $this;
     }
 
-    public function where($column_name, $operation = "=", $value) {
-      $this->conditions[] = "$column_name $operation $value";
+    public function where($column_name, $operation = "=") {
+      $this->conditions[] = "$column_name $operation :$column_name";
       return $this;
     }
   }

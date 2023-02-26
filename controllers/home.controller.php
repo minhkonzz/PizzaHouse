@@ -1,6 +1,7 @@
 <?php 
   class HomeController extends Controller {
-    function __construct() {
+
+    public function init() {
       parent::renderView(
         "Home", 
         "./views/home/home.php"
