@@ -1,8 +1,8 @@
-<div style="height: auto;">
-  <?php require_once "./views/header/header.php"; ?>
-  <?php require_once "./views/home/banner/banner.php"; ?>
-  <?php require_once "./views/home/welcome/welcome.php"; ?>
-  <?php require_once "./views/home/delicious/delicious.php"; ?>
-  <?php require_once "./views/home/reviews/reviews.php"; ?>
-  <?php require_once "views/footer/footer.php"; ?>
+<div style="height: 0;">
+  <?php include_once __ROOT__ . "views/header/header.php"; ?>
+  <?php include_once __ROOT__ . "views/home/banner/banner.php"; ?>
+  <?php include_once __ROOT__ . "views/home/welcome/welcome.php"; ?>
+  <?php include_once __ROOT__ . "views/home/delicious/delicious.php"; ?>
+  <?php include_once __ROOT__ . "views/home/reviews/reviews.php"; ?>
+  <?php include_once __ROOT__ . "/views/footer/footer.php"; ?>
 </div>

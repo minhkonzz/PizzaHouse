@@ -1,1 +1,0 @@
-<h2>Something wrong or page not found</h2>

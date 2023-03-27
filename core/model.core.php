@@ -11,15 +11,35 @@
       $this->id = $id_prefix.time(); 
     }
 
-    public static function perform($query_str, $is_fetch, $params = []) {
+    public function getId() {
+      return $this->id;
+    }
+
+    public static function performQuery($queries) {
+      $is_query_success = false;
       $connection = Database::getInstance();
-      $statement = $connection->prepare($query_str);
-      $statement->execute($params);
-      if ($is_fetch) {
-        $res = array();
-        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) array_push($res, $row);
-        return $res; 
+      $connection->beginTransaction();
+      $fetch_result = array();
+      try {
+        foreach ($queries as $query) {
+          $statement = $connection->prepare($query["query_str"]); 
+          if ($statement) {
+            $statement->execute($query["params"] ?? []); 
+            if (isset($query["is_fetch"])) {
+              $fetch_result[$query["is_fetch"]] = array();
+              while ($row = $statement->fetch(PDO::FETCH_ASSOC)) array_push($fetch_result[$query["is_fetch"]], $row);
+            }
+          }
+          unset($statement);
+        }
+        $connection->commit();
+        $is_query_success = true; 
+      } catch (Exception $e) {
+        $connection->rollBack();
       }
+      unset($connection);
+      if (count($fetch_result) > 0) return $fetch_result;
+      return $is_query_success;
     }
   }
 ?>

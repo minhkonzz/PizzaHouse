@@ -15,8 +15,11 @@
 
     // no-mapped 
     public static function getAllCategories() {
-      $query_str = Database::table("tbl_category")->selectStar();
-      return parent::perform($query_str, true);
+      $query_res = parent::performQuery([[
+        "query_str" => Database::table("tbl_category")->select("id", "category_name"), 
+        "is_fetch" => "categories"
+      ]]);
+      return $query_res["categories"];
     }
   }
 ?>

@@ -1,31 +1,51 @@
 <?php 
   class Request {
+
+    private $headers;
+    private $method; 
+    private $path_info; 
+    private $payloads; 
+
     function __construct() {
-      $this->transformRequestToCamelCase();
+      $this->headers = getallheaders();
+      $this->method = $_SERVER["REQUEST_METHOD"];
+      $this->path_info = $_SERVER["PATH_INFO"] ?? "/";
+      $this->payloads = $this->sanitize(
+        $this->method === "GET" || $this->method === "POST" || $this->method === "COOKIE" ? $_REQUEST : 
+        json_decode(file_get_contents("php://input"), true)
+      );
     }
 
-    private function transformRequestToCamelCase() {
-      foreach ($_SERVER as $key => $value) 
-        $this->{$this->toCamelCase($key)} = $value;
+    public function getHeaderLine($name) {
+      return $this->headers[$name] ?? "";
     }
 
-    private function toCamelCase($str) {
-      $res = strtolower($str);
-      preg_match_all('/_[a-z]/', $res, $matches); 
-      foreach ($matches[0] as $match) {
-        $c = str_replace('_', '', strtoupper($match));    
-        $res = str_replace($match, $c, $res);  
+    private function sanitize($payloads) {
+      $filters = array(
+        "string" => FILTER_SANITIZE_STRING,
+        "int" => FILTER_SANITIZE_NUMBER_INT,
+        "float" => FILTER_SANITIZE_NUMBER_FLOAT
+      );
+      if (is_array($payloads) || is_object($payloads)) {
+        foreach ($payloads as &$v) {
+          $type = gettype($v); 
+          if (isset($filters[$type])) $v = filter_var($v, $filters[$type]);      
+        }
       }
-      return $res;
+      else $payloads = filter_var($payloads, FILTER_SANITIZE_SPECIAL_CHARS);
+      return $payloads;
     }
 
-    public function getBody() {
-      $request_method = $this->requestMethod; 
-      if ($request_method == "GET") return; 
-      $body = array();
-      foreach ($_POST as $key => $value) 
-        $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
-      return $body;
+    public function getMethod() {
+      return $this->method; 
+    }
+
+    public function getPathInfo() {
+      return $this->path_info;
+    }
+
+    public function getPayloads() {
+      return $this->payloads;
     }
   }
 ?>

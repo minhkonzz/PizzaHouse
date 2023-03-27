@@ -1,146 +1,114 @@
-<style><?php include "menu.css"; ?></style>
+<style><?php include_once "menu.css"; ?></style>
 <div style="height: 0;">
   <?php 
-    require_once "./views/header/header.php";
-    require_once "./views/short_banner/short_banner.php";
+    require_once __ROOT__ . "views/header/header.php";
+    require_once __ROOT__ . "views/short_banner/short_banner.php";
   ?>
-  <div class="menu">
-    <div class="menu-main">
-      <aside class="menu__side-left">
-        <div class="menu__side-left__filter-price">
-          <div class="menu__side-left__main-part">
-            <h3 class="menu__side-left__title">Filter by price</h3>
-            <input type="range" name="volume" min="100000" max="300000" step="10000">
-            <div class="menu__side-left__filter-price__button__detail">
-              <a class="menu__side-left__filter-price__button" href="#">Filter</a>
-              <p class="menu__side-left__filter-price__range">Price: $11 - $27</p>
-            </div>
+  <main id="menu-main">
+    <aside id="menu-left">
+      <div class="menu-left__part categories">
+        <div class="menu-left__title"><p>DANH MỤC SẢN PHẨM</p></div>
+        <ul class="menu-left__categories__list">
+          <?php 
+            foreach ($data["categories"] as $category): ?>
+              <li class="menu-left__categories__item"><a href="<?= "/pizza-complete-version/thuc-don/danh-muc/" . $category["id"] ?>"><?= $category["category_name"] ?></a></li>
+          <?php endforeach ?>
+        </ul>
+      </div>
+      <div class="menu-left__part price-range">
+        <div class="menu-left__title"><p>GIÁ SẢN PHẨM</p></div>
+      </div>
+      <div class="menu-left__part addon-options">
+        <div class="menu-left__title"><p>TÍNH NĂNG SẢN PHẨM</p></div>
+        <div style="padding: 12px;">
+        <?php 
+          foreach ($data["addons"] as $k => $v): ?>
+          <div style="margin-bottom: 20px;">
+            <p><?= $v["addon_name"] ?></p>
+            <?php 
+              foreach ($v["addon_options"] as $addon_option): ?>
+              <div style="display: flex; align-items: center; margin-top: 8px;">
+                <input style="width: 20px; height: 20px;" type="checkbox">
+                <label style="margin-left: 10px; font-size: 14px;"><?= $addon_option["addon_val"] ?></label>
+              </div>
+            <?php endforeach ?>
           </div>
+          <?php endforeach ?>
         </div>
-        <hr>
-        <div class="menu__side-left__categories">
-          <div class="menu__side-left__main-part">
-            <h3 class="menu__side-left__title">Categories</h3>
-            <ul>
-              <?php 
-                foreach ($data["categories"] as $category): ?>
-                  <li><?= $category["category_name"] ?></li>
-              <?php endforeach ?>
-            </ul>
-          </div>
-        </div>
-        <hr>
-        <div class="menu__side-left__tags">
-          <div class="menu__side-left__main-part">
-            <h3 class="menu__side-left__title">Tags</h3>
-            <ul>
-              <li>Appetizer</li>
-              <li>Beverages</li>
-              <li>Dining</li>
-              <li>Events</li>
-              <li>Hot</li>
-              <li>Kids menu</li>
-              <li>Pizza</li>
-            </ul>
-          </div>
-        </div>
-      </aside>
-      <main class="menu__side-right">
-        <div class="menu__side-right-top">
-          <div class="menu__side-right-top-left">
-            <button class="menu__thumbs-option">
-              <ion-icon name="apps-outline"></ion-icon>
-            </button>
-            <button class="menu__list-option">
-              <ion-icon name="list-outline"></ion-icon>
-            </button>
-            <p class="menu__side-right-top__total-results">Showing 1 - 9 of 10 results</p>
-          </div>
-          <select>
-            <option value="">Default sorting</option>
-            <option value="">Sort by popularity</option>
-            <option value="">Sort by average rating</option>
-            <option value="">Sort by lastest</option>
-            <option value="">Sort by price: low to high</option>
-            <option value="">Sort by price: high to low</option>
+      </div>
+      <div class="menu-left__part tags">
+        <div class="menu-left__title"><p>TAGS</p></div>
+        <ul class="tags__list">
+          <li class="tags__item"><a href="#">Pizza</a></li>
+          <li class="tags__item"><a href="#">Pizza hải sản thượng hạng</a></li>
+          <li class="tags__item"><a href="#">Thức uống</a></li>
+        </ul>
+      </div>
+    </aside>
+    <div id="menu-right">
+      <div class="menu-right__header">
+        <div class="menu-right__menu-per-page">
+          <label class="menu-per-page__title" for="_a">Hiển thị</label>
+          <select id="menu-per-page__selection" name="menu_size_display">
+            <option class="menu-per-page__option" value="8">Mặc định</option>
+            <option class="menu-per-page__option" value="12">12</option>
+            <option class="menu-per-page__option" value="16">16</option>
           </select>
         </div>
-        <div class="menu__side-right-center">
-          <div class="menu__item">
-            <div class="menu__item__image">
-              <a href="#">
-                <img src="https://pizzahouse.themerex.net/wp-content/uploads/2016/08/product-6.png" alt="menu_item_image">
-                <span class="menu__item__image__link">
-                  <ion-icon name="link"></ion-icon>
-                </span>
-              </a>
-            </div>
-            <p class="menu__item__name">Glute-Free Pizza</p>
-            <h3 class="menu__item__price">$19.00 - $24.00</h3>
-            <a class="menu__item__button" href="#">Select option</a>
-          </div>
-          <div class="menu__item">
-            <div class="menu__item__image">
-              <a href="#">
-                <img src="https://pizzahouse.themerex.net/wp-content/uploads/2016/08/product-6.png" alt="menu_item_image">
-                <span class="menu__item__image__link">
-                  <ion-icon name="link"></ion-icon>
-                </span>
-              </a>
-            </div>
-            <p class="menu__item__name">Glute-Free Pizza</p>
-            <h3 class="menu__item__price">$19.00 - $24.00</h3>
-            <a class="menu__item__button" href="#">Select option</a>
-          </div>
-          <div class="menu__item">
-            <div class="menu__item__image">
-              <a href="#">
-                <img src="https://pizzahouse.themerex.net/wp-content/uploads/2016/08/product-6.png" alt="menu_item_image">
-                <span class="menu__item__image__link">
-                  <ion-icon name="link"></ion-icon>
-                </span>
-              </a>
-            </div>
-            <p class="menu__item__name">Glute-Free Pizza</p>
-            <h3 class="menu__item__price">$19.00 - $24.00</h3>
-            <a class="menu__item__button" href="#">Select option</a>
-          </div>
-          <div class="menu__item">
-            <div class="menu__item__image">
-              <a href="#">
-                <img src="https://pizzahouse.themerex.net/wp-content/uploads/2016/08/product-6.png" alt="menu_item_image">
-                <span class="menu__item__image__link">
-                  <ion-icon name="link"></ion-icon>
-                </span>
-              </a>
-            </div>
-            <p class="menu__item__name">Glute-Free Pizza</p>
-            <h3 class="menu__item__price">$19.00 - $24.00</h3>
-            <a class="menu__item__button" href="#">Select option</a>
-          </div>
-          <div class="menu__item">
-            <div class="menu__item__image">
-              <a href="#">
-                <img src="https://pizzahouse.themerex.net/wp-content/uploads/2016/08/product-6.png" alt="menu_item_image">
-                <span class="menu__item__image__link">
-                  <ion-icon name="link"></ion-icon>
-                </span>
-              </a> 
-            </div>
-            <p class="menu__item__name">Glute-Free Pizza</p>
-            <h3 class="menu__item__price">$19.00 - $24.00</h3>
-            <a class="menu__item__button" href="#">Select option</a>
-          </div>
+        <div class="menu-right__menu-sorts">
+          <label class="menu-sorts__title" for="_b">Sắp xếp theo</label>
+          <select id="menu-sorts__selection" name="menu_arrange_type">
+            <option class="menu-sorts__option" value="">Mặc định</option>
+            <option class="menu-sorts__option" value="">Sắp xếp theo tên (A-Z)</option>
+          </select>
         </div>
-        <div class="menu__side-right-bottom">
-          <ul class="menu__side-right__page-buttons">
-            <li class="menu__side-right__page-button"><a href="#">1</a></li>
-            <li class="menu__side-right__page-button"><a href="#">2</a></li>
-            <li class="menu__side-right__page-button"><a href="#">3</a></li>
-          </ul>
-        </div>
-      </main>
+      </div>
+      <div class="menu-right__center">
+        <!-- menu item -->
+        <?php 
+        foreach ($data["products"] as $product): ?>
+          <div class="menu__item">   
+            <div class="menu__item__img-wrapper">
+              <a href="">
+                <img class="menu__item__img" src="<?= "/pizza-complete-version/public/images/products/" . $product["image"] ?>" alt="">
+                <div class="menu__item__actions">
+                  <span class="menu__item__action"><ion-icon name="bag-add-outline"></ion-icon></span>
+                  <span class="menu__item__action"><ion-icon name="search-outline"></ion-icon></span>
+                  <span class="menu__item__action"><ion-icon name="heart-outline"></ion-icon></span>
+                </div>
+              </a>
+            </div>
+            <p class="menu__item__name"><?= $product["product_name"] ?></p>
+            <p class="menu__item__price"><?= $product["price"] ?></p>
+            <p class="menu__item__description"><?= $product["description"] ?></p>
+            <button id="menu__item__detail-btn"><a href="/pizza-complete-version/thuc-don/<?= $product["id"] ?>" href="#">Xem chi tiết</a></button>
+          </div>
+        <?php endforeach ?>
+      </div>
+      <div class="menu-right__bottom">
+        <ul class="menu-right__bottom__page-numbers">
+          <li><button class="page-numbers__btn"><a href="#"><ion-icon name="chevron-back-sharp"></ion-icon><ion-icon name="chevron-back-sharp"></ion-icon></a></li>
+          <li><button class="page-numbers__btn"><a href="#"><ion-icon name="chevron-back-sharp"></a></button></li>
+          <li><button class="page-numbers__btn"><a href="#">1</a></button></li>
+          <li><button class="page-numbers__btn"><a href="#">2</a></button></li>
+          <li><button class="page-numbers__btn"><a href="#">3</a></button></li>
+          <li><button class="page-numbers__btn"><a href="#"><ion-icon name="chevron-forward-sharp"></a></button></li>
+          <li><button class="page-numbers__btn"><a href="#"><ion-icon name="chevron-forward-sharp"></ion-icon><ion-icon name="chevron-forward-sharp"></ion-icon></a></button></li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <?php require_once "./views/footer/footer.php"; ?>
+  </main>
+  <?php include_once __ROOT__ . "views/footer/footer.php"; ?>
 </div>
+<!-- <script>
+  $("#menu_size_display").change(function() {
+    const selected_value = $(this).find(":selected").val();
+    const requestConfig = {
+      "method": "GET", 
+      "url": `http://localhost/pizza-complete-version/menu?limit=${selected_value}`;
+    };
+    $.ajax(requestConfig).done((response) => {
+      console.log("response:", response);
+    });
+  });
+</script> -->

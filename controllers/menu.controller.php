@@ -1,22 +1,31 @@
 <?php 
   class MenuController extends Controller {
 
+    function __construct() {
+      parent::__construct();
+    }
+
     public function init() {
-      parent::renderView(
+
+      parent::view(
         "Menu",
-        "./views/menu/menu1.php", [
+        __ROOT__ . "views/menu/menu.php", [
+          "cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__, 
           "categories" => CategoryModel::getAllCategories(),
-          "products" => ProductModel::getAllProducts()
+          "products" => ProductModel::getAllProducts(),
+          "addons" => AddonModel::getAllAddonsAndOptions()
         ]
       );
     }
 
-    public function danhmuc($category_id) {
-      parent::renderView(
+    public function showProductsByCategory($category_id) {
+      parent::view(
         "Menu", 
-        "./views/menu/menu1.php", [
-          "categories" => CategoryModel::getAllCategories(),
-          "products" => ProductModel::getProductsByCategory($category_id)
+        __ROOT__ . "views/menu/menu.php", [
+          "cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__,
+          "categories" => CategoryModel::getAllCategories(), 
+          "products" => ProductModel::getProductsByCategory($category_id),
+          "addons" => AddonModel::getAllAddonsAndOptions()
         ]
       );
     }
