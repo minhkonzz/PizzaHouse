@@ -4,5 +4,5 @@
   <?php include_once __ROOT__ . "views/home/welcome/welcome.php"; ?>
   <?php include_once __ROOT__ . "views/home/delicious/delicious.php"; ?>
   <?php include_once __ROOT__ . "views/home/reviews/reviews.php"; ?>
-  <?php include_once __ROOT__ . "/views/footer/footer.php"; ?>
+  <?php include_once __ROOT__ . "views/footer/footer.php"; ?>
 </div>

@@ -6,6 +6,59 @@ header {
   z-index: 100;
 }
 
+.header-above {
+  height: 50px; 
+  background-color: var(--primary-color);
+}
+
+.header-above__main {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  height: 100%;
+}
+
+.header-above__left {
+  display: flex; 
+  align-items: center; 
+  column-gap: 1rem;
+}
+
+.header-above__left span {
+  font-size: 28px; 
+  color: #f4ea8e;
+}
+
+.header-above__left p {
+  color: #f4ea8e; 
+  font-style: italic; 
+  font-weight: 600;
+}
+
+.header-above__user {
+  display: flex; 
+  align-items: center; 
+  column-gap: .6rem;
+}
+
+.header-above__user span {
+  color: #fff; 
+  font-size: 18px;
+}
+
+.header-above__user p {
+  color: #fff; 
+  font-size: 14px; 
+  font-weight: 500;
+}
+
+.header-above__right {
+  display: flex; 
+  column-gap: 2.5rem;
+}
+
 nav {
   position: relative;
   display: flex;
