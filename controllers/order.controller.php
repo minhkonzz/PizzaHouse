@@ -5,17 +5,19 @@
 			parent::__construct();
 		}
 
-		public function init() {
+		public function init(Request $request = null, $params = []) {
 			parent::view(
 				"Pizza House - Checkout",
-				__ROOT__ . "views/checkout/checkout.view.php", [
+				"views/checkout/checkout.view.php", 
+				(new Response())->withJson([
 					"payment_methods" => PaymentModel::getAllPaymentMethods(),
 					"cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__
-				]
+				])
 			);
 		}
 
-		public function showMakeOrderResponse($checkout_payload) {
+		// params: $checkout_payload
+		public function showMakeOrderResponse(Request $request = null, $params = []) {
 			$new_order = new OrderModel([
 				"customer_id" => $_SESSION["customer"]["id"], 
 				"buyer_name" => $checkout_payload["buyer_name"], 
@@ -34,11 +36,12 @@
 		   $create_order_status = OrderModel::createOrder($new_order);
 			parent::view(
 				"Pizza House - Checkout", 
-				__ROOT__ . "views/checkout/checkout.view.php", [
+				"views/checkout/checkout.view.php", 
+				(new Response())->withJson([
 					"cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__,
 					"created_order" => $new_order,
 					"create_order_status" => $create_order_status
-				]
+				])
 			);
 		}
 	}

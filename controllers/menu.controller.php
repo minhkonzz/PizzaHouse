@@ -5,29 +5,32 @@
       parent::__construct();
     }
 
-    public function init() {
-
+    public function init(Request $request = null, $params = []) {
       parent::view(
         "Menu",
-        __ROOT__ . "views/menu/menu.php", [
+        "views/menu/menu.view.php", 
+        new Response(200, [
           "cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__, 
           "categories" => CategoryModel::getAllCategories(),
           "products" => ProductModel::getAllProducts(),
           "addons" => AddonModel::getAllAddonsAndOptions()
-        ]
+        ])
       );
     }
 
-    public function showProductsByCategory($category_id) {
-      parent::view(
-        "Menu", 
-        __ROOT__ . "views/menu/menu.php", [
-          "cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__,
-          "categories" => CategoryModel::getAllCategories(), 
-          "products" => ProductModel::getProductsByCategory($category_id),
-          "addons" => AddonModel::getAllAddonsAndOptions()
-        ]
-      );
-    }
+    // $category_id 
+    // public function showProductsByCategory(Request $request = null, $params = []) {
+    //   $category_id = 0;
+    //   parent::view(
+    //     "Menu", 
+    //     "views/menu/menu.php", 
+    //     (new Response ())->withJson([
+    //       "cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__,
+    //       "categories" => CategoryModel::getAllCategories(), 
+    //       "products" => ProductModel::getProductsByCategory($category_id),
+    //       "addons" => AddonModel::getAllAddonsAndOptions()
+    //     ])
+    //   );
+    // }
   }
 ?>

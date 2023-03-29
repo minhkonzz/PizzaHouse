@@ -1,10 +1,10 @@
-<style><?php include_once "service.css" ?></style>
+<style><?php include_once "services.css" ?></style>
 <div style="height: 0;">
   <?php 
-    require_once "./views/header/header.php";
-    require_once "./views/short_banner/short_banner.php";
+    require_once __ROOT__ . "views/header/header.view.php";
+    require_once __ROOT__ . "views/short_banner/short_banner.view.php";
   ?>
-  <div style="padding: 40px 140px; display: grid; grid-template-columns: 1fr 3fr; column-gap: 1.8rem;">
+  <div id="services-main">
     <aside>
       <div style="margin-bottom: 20px;">
         <div style="background-color: var(--primary-color); padding: 16px 12px;">
@@ -118,5 +118,5 @@
       </div>
     </main>
   </div>
-  <?php require_once "./views/footer/footer.php"; ?>
+  <?php require_once __ROOT__ . "views/footer/footer.view.php"; ?>
 </div>

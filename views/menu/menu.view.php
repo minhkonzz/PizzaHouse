@@ -1,8 +1,8 @@
 <style><?php include_once "menu.css"; ?></style>
 <div style="height: 0;">
   <?php 
-    require_once __ROOT__ . "views/header/header.php";
-    require_once __ROOT__ . "views/short_banner/short_banner.php";
+    require_once __ROOT__ . "views/header/header.view.php";
+    require_once __ROOT__ . "views/short_banner/short_banner.view.php";
   ?>
   <main id="menu-main">
     <aside id="menu-left">
@@ -10,8 +10,9 @@
         <div class="menu-left__title"><p>DANH MỤC SẢN PHẨM</p></div>
         <ul class="menu-left__categories__list">
           <?php 
-            foreach ($data["categories"] as $category): ?>
-              <li class="menu-left__categories__item"><a href="<?= "/pizza-complete-version/thuc-don/danh-muc/" . $category["id"] ?>"><?= $category["category_name"] ?></a></li>
+            foreach ($response["categories"] as $category): 
+              list("id" => $id, "category_name" => $category_name) = $category; ?>
+              <li class="menu-left__categories__item"><a href="<?= "/pizza-complete-version/thuc-don/danh-muc/" . $id ?>"><?= $category_name ?></a></li>
           <?php endforeach ?>
         </ul>
       </div>
@@ -22,7 +23,7 @@
         <div class="menu-left__title"><p>TÍNH NĂNG SẢN PHẨM</p></div>
         <div style="padding: 12px;">
         <?php 
-          foreach ($data["addons"] as $k => $v): ?>
+          foreach ($response["addons"] as $k => $v): ?>
           <div style="margin-bottom: 20px;">
             <p><?= $v["addon_name"] ?></p>
             <?php 
@@ -66,7 +67,7 @@
       <div class="menu-right__center">
         <!-- menu item -->
         <?php 
-        foreach ($data["products"] as $product): ?>
+        foreach ($response["products"] as $product): ?>
           <div class="menu__item">   
             <div class="menu__item__img-wrapper">
               <a href="">
@@ -98,7 +99,7 @@
       </div>
     </div>
   </main>
-  <?php include_once __ROOT__ . "views/footer/footer.php"; ?>
+  <?php include_once __ROOT__ . "views/footer/footer.view.php"; ?>
 </div>
 <!-- <script>
   $("#menu_size_display").change(function() {

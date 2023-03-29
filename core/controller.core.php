@@ -6,7 +6,7 @@
     }
 
     public static function view($page_name, $view_path, Response $response) {
-      if (file_exists($view_path)) include_once $view_path;
+      if (file_exists(__ROOT__ . $view_path)) include_once __ROOT__ . $view_path;
     }
   }
 ?>

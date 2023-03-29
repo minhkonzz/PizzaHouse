@@ -1,15 +1,15 @@
 <style><?php include "cart.css"; ?></style>
 <div style="height: 0;">
   <?php 
-    include_once __ROOT__ . "views/header/header.php";
-    include_once __ROOT__ . "views/short_banner/short_banner.php";
+    include_once __ROOT__ . "views/header/header.view.php";
+    include_once __ROOT__ . "views/short_banner/short_banner.view.php";
   ?>
   <main id="cart-main">
     <p class="cart-main__title">GIỎ HÀNG</p>
     <!-- List cart items -->
     <div class="cart-main__detail">
     <?php 
-      list("list" => $cart_items, "cart_total" => $cart_total) = $data["cart"];
+      list("list" => $cart_items, "cart_total" => $cart_total) = $response["cart"];
       if (count($cart_items) > 0) { ?>
       <div class="cart-main__items">
         <?php foreach ($cart_items as $cart_id => $cart_item): 
@@ -47,7 +47,7 @@
       </div>
     </div>
   </main>
-  <?php include_once __ROOT__ . "views/footer/footer.php"; ?>
+  <?php include_once __ROOT__ . "views/footer/footer.view.php"; ?>
 </div>  
 <script>
   $(document).ready(() => {

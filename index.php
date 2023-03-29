@@ -13,6 +13,7 @@
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 <?php 
+  // helpers
   require_once "helper/functions.php";
 
   // configs
@@ -35,6 +36,8 @@
   require_once "controllers/cart.controller.php";
   require_once "controllers/order.controller.php";
   require_once "controllers/auth.controller.php";
+  require_once "controllers/article.controller.php";
+  require_once "controllers/service.controller.php";
   require_once "controllers/exception.controller.php";
 
   // models
@@ -44,9 +47,30 @@
   require_once "models/payment.model.php";
   require_once "models/order.model.php";
 
+  // exceptions
+  require_once "exceptions/not-found.exception.php";
+  require_once "exceptions/access-denied.exception.php";
+  require_once "exceptions/method-not-allowed.exception.php";
+  require_once "exceptions/encryption.exception.php";
+  require_once "exceptions/decryption.exception.php";
+
+  // interfaces
+  require_once "interfaces/encryption.interface.php";
+  require_once "interfaces/jwt-encryptor.interface.php";
+  require_once "interfaces/middleware.interface.php";
+
+  // middlewares
+  require_once "middlewares/auth.middleware.php";
+
+  // encryptors 
+  require_once "security/encryptors/jwejwt.encryptor.php";
+
   $router = new Router();
   require_once "apis/home.php";
   require_once "apis/menu.php";
   require_once "apis/cart.php";
   require_once "apis/order.php";
+  require_once "apis/auth.php";
+  require_once "apis/article.php";
+  require_once "apis/service.php";
 ?>

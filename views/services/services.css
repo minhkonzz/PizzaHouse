@@ -1,0 +1,4 @@
+#services-main {
+  padding: 40px 140px; display: grid; grid-template-columns: 1fr 3fr; column-gap: 1.8rem;
+}
+

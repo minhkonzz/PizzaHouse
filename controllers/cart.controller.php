@@ -5,12 +5,13 @@
       parent::__construct();
     }
 
-    public function init() {
+    public function init(Request $request = null, $params = []) {
       parent::view(
         "Pizza House - Giỏ hàng", 
-        __ROOT__ . "views/cart/cart.php", [
+        "views/cart/cart.view.php", 
+        new Response(200, [
           "cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__
-        ]
+        ])
       ); 
     }
 
@@ -40,7 +41,7 @@
       }
       parent::view(
         "Pizza House - Giỏ hàng", 
-        __ROOT__ . "views/cart/cart.php", [
+        "views/cart/cart.php", [
           "cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__
         ]
       ); 

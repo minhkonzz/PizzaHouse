@@ -1,8 +1,8 @@
 <style><?php include_once "checkout.css"; ?></style>
 <div style="height: 0;">
   <?php 
-    include_once __ROOT__ . "views/header/header.php";
-    include_once __ROOT__ . "views/short_banner/short_banner.php";
+    include_once __ROOT__ . "views/header/header.view.php";
+    include_once __ROOT__ . "views/short_banner/short_banner.view.php";
   ?>
   <main class="checkout">
   <?php 
@@ -122,7 +122,7 @@
       </div>
     </div>
   </main>
-  <?php include_once __ROOT__ . "views/footer/footer.php"; ?>
+  <?php include_once __ROOT__ . "views/footer/footer.view.php"; ?>
 </div>
 <script>
   $(document).ready(() => {

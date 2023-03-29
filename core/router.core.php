@@ -85,9 +85,8 @@
       
     public function applyMiddlewares(...$middlewares) {
       $last_route_idx = count($this->routes) - 1;
-      foreach ($middlewares as $middleware) {
+      foreach ($middlewares as $middleware)
         $this->routes[$last_route_idx]["middlewares"][] = $middleware;
-      }
     } 
 
     private function handle($handler, $request_bundle) {
