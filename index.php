@@ -16,6 +16,9 @@
   // helpers
   require_once "helper/functions.php";
 
+  // classes 
+  require_once "classes/jwttoken.class.php";
+
   // configs
   require_once "configs/constants.php";
   require_once "configs/id-prefix.php";
@@ -46,8 +49,10 @@
   require_once "models/addon.model.php";
   require_once "models/payment.model.php";
   require_once "models/order.model.php";
+  require_once "models/customer.model.php";
 
   // exceptions
+  require_once "exceptions/auth.exception.php";
   require_once "exceptions/not-found.exception.php";
   require_once "exceptions/access-denied.exception.php";
   require_once "exceptions/method-not-allowed.exception.php";
