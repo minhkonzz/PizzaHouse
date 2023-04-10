@@ -29,6 +29,10 @@ select {
   padding: 0 16px;
 }
 
+ul, ol {
+  list-style: none;
+}
+
 :root {
   --primary-color: #C90014;
   --green-color: #548c1d;

@@ -1,8 +1,9 @@
-<style><?php include_once "menu.css"; ?></style>
 <div style="height: 0;">
   <?php 
-    require_once __ROOT__ . "views/header/header.view.php";
-    require_once __ROOT__ . "views/short_banner/short_banner.view.php";
+    foreach ([
+       "header/header.view.php",
+       "short-banner/short-banner.view.php"
+    ] as $shared) include_once __ROOT__ . "views/shared/" . $shared;
   ?>
   <main id="menu-main">
     <aside id="menu-left">
@@ -99,7 +100,7 @@
       </div>
     </div>
   </main>
-  <?php include_once __ROOT__ . "views/footer/footer.view.php"; ?>
+  <?php include_once __ROOT__ . "views/shared/footer/footer.view.php"; ?>
 </div>
 <!-- <script>
   $("#menu_size_display").change(function() {

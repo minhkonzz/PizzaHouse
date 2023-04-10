@@ -7,9 +7,12 @@
 
     public function init(Request $request = null, $params = []) {
       parent::view(
-        "Menu",
-        "views/menu/menu.view.php", 
-        new Response(200, [
+        __ROOT__, 
+        "Pizza House Việt Nam - Thực đơn",
+        "menu/menu.view.php", 
+        "menu/menu.style.css",
+        "bundle.view.php",
+        new Response([
           "cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__, 
           "categories" => CategoryModel::getAllCategories(),
           "products" => ProductModel::getAllProducts(),

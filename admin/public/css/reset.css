@@ -1,0 +1,13 @@
+p {
+  margin-bottom: 0 !important;
+}
+
+ul {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+input {
+  outline: none;
+  border: none;
+}

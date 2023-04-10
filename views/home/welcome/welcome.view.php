@@ -1,4 +1,4 @@
-<style><?php include "welcome.css"; ?></style>
+<style><?php include "welcome.style.css"; ?></style>
 <section class="home__welcome">
   <div class="home__welcome-main">
     <div class="home__welcome__titles">

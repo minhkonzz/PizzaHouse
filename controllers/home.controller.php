@@ -5,11 +5,14 @@
       parent::__construct();
     }
 
-    public function init(Request $request = null, $params = []) {
+    public function init(Request $req = null, $params = []) {
       parent::view(
-        "Home", 
-        "views/home/home.view.php",
-        new Response(200, [
+        __ROOT__,
+        "Pizza House Việt Nam - Trang chủ", 
+        "home/home.view.php",
+        "", 
+        "bundle.view.php",
+        new Response([
           "cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__
         ])
       );

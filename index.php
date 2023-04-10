@@ -1,25 +1,10 @@
-<?php header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE'); ?>
-<meta name="viewport" content="width=device-width, initial-scale=1.0;">
-<style><?php include "views/global.css"; ?></style>
-<script 
-  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-  integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" 
-  crossorigin="anonymous" 
-  referrerpolicy="no-referrer">
-</script>
-<script src="public/scripts/parallax/parallax.min.js"></script>
-<script src="public/scripts/parallax/parallax.js"></script>
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
 <?php 
   // helpers
   require_once "helper/functions.php";
 
   // classes 
   require_once "classes/jwttoken.class.php";
-
-  // configs
+  
   require_once "configs/constants.php";
   require_once "configs/id-prefix.php";
 
@@ -41,6 +26,7 @@
   require_once "controllers/auth.controller.php";
   require_once "controllers/article.controller.php";
   require_once "controllers/service.controller.php";
+  require_once "controllers/contact.controller.php";
   require_once "controllers/exception.controller.php";
 
   // models

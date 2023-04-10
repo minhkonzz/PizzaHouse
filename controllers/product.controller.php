@@ -1,10 +1,21 @@
 <?php
-  require_once "./models/product.model.php";
-  
   class ProductController extends Controller {
     
     function __contruct() {
       parent::__construct();
+    }
+
+    public function init(Request $req = null, $params = []) {
+      parent::view(
+        __ROOT__, 
+        "Pizza House Việt Nam - Sản phẩm",
+        "product-detail/product-detail2.php",
+        "product-detail/product-detail.style.css", 
+        "bundle.view.php",
+        new Response([
+          "cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__
+        ])
+      );
     }
 
     // params: $product_id

@@ -1,0 +1,87 @@
+.modal-body > *:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+.dashboard.recent-order-list {
+  margin-bottom: 1rem;
+}
+
+.recent-order-item {
+  padding: 22px 0;
+}
+
+.recent-order-item__customer.name {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: .5rem;
+}
+.recent-order-item__customer.ship-address {
+  font-weight: 600;
+  font-size: 13px;
+  color: gray;
+}
+
+.recent-order-item__actions .icon {
+  color: #aab7cf;
+}
+
+.recent-order-item__state {
+  display: inline-block;
+  width: 135px;
+  padding: 12px 0;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.recent-order-item__state.pending {
+  color: rgb(232, 151, 0);
+  background-color: rgb(254, 237, 205); 
+}
+
+.recent-order-item__state.on-progress {
+  color: rgb(0, 141, 223);
+  background-color: rgb(228, 241, 255); 
+}
+
+.recent-order-item__state.delivered {
+  color: rgb(72, 176, 72);
+  background-color: rgb(235, 255, 235);
+}
+
+.recent-order-item__state.canceled {
+  color: rgb(244, 107, 107);
+  background-color: rgb(253, 238, 238);
+}
+
+.recent-order-item__total,
+.recent-order-item__time,
+.recent-order-item__state {
+  font-weight: 600;
+  color: gray;
+}
+
+.dashboard.trending-menu-list {
+  margin-bottom: 1rem;
+}
+
+.trending-menu-item {
+  display: flex;  
+  padding: 16px 0;
+}
+
+.trending-menu-item__image {
+  width: 90px; 
+  height: auto; 
+  border-radius: 100%;
+}
+
+.recent-order-item:not(:last-child),
+.trending-menu-item:not(:last-child) {
+  border-bottom: 1px solid rgb(231, 231, 231);
+}
+
+.nav-link {
+  font-size: 13px;
+  font-weight: 600;
+}

@@ -1,1 +1,1 @@
-<style><?php include_once "articles.css"; ?></style>
+<h1>Bài viết nổi bật</h1>

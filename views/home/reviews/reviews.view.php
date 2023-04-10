@@ -1,4 +1,4 @@
-<style><?php include "reviews.css"; ?></style>
+<style><?php include "reviews.style.css"; ?></style>
 <section class="home__reviews">
   <div class="home__reviews-main">
     <div class="home__reviews__titles">

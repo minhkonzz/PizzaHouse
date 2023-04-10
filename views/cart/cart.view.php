@@ -1,12 +1,12 @@
-<style><?php include "cart.css"; ?></style>
 <div style="height: 0;">
   <?php 
-    include_once __ROOT__ . "views/header/header.view.php";
-    include_once __ROOT__ . "views/short_banner/short_banner.view.php";
+    foreach ([
+      "header/header.view.php",
+      "short-banner/short-banner.view.php"
+    ] as $shared) include_once __ROOT__ . "views/shared/" . $shared;
   ?>
   <main id="cart-main">
     <p class="cart-main__title">GIỎ HÀNG</p>
-    <!-- List cart items -->
     <div class="cart-main__detail">
     <?php 
       list("list" => $cart_items, "cart_total" => $cart_total) = $response["cart"];
@@ -47,7 +47,7 @@
       </div>
     </div>
   </main>
-  <?php include_once __ROOT__ . "views/footer/footer.view.php"; ?>
+  <?php include_once __ROOT__ . "views/shared/footer/footer.view.php"; ?>
 </div>  
 <script>
   $(document).ready(() => {

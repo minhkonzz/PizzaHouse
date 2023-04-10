@@ -1,17 +1,14 @@
 <?php 
   class Response {
+
     private $status_code;
-    private $headers;
+    private $message;
     private $body; 
 
-    function __construct($status_code = 200, $body = [], $headers = []) {
+    function __construct($body = [], $status_code = 200, $message = "200 OK") {
       $this->status_code = $status_code; 
-      $this->headers = $headers; 
+      $this->message = $message;
       $this->body = $body;
-    }
-
-    public function getHeaders() {
-      return $this->headers; 
     }
 
     public function getBody() {
@@ -20,6 +17,10 @@
 
     public function getStatusCode() {
       return $this->status_code; 
+    }
+
+    public function getMessage() {
+      return $this->message;
     }
   }
 ?>

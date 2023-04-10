@@ -27,5 +27,6 @@
   //   }
   // });
 
+  $router->get("/thuc-don/san-pham", "ProductController@init");
   $router->get("/thuc-don/:product_id", "MenuController@showProductDetail");
 ?>

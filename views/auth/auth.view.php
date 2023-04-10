@@ -1,4 +1,3 @@
-<style><?php include "auth.css"; ?></style>
 <main class="auth">
   <div class="auth__banner"></div>
   <aside class="auth__form">

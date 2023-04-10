@@ -1,0 +1,177 @@
+CREATE TABLE IF NOT EXISTS tbl_addon (
+  id VARCHAR(10) PRIMARY KEY NOT NULL,
+  addon_name VARCHAR(50), 
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  is_deleted TINYINT DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS tbl_addon_value (
+  id VARCHAR(10) PRIMARY KEY NOT NULL,
+  addon_id VARCHAR(10) NOT NULL, 
+  addon_val VARCHAR(50), 
+  addon_val_price BIGINT, 
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  is_deleted TINYINT DEFAULT 0,
+  FOREIGN KEY (addon_id) REFERENCES tbl_addon(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tbl_category (
+  id VARCHAR(10) PRIMARY KEY NOT NULL, 
+  category_name VARCHAR(50), 
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  is_deleted TINYINT DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS tbl_product (
+  id VARCHAR(10) PRIMARY KEY NOT NULL, 
+  product_name VARCHAR(50),
+  category_id VARCHAR(10) NOT NULL,
+  price BIGINT,  
+  description LONGTEXT, 
+  image VARCHAR(255),
+  currency VARCHAR(8),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  is_deleted TINYINT DEFAULT 0, 
+  FOREIGN KEY (category_id) REFERENCES tbl_category(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tbl_product_addon_value (
+  addon_value_id VARCHAR(10) NOT NULL, 
+  product_id VARCHAR(10) NOT NULL, 
+  is_deleted TINYINT DEFAULT 0,
+  PRIMARY KEY (addon_value_id, product_id), 
+  FOREIGN KEY (addon_value_id) REFERENCES tbl_addon_value(id) ON DELETE CASCADE, 
+  FOREIGN KEY (product_id) REFERENCES tbl_product(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tbl_customer (
+  id VARCHAR(10) PRIMARY KEY NOT NULL, 
+  name VARCHAR(50), 
+  usr VARCHAR(20), 
+  address VARCHAR(255), 
+  email VARCHAR(50), 
+  phone VARCHAR(50), 
+  password VARCHAR(16), 
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS tbl_order_state (
+  id VARCHAR(10) PRIMARY KEY NOT NULL, 
+  order_state VARCHAR(25), 
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+  is_deleted TINYINT DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS tbl_pay_method (
+  id VARCHAR(10) PRIMARY KEY NOT NULL, 
+  pay_method VARCHAR(50), 
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+  is_deleted TINYINT DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS tbl_order (
+  id VARCHAR(10) PRIMARY KEY NOT NULL, 
+  customer_id VARCHAR(10) NOT NULL,
+  buyer_name VARCHAR(255), 
+  buyer_email VARCHAR(255),
+  buyer_phone VARCHAR(20), 
+  receiver_name VARCHAR(255), 
+  receiver_phone VARCHAR(20),
+  receive_address VARCHAR(255),
+  take_in_shop TINYINT DEFAULT 0,
+  district VARCHAR(50),
+  city VARCHAR(50),
+  city_state VARCHAR(50),
+  order_state_id VARCHAR(10) NOT NULL, 
+  pay_method_id VARCHAR(10) NOT NULL,
+  note LONGTEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+  FOREIGN KEY (customer_id) REFERENCES tbl_customer(id) ON DELETE CASCADE, 
+  FOREIGN KEY (order_state_id) REFERENCES tbl_order_state(id) ON DELETE CASCADE,
+  FOREIGN KEY (pay_method_id) REFERENCES tbl_pay_method(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tbl_order_item (
+  id VARCHAR(30) PRIMARY KEY NOT NULL, 
+  order_id VARCHAR(10) NOT NULL,  
+  quantity INT, 
+  FOREIGN KEY (order_id) REFERENCES tbl_order(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tbl_order_item_option (
+  product_id VARCHAR(10) NOT NULL, 
+  order_id VARCHAR(10) NOT NULL, 
+  addon_val_id VARCHAR(10) NOT NULL, 
+  cart_id VARCHAR(30) NOT NULL,
+  PRIMARY KEY (product_id, order_id, addon_val_id, cart_id),
+  FOREIGN KEY (product_id) REFERENCES tbl_product(id) ON DELETE CASCADE, 
+  FOREIGN KEY (order_id) REFERENCES tbl_order(id) ON DELETE CASCADE, 
+  FOREIGN KEY (addon_val_id) REFERENCES tbl_addon_value(id) ON DELETE CASCADE, 
+  FOREIGN KEY (cart_id) REFERENCES tbl_order_item(id) ON DELETE CASCADE
+);
+
+INSERT INTO tbl_category (id, category_name) VALUES ('CT001', 'Pizza');
+INSERT INTO tbl_category (id, category_name) VALUES ('CT002', N'Món ăn kèm');
+INSERT INTO tbl_category (id, category_name) VALUES ('CT003', N'Thức uống');
+INSERT INTO tbl_category (id, category_name) VALUES ('CT004', N'Đồ ăn vặt');
+
+INSERT INTO tbl_addon (id, addon_name) VALUES ('AD001', N'Tùy chọn đế bánh');
+INSERT INTO tbl_addon (id, addon_name) VALUES ('AD002', N'Tùy chọn cỡ bánh');
+INSERT INTO tbl_addon (id, addon_name) VALUES ('AD003', N'Tùy chọn phô mai');
+INSERT INTO tbl_addon (id, addon_name) VALUES ('AD004', N'Tùy chọn viền bánh');
+
+INSERT INTO tbl_addon_value (id, addon_id, addon_val) VALUES ('ADV001', 'AD001', N'Đế mỏng giòn');
+INSERT INTO tbl_addon_value (id, addon_id, addon_val) VALUES ('ADV002', 'AD001', N'Đế dày xốp');
+INSERT INTO tbl_addon_value (id, addon_id, addon_val) VALUES ('ADV003', 'AD001', N'Đế vừa');
+INSERT INTO tbl_addon_value (id, addon_id, addon_val, addon_val_price) VALUES ('ADV004', 'AD002', N'Cỡ 7 inch', 99000);
+INSERT INTO tbl_addon_value (id, addon_id, addon_val, addon_val_price) VALUES ('ADV005', 'AD002', N'Cỡ 9 inch', 189000);
+INSERT INTO tbl_addon_value (id, addon_id, addon_val, addon_val_price) VALUES ('ADV006', 'AD002', N'Cỡ 12 inch', 279000);
+INSERT INTO tbl_addon_value (id, addon_id, addon_val, addon_val_price) VALUES ('ADV007', 'AD003', N'Thêm phô mai', 15000);
+INSERT INTO tbl_addon_value (id, addon_id, addon_val, addon_val_price) VALUES ('ADV008', 'AD003', N'Gấp đôi phô mai', 25000);
+INSERT INTO tbl_addon_value (id, addon_id, addon_val, addon_val_price) VALUES ('ADV009', 'AD003', N'Gấp ba phô mai', 35000);
+INSERT INTO tbl_addon_value (id, addon_id, addon_val, addon_val_price) VALUES ('ADV010', 'AD004', N'Viền phô mai', 59000);
+INSERT INTO tbl_addon_value (id, addon_id, addon_val, addon_val_price) VALUES ('ADV011', 'AD004', N'Viền xúc xích', 59000);
+INSERT INTO tbl_addon_value (id, addon_id, addon_val, addon_val_price) VALUES ('ADV012', 'AD004', N'Viền xúc xích phô mai', 79000);
+
+INSERT INTO tbl_product (id, category_id, product_name, price, description, image, currency) VALUES ('PD001', 'CT001', N'Pizza 5 loại thịt thượng hạng', 259000, N'Sốt cà chua, phô mai Mozzarella, xúc xích Pepperoni, thịt dăm bông, xúc xich Ý, thịt bò viên, thịt heo muối', 'pizza-5-loai-thit-thuong-hang.png', 'VND');
+INSERT INTO tbl_product (id, category_id, product_name, price, description, image, currency) VALUES ('PD002', 'CT001', N'Pizza bò Mê-Hi-Cô thượng hạng', 329000, N'Sốt phô mai, sốt cà chua, bò viên kiểu Ý, thịt bò Mexico, hành tây, cà chua, phô mai Mozzarella', 'pizza-bo-me-hi-co-thuong-hang.png', 'VND');
+INSERT INTO tbl_product (id, category_id, product_name, price, description, image, currency) VALUES ('PD003', 'CT003', N'Mỳ ý bò bằm đút lò', 79000, N'Mì ý đút lò là một trong những món ăn đầy tự hào thuộc ẩm thực Châu Âu nói chung và ẩm thực trong vùng của Ý nói riêng', 'mi-y-bo-bam-dut-lo.png', 'VND');
+
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV001', 'PD001');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV002', 'PD001');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV003', 'PD001');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV004', 'PD001');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV005', 'PD001');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV006', 'PD001');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV007', 'PD001');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV008', 'PD001');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV009', 'PD001');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV010', 'PD001');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV011', 'PD001');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV012', 'PD001');
+
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV001', 'PD002');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV002', 'PD002');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV003', 'PD002');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV004', 'PD002');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV005', 'PD002');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV006', 'PD002');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV007', 'PD002');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV008', 'PD002');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV009', 'PD002');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV010', 'PD002');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV011', 'PD002');
+INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV012', 'PD002');
+
+INSERT INTO tbl_pay_method (id, pay_method) VALUES ('PM001', 'Thanh toán khi nhận hàng');
+INSERT INTO tbl_pay_method (id, pay_method) VALUES ('PM002', 'Thanh toán trực tuyến');
+
+INSERT INTO tbl_customer (id, name, usr, address, email, phone, password) VALUES ('CM001', 'Phạm Quang Minh', 'minhkonzz', 'Số 94 ngõ 73 Nguyễn Lương Bằng', 'minhphm37@gmail.com', '0967105498', '@12345');

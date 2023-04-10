@@ -116,7 +116,7 @@
           return $this->handle($handler, [$request, $params]);
         }
       }
-      return $this->handle(__CONTROLLER_ACTION_DEFAULT__, [new NotFoundException]);
+      return $this->handle(__CONTROLLER_ACTION_DEFAULT__, [new AccessDeniedException]);
     }
   }
 ?>

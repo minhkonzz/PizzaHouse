@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<style><?php include "delicious.css"; ?></style>
+<style><?php include "delicious.style.css"; ?></style>
 <section class="home__delicious">
   <div class="home__delicious-main">
     <div class="home__delicious__titles">
@@ -107,17 +107,3 @@
     nextArrow: $('.home__delicious__next-button'),
   });
 </script>
-
-
-        <!-- <div class="home__delicious__item__info">
-          <div class="home__delicious__item__detail">
-            <p class="product-name"><?= $product->product_name ?></p>
-            <div class="product-desc-wrapper">
-              <p class="product-desc"><?= $product->descp ?><p>
-            </div>
-            <p class="product-price"><?= number_format($product->price) ?>đ</p>
-          </div>
-          <div class="select-btn-wrapper">  
-            <a href="../ProductDetail/product_detail.php?id=<?= $product->id ?>" class="select-btn">Xem chi tiết</a>
-          </div>
-        </div> -->

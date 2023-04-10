@@ -4,17 +4,18 @@
       parent::__construct();
     }
 
-    public function init(Request $request = null, $params = []) {
+    public function init(Request $req = null, $params = []) {
       parent::view(
-        "PizzaHouse Việt Nam - Bài viết nổi bật", 
-        "views/articles/articles.view.php",
-        new Response(200, [
+        __ROOT__,
+        "Pizza House Việt Nam - Bài viết nổi bật", 
+        "articles/articles.view.php",
+        "articles/articles.style.css",
+        "bundle.view.php",
+        new Response([
           "cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__, 
           "articles" => []
         ])
       );
     }
-
-    public function showAllArticles(Request $request = null, $params = []) {}
   }
 ?>
