@@ -1,0 +1,100 @@
+.home__blogs {
+  text-align: center;
+  padding: 80px 350px;
+  background: rgb(235, 235, 235);
+}
+
+.home__blogs > *:not(:last-child) {
+  margin-bottom: 22px;
+}
+
+.blogs__title {
+  font-weight: 600;
+  font-size: 38px;
+}
+
+.blogs__nav, 
+.blogs__nav-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blogs__nav-btn {
+  width: 30px; 
+  height: 30px; 
+  background: var(--primary-color);
+  font-size: 18px;
+  color: #fff;
+  border-radius: 100%;
+  margin: 0 6px;
+}
+
+.blogs__nav-btn ion-icon {
+  font-size: 20px;
+}
+
+.blogs__item {
+  height: auto;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.blogs__item > *:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.blogs__item__img {
+  overflow: hidden; 
+  height: 280px;
+  border-radius: 12px;
+}
+
+.blogs__item__meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-color);
+}
+
+.blogs__item__meta > div {
+  display: flex;
+  align-items: center;
+}
+
+.blogs__item__meta > span {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.blogs__item__meta > div span {
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+.blogs__item__meta > * {
+  margin: 0 8px;
+}
+
+.blogs__item__meta > div:first-child ion-icon {
+  font-size: 18px;
+}
+
+.blogs__item__meta > div:last-child ion-icon {
+  font-size: 22px;
+}
+
+.blogs__item p {
+  line-height: 1.5;
+}
+
+.blogs__item__title {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.blogs__item__description {
+  font-size: 16px;
+  opacity: .8;
+  font-family: Roboto Condensed, sans-serif;
+}

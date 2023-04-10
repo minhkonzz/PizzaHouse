@@ -6,6 +6,11 @@
     ] as $shared) include_once __ROOT__ . "views/shared/" . $shared; 
   ?>
   <main class="checkout">
+    <?php 
+      $create_order_status = $data["create_order_status"] ?? null; 
+      if (nonnull($create_order_status)) { ?>
+      <p style="color: green; font-size: 18px;">Đặt hàng thành công</p>
+    <?php } ?>
     <div class="checkout__header">
       <p class="checkout__title">THANH TOÁN</p>
     </div>
@@ -62,14 +67,13 @@
             <p class="checkout__section__header__title">HÌNH THỨC THANH TOÁN</p>
           </div>
           <div class="checkout__section__main">
+          <?php foreach($data["payment_methods"] as $pay_method): 
+            list("id" => $pay_method_id, "pay_method" => $pay_method_name) = $pay_method; ?>
             <div>
-              <input type="radio" name="checkout_pay_method" value="">
-              <label>Thanh toán khi nhận hàng</label>
+              <input type="radio" name="checkout_pay_method" value="<?= $pay_method_id ?>">
+              <label><?= $pay_method_name ?></label>
             </div>
-            <div>
-              <input type="radio" name="checkout_pay_method" value="">
-              <label>Thanh toán trực tuyến</label>
-            </div>
+          <?php endforeach ?>
           </div>
         </div>
       </div>
@@ -81,27 +85,32 @@
           </div>
           <div class="checkout__section__main">
             <!-- list products order -->
+            <?php list("list" => $cart_items, "cart_total" => $cart_total) = $data["cart"]; ?>
             <div>
+            <?php foreach ($cart_items as $cart_item): 
+              list("product_name" => $product_name, "product_image" => $product_image, "addons" => $addons, "total_price" => $total_price, "qty_add" => $qty_add) = $cart_item; ?>
+              <!-- order item -->
               <div style="border-bottom: .8px solid gray; display: flex; justify-content: space-between; align-items: center;">
                 <div style="display: flex; align-items: center;">
-                  <img width="50" height="50" src="<?= ROOT_CLIENT . "public/images/products/banh-flan.png" ?>">
+                  <img width="50" height="50" src="<?= "./public/images/products/" . $product_image ?>">
                   <div style="margin-left: 8px;">
-                    <p style="font-size: 12px; font-weight: 700;">Bánh Flan</p>
-                    <p style="opacity: .7; font-size: 10px; margin-top: 4px; line-height: 1.5;">Loại bánh mềm, đế mỏng</p>
+                    <p style="font-size: 12px; font-weight: 700;"><?= $product_name ?></p>
+                    <p style="opacity: .7; font-size: 10px; margin-top: 4px; line-height: 1.5;"><?= implode(", ", array_map(fn($e) => $e["addon_val"], $addons)) ?></p>
                   </div>
                 </div>
-                <span style="font-size: 12px;">4x</span>
-                <span style="font-size: 12px;">75000đ</span>
+                <span style="font-size: 12px;"><?= number_format($qty_add) ?>x</span>
+                <span style="font-size: 12px;"><?= number_format($total_price) ?>đ</span>
               </div>
+            <?php endforeach ?>
             </div>
             <div style="padding: 12px 14px; background-color: rgb(220, 220, 220); margin-top: 20px;">
               <div style="padding: 10px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: .8px solid gray;">
                 <span style="font-size: 13px; font-weight: 500;">Tạm tính</span>
-                <span style="font-size: 13px; font-weight: 500; color: var(--primary-color);">150000đ</span>
+                <span style="font-size: 13px; font-weight: 500; color: var(--primary-color);"><?= number_format($cart_total) ?>đ</span>
               </div>
               <div style="padding: 10px 0; display: flex; justify-content: space-between; align-items: center;">
                 <span style="font-weight: 600; font-size: 14px;">Thành tiền</span>
-                <span style="font-weight: 600; font-size: 14px; color: var(--primary-color);">150000đ</span>
+                <span style="font-weight: 600; font-size: 14px; color: var(--primary-color);"><?= number_format($cart_total) ?>đ</span>
               </div>
             </div>
             <textarea id="checkout__order-note" style="height: 120px; border: .8px solid gray; margin-top: 20px; width: 100%; padding: 12px; font-size: 12px;" placeholder="Ghi chú"></textarea>
@@ -114,7 +123,6 @@
       </div>
     </div>
   </main>
-  <?php include_once __ROOT__ . "views/shared/footer/footer.view.php"; ?>
 </div>
 <script>
   $(document).ready(() => {

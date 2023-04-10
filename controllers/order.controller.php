@@ -12,12 +12,16 @@
 				"checkout/checkout.view.php",
 				"checkout/checkout.style.css",
 				"bundle.view.php", 
-				(new Response())->withJson([
-					"payment_methods" => PaymentModel::getAllPaymentMethods(),
+				new Response([
 					"cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__
 				])
 			);
 		}
+
+		// (new Response())->withJson([
+		// 	"payment_methods" => PaymentModel::getAllPaymentMethods(),
+		// 	"cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__
+		// ])
 
 		// params: $checkout_payload
 		public function showMakeOrderResponse(Request $request = null, $params = []) {

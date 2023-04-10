@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <style><?php include "delicious.style.css"; ?></style>
 <section class="home__delicious">
   <div class="home__delicious-main">

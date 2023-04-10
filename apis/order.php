@@ -7,7 +7,7 @@
 	// 	}
 	// });
 
-	$router->get("/thanh-toan", "OrderController@init")->applyMiddlewares("AuthMiddleware");
+	$router->get("/thanh-toan", "OrderController@init");
 
 	// $app->post("/thanh-toan", function($req_data) {
 	// 	$controller = new OrderController(); 
@@ -19,5 +19,5 @@
 	// 	}
 	// });
 
-	$router->post("/thanh-toan", "OrderController@showMakeOrderResponse")->applyMiddlewares("AuthMiddleware");
+	$router->post("/thanh-toan", "OrderController@showMakeOrderResponse");
 ?>
