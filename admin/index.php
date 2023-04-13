@@ -14,7 +14,8 @@
   ] as $core) require_once "../core/$core.core.php";
 
   foreach ([
-    "category"
+    "category",
+    "discount"
   ] as $model) require_once "../models/$model.model.php";
 
   foreach ([
@@ -22,7 +23,7 @@
     "catalog",
     "staff",
     "dashboard",
-    "article",
+    "customer",
     "test"
   ] as $controller) {
     $require = "controllers/$controller.controller.php";
@@ -52,10 +53,13 @@
   $router = new Router();
 
   foreach ([
+    "auth", 
     "test",
     "category", 
     "staff",
     "dashboard",
-    "article"
+    "article", 
+    "discount",
+    "customer"
   ] as $api) require_once "apis/$api.api.php";
 ?>

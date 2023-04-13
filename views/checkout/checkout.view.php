@@ -19,35 +19,35 @@
           <div class="checkout__section__main">
             <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem;">
               <div>
-                <p>NGƯỜI MUA HÀNG</p>
-                <input style="width: 100%; padding-left: 12px; height: 40px; border: .8px solid gray;" type="text" name="buyer_name" placeholder="Họ và tên">
-                <input style="width: 100%; padding-left: 12px; height: 40px; border: .8px solid gray;" type="text" name="buyer_email" placeholder="Email">
-                <input style="width: 100%; padding-left: 12px; height: 40px; border: .8px solid gray;" type="text" name="buyer_phone" placeholder="Điện thoại">
-                <div>
+                <p class="checkout__section__main__title">NGƯỜI MUA HÀNG</p>
+                <input type="text" name="buyer_name" placeholder="Họ và tên">
+                <input type="text" name="buyer_email" placeholder="Email">
+                <input type="text" name="buyer_phone" placeholder="Điện thoại">
+                <div style="display: flex; align-items: center; margin-top: 6px;">
                   <label style="font-size: 13px;">Bạn muốn nhận hàng trực tiếp tại shop?</label>
-                  <input name="get-in-shop-checker" type="checkbox">
+                  <input style="margin-left: 10px;" name="get-in-shop-checker" type="checkbox">
                 </div>
               </div>
               <div>
-                <p>NGƯỜI NHẬN HÀNG</p>
-                <input style="width: 100%; padding-left: 12px; height: 40px; border: .8px solid gray;" type="text" name="receiver_name" placeholder="Họ và tên">
-                <input style="width: 100%; padding-left: 12px; height: 40px; border: .8px solid gray;" type="text" name="receiver_phone" placeholder="Điện thoại">
+                <p class="checkout__section__main__title">NGƯỜI NHẬN HÀNG</p>
+                <input type="text" name="receiver_name" placeholder="Họ và tên">
+                <input type="text" name="receiver_phone" placeholder="Điện thoại">
               </div>
             </div>
             <div style="margin-top: 22px;">
-              <p style="text-transform: uppercase;">ĐỊA CHỈ NHẬN HÀNG</p>
+              <p class="checkout__section__main__title">ĐỊA CHỈ NHẬN HÀNG</p>
               <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem;">
-                <input style="width: 100%; padding-left: 12px; height: 40px; border: .8px solid gray;" type="text" name="buyer_address" placeholder="Địa chỉ">
-                <select style="width: 100%; height: 40px; border: .8px solid gray;" name="checkout_district">
+                <input type="text" name="buyer_address" placeholder="Địa chỉ">
+                <select name="checkout_district">
                   <option value="Đống Đa">Đống Đa</option>
                   <option value="Cầu Giấy">Cầu Giấy</option>
                   <option value="Long Biên">Long Biên</option>
                 </select>
-                <select style="width: 100%; height: 40px; border: .8px solid gray;" name="checkout_city">
+                <select name="checkout_city">
                   <option value="Hà Nội">Hà Nội</option>
                   <option value="Hồ Chí Minh">Hồ Chí Minh</option>
                 </select>
-                <select style="width: 100%; height: 40px; border: .8px solid gray;" name="checkout_ward">
+                <select name="checkout_ward">
                   <option value="Nam Đồng">Nam Đồng</option>
                   <option value="Khâm Thiên">Khâm Thiên</option>
                   <option value="Khương Trung">Khương Trung</option>
@@ -61,14 +61,31 @@
             <ion-icon name="wallet-outline"></ion-icon>
             <p class="checkout__section__header__title">HÌNH THỨC THANH TOÁN</p>
           </div>
-          <div class="checkout__section__main">
+          <div class="checkout__section__main payments">
             <div>
               <input type="radio" name="checkout_pay_method" value="">
-              <label>Thanh toán khi nhận hàng</label>
+              <button style="background: #1bbc9b; height: 42px; overflow: hidden; padding: 0 14px 0 0; position: relative; margin-left: 8px;">
+                <span style="background: #129b7f; position: absolute; display: block; width: 50px; height: 300px; transform: translate(-40%, -40%) rotate(25deg);"></span>
+                <p style="margin-left: 55px; font-size: 14px; color: #fff; font-weight: 700;">Thanh toán khi nhận hàng</p>
+              </button>
             </div>
             <div>
               <input type="radio" name="checkout_pay_method" value="">
-              <label>Thanh toán trực tuyến</label>
+              <button style="background: #3199d8; height: 42px; overflow: hidden; padding: 0 14px 0 0; position: relative; margin-left: 8px;">
+                <span style="background: #1a7cbd; position: absolute; display: block; width: 50px; height: 300px; transform: translate(-40%, -40%) rotate(25deg);"></span>
+                <p style="margin-left: 55px; font-size: 14px; color: #fff; font-weight: 700;">Thanh toán trực tuyến</p>
+              </button>
+              <ul style="width: 320px; background: rgb(240, 240, 240); margin-top: 15px; padding: 0 12px;">
+                <li style="position: relative; border-bottom: .8px solid rgb(220, 220, 220); padding: 0 12px; height: 40px;">
+                  <div style="position: absolute; display: flex; align-items: center; top: 50%; transform: translateY(-50%);">
+                    <input type="radio">
+                    <img style="margin-left: 12px;" width="60" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/2560px-PayPal.svg.png" alt="">
+                  </div>
+                  <p style="position: absolute; right: 8%; font-size: 13px; opacity: .8; top: 50%; transform: translateY(-50%);">Thanh toán qua Paypal</p>
+                </li>
+                <li></li>
+                <li></li>
+              </ul>
             </div>
           </div>
         </div>
@@ -87,15 +104,15 @@
                   <img width="50" height="50" src="<?= ROOT_CLIENT . "public/images/products/banh-flan.png" ?>">
                   <div style="margin-left: 8px;">
                     <p style="font-size: 12px; font-weight: 700;">Bánh Flan</p>
-                    <p style="opacity: .7; font-size: 10px; margin-top: 4px; line-height: 1.5;">Loại bánh mềm, đế mỏng</p>
+                    <p style="opacity: .7; font-size: 12px; margin-top: 4px; line-height: 1.5;">Loại bánh mềm, đế mỏng</p>
                   </div>
                 </div>
                 <span style="font-size: 12px;">4x</span>
                 <span style="font-size: 12px;">75000đ</span>
               </div>
             </div>
-            <div style="padding: 12px 14px; background-color: rgb(220, 220, 220); margin-top: 20px;">
-              <div style="padding: 10px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: .8px solid gray;">
+            <div style="padding: 12px 14px; background-color: rgb(240, 240, 240); margin-top: 20px;">
+              <div style="padding: 10px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: .8px solid rgb(210, 210, 210);">
                 <span style="font-size: 13px; font-weight: 500;">Tạm tính</span>
                 <span style="font-size: 13px; font-weight: 500; color: var(--primary-color);">150000đ</span>
               </div>
@@ -104,10 +121,10 @@
                 <span style="font-weight: 600; font-size: 14px; color: var(--primary-color);">150000đ</span>
               </div>
             </div>
-            <textarea id="checkout__order-note" style="height: 120px; border: .8px solid gray; margin-top: 20px; width: 100%; padding: 12px; font-size: 12px;" placeholder="Ghi chú"></textarea>
+            <textarea id="checkout__order-note" placeholder="Ghi chú"></textarea>
             <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-              <button id="make-order-btn" style="padding: 12px 0; border: .8px solid #000; font-weight: 700; text-transform: uppercase; width: 48%;" type="submit">Thanh toán</button>
-              <button style="padding: 12px 0; border: .8px solid #000; font-weight: 700; width: 48%"><a href="./thuc-don" style="text-transform: uppercase; text-decoration: none;">XEM THÊM SẢN PHẨM</a></button>
+              <button id="make-order-btn" type="submit">Thanh toán</button>
+              <button id="explore-more-btn"><a href="./thuc-don">XEM THÊM SẢN PHẨM</a></button>
             </div>
           </div>
         </div>
