@@ -24,6 +24,7 @@
     "staff",
     "dashboard",
     "customer",
+    "order",
     "test"
   ] as $controller) {
     $require = "controllers/$controller.controller.php";
@@ -60,6 +61,7 @@
     "dashboard",
     "article", 
     "discount",
-    "customer"
+    "customer",
+    "order"
   ] as $api) require_once "apis/$api.api.php";
 ?>
