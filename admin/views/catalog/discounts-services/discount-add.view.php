@@ -21,7 +21,7 @@
         type="button" 
         role="tab" 
         aria-controls="discount-information" 
-        aria-selected="true">Thông tin cơ bản về ưu đãi
+        aria-selected="true">Thông tin cơ bản
       </button>
     </li>
     <li class="nav-item" role="presentation">
@@ -33,65 +33,86 @@
         type="button" 
         role="tab" 
         aria-controls="discount-conditions" 
-        aria-selected="false">Điều kiện áp dụng
-      </button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button 
-        class="nav-link" 
-        id="discount-actions-tab" 
-        data-bs-toggle="tab" 
-        data-bs-target="#discount-actions" 
-        type="button" 
-        role="tab" 
-        aria-controls="discount-actions" 
-        aria-selected="false">Hành động áp dụng
+        aria-selected="false">Thông tin nâng cao
       </button>
     </li>
   </ul>
   <div class="tab-content pt-2" id="myTabContent">
     <div class="tab-pane fade show active" id="discount-information" role="tabpanel" aria-labelledby="discount-information-tab">
-      <div class="card discount-add-part">
-        <div class="card-body">
-          <div class="row mb-3">
-            <label for="inputText" class="col-sm-2 col-form-label">Mã ưu đãi</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control">
-            </div>
+      <div class="discount-add-part">
+        <div style="display: flex; align-items: center; column-gap: 1.5rem;">
+          <label class="discount__lb" for="discount__id"><span style="color: red;">*</span>Mã ưu đãi</label>
+          <input class="discount__inp" id="discount__id" type="text">
+        </div>
+        <div style="display: flex; align-items: center; column-gap: 1.5rem; margin-top: 20px;">
+          <label class="discount__lb" for="discount__name"><span style="color: red;">*</span>Tiêu đề ưu đãi</label>
+          <input class="discount__inp" id="discount__name" type="text">
+        </div>
+        <div style="display: flex; align-items: center; column-gap: 1.5rem; margin-top: 20px;">
+          <label class="discount__lb" for="discount__description">Mô tả ưu đãi</label>
+          <textarea class="discount__inp" id="discount__description"></textarea>
+        </div>
+        <div style="display: flex; align-items: center; column-gap: 1.5rem; margin-top: 20px;">
+          <label class="discount__lb" for="discount__code">Code</label>
+          <div style="display: flex;">
+            <input class="discount__inp" id="discount__code" type="text">
+            <button id="discount__code-generate">Tạo code</button>
           </div>
-          <div class="row mb-3">
-            <label for="inputText" class="col-sm-2 col-form-label">Tiêu đề ưu đãi</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control">
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label for="inputText" class="col-sm-2 col-form-label">Mô tả ưu đãi</label>
-            <div class="col-sm-10">
-              <textarea class="form-control" style="height: 100px"></textarea>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label for="inputText" class="col-sm-2 col-form-label">Mã code</label>
-            <div class="col-sm-10">
-              <div class="input-group">
-                <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                <span class="input-group-text" id="basic-addon2">Tạo code</span>
-              </div>
-            </div>
+        </div>
+        <div style="display: flex; align-items: center; column-gap: 1.5rem; margin-top: 20px;">
+          <label class="discount__lb" for="discount__priority">Độ ưu tiên</label>
+          <input style="padding: 8px 12px; width: 120px;" class="discount__inp" id="discount__priority" type="number" min="1" max="3" value="1">
+        </div>
+        <div style="display: flex; column-gap: 1.5rem; margin-top: 20px;">
+          <label class="discount__lb" for="discount__thumbnail">Hình ảnh ưu đãi</label>
+          <div style="border-radius: 5px; display: flex; flex-direction: column; padding: 0 14px; justify-content: center; align-items: center; border: .8px dashed gray; height: 150px;">
+            <i style="font-size: 28px; color: gray;" class="bi bi-camera"></i>
+            <p style="margin-top: 10px; borde">Upload ảnh tại đây (Chỉ chấp nhận định dạng PNG, JPEG)</p>
           </div>
         </div>
       </div>
     </div>
     <div class="tab-pane fade" id="discount-conditions" role="tabpanel" aria-labelledby="discount-conditions-tab">
-      <div class="card discount-add-part">
-        <div class="card-body">
-          <input class="form-control" type="date">
+      <div class="discount-add-part">
+        <div style="display: flex; align-items: center; column-gap: 1.5rem; margin-top: 20px;">
+          <label class="discount__lb"">Thời gian hiệu lực</label>
+          <div>
+            <input class="discount__datetime-picker" type="datetime-local" style="padding: 8px; width: 250px;">
+            <input class="discount__datetime-picker" type="datetime-local" style="margin-left: 8px; padding: 8px; width: 250px;">
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; column-gap: 1.5rem; margin-top: 20px;">
+          <label class="discount__lb">Tổng đơn hàng tối thiểu</label>
+          <div style="display: flex; column-gap: .5rem;">
+            <input class="discount__inp" type="text" value="0">
+            <select class="discount__select" name="" id="">
+              <option value="">EUR</option>
+              <option value="">USD</option>
+              <option value="">VND</option>
+            </select>
+            <select class="discount__select" name="" id="">
+              <option value="">Đã bao gồm thuế</option>
+              <option value="">Chưa bao gồm thuế</option>
+            </select>
+            <select class="discount__select" name="" id="">
+              <option value="">Đã bao gồm phí ship</option>
+              <option value="">Chưa bao gồm phí ship</option>
+            </select>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; column-gap: 1.5rem; margin-top: 20px;">
+          <label class="discount__lb" for="discount__total-avaliable">Số lần hiệu lực</label>
+          <input class="discount__inp" id="discount__total-avaliable" type="text">
+        </div>
+        <div style="display: flex; align-items: center; column-gap: 1.5rem; margin-top: 20px;">
+          <label class="discount__lb" for="discount__total-avaliable__per-user">Số lần hiệu lực với mỗi khách hàng</label>
+          <input class="discount__inp" id="discount__total-avaliable__per-user" type="text">
         </div>
       </div>
     </div>
-    <div class="tab-pane fade" id="discount-actions" role="tabpanel" aria-labelledby="discount-actions-tab">
-      
-    </div>
+  </div>
+  <div class="add-discount__actions">
+    <button id="save-new-discount">Lưu</button>
+    <button id="cancel-add-discount">Hủy</button>
   </div>
 </section>

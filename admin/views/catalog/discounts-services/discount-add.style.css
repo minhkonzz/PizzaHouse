@@ -1,5 +1,79 @@
 .discount-add-part {
-  padding: 28px 160px;
+  padding: 42px 160px;
+  margin-top: 12px;
+  box-shadow: 0 2px 5px rgb(230, 230, 230);
+  background: #fff;
+}
+
+.add-discount {
+  font-size: 13px;
+}
+
+.discount__lb {
+  display: flex;
+  align-items: center;
+}
+
+.discount__lb span {
+  margin-right: 6px;
+}
+
+.discount__inp, 
+.discount__datetime-picker,
+.discount__select {
+  border: .7px solid rgb(190, 190, 190);
+  padding-top: 8px; 
+  padding-bottom: 8px;
+  border-radius: 5px;
+}
+
+#discount__code {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#discount__code-generate {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: .7px solid rgb(220, 220, 220);
+  padding: 0 18px;
+  font-weight: 600;
+  color: rgb(120, 120, 120);
+  transition: .2s;
+}
+
+#discount__code-generate:hover {
+  background: rgb(191, 191, 191);
+  color: #fff;
+}
+
+.add-discount__actions {
+  display: flex; 
+  justify-content: flex-end;
+  align-items: center;
+  column-gap: .8rem;
   margin-top: 14px;
+}
+
+.add-discount__actions > button {
+  padding: 7px 12px; 
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgb(220, 220, 220);
+  font-weight: 600;
+  transition: .2s;
+}
+
+.add-discount__actions > button:hover {
+  opacity: .8;
+}
+
+#save-new-discount {
+  background: #fff;
+  color: rgb(61, 61, 61);
+}
+
+#cancel-add-discount {
+  background: rgb(255, 196, 196);
+  color: rgb(133, 76, 76);
 }
 

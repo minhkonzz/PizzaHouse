@@ -8,8 +8,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: Montserrat, sans-serif; */
   font-family: Roboto Condensed, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Roboto Condensed, sans-serif !important;
 }
 
 button, input, select, textarea {
@@ -22,9 +25,9 @@ a {
   text-decoration: none;
 }
 
-input[type=text], input[type=password], input[type=date], select {
+input[type=text], input[type=password], input[type=date], select, textarea {
   font-size: 13px;
-  padding-left: 21px;
+  padding-left: 12px;
 }
 
 select {

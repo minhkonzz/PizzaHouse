@@ -1,0 +1,26 @@
+.orders {
+  font-size: 13px;
+}
+
+.orders__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#orders__save-excel {
+  padding: 8px 12px;
+  background: #c7ffdd;
+  box-shadow: 0px 1px 8px #ececec;
+  border-radius: 4px;
+  font-weight: 600; 
+  color: rgb(63, 134, 89);
+}
+
+#orders__save-excel i.bi.bi-file-earmark-spreadsheet-fill { 
+  margin-right: 4px;
+}
+
+#orders__save-excel:hover {
+  opacity: .8;
+}
