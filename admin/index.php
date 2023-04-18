@@ -22,7 +22,8 @@
     "category",
     "discount",
     "addon",
-    "product"
+    "product",
+    "order"
   ] as $model) require_once "models/$model.model.php";
 
   foreach ([

@@ -24,6 +24,9 @@
       Lưu Excel
     </button>
   </div>
+  <?php 
+    list("orders" => $orders, "order_states" => $order_states) = $response->getBody();
+  ?>
   <table>
     <tr class="table__fields">
       <th>Mã đơn hàng</th>
@@ -40,9 +43,10 @@
       <td><input type="text" placeholder="Tổng tiền"></td>
       <td><input type="text" placeholder="Khách hàng"></td>
       <td><select name="" id="">
-        <option value="">1</option>
-        <option value="">2</option>
-        <option value="">3</option>
+        <?php 
+          foreach ($order_states as $order_state): ?>
+            <option value="<?= $order_state["id"] ?>"><?= $order_state["order_state"] ?></option>
+        <?php endforeach ?>
       </select></td>
       <td>
         <input type="date">
@@ -50,18 +54,18 @@
       </td>
       <td><button id="table__filter-btn">Tìm kiếm</button></td>
     </tr>
-    <tr class="table__row">
-      <td>#OD12213434</td>
-      <td>94 ngõ 73 Nguyễn Lương Bằng Đồng Đa Hà Nội</td>
-      <td>945.000đ</td>
-      <td>Phạm Quang Minh</td>
-      <td><span style="display: block; padding: 6px 12px; border-radius: 5px;"></span></td>
-      <td>2019-12-22 21:40:30</td>
-      <td>
-        <button><i class="bi bi-pencil-square"></i></button>
-        <button><i class="bi bi-three-dots-vertical"></i></button>
-      </td>
-    </tr>
+    <?php 
+      foreach ($orders as $order): ?>
+        <tr class="table__row">
+          <td><?= $order["order_id"] ?></td>
+          <td><?= $order["receive_address"] ?></td>
+          <td><?= $order["total"] ?></td>
+          <td><?= $order["name"] ?></td>
+          <td><span style="display: block; padding: 6px 12px; border-radius: 5px;"><?= $order["order_state"] ?></span></td>
+          <td><?= $order["created_at"] ?></td>
+          <td><button><i class="bi bi-search"></i></button></td>
+        </tr>
+    <?php endforeach ?>
   </table>
   <div class="pages__list">
     <ul class="pagination">

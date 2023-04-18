@@ -3,7 +3,8 @@ CREATE TABLE IF NOT EXISTS tbl_addon (
   addon_name VARCHAR(50), 
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  is_deleted TINYINT DEFAULT 0
+  is_deleted TINYINT DEFAULT 0, 
+  apply_product_price TINYINT DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS tbl_addon_value (
@@ -76,6 +77,8 @@ CREATE TABLE IF NOT EXISTS tbl_pay_method (
   is_deleted TINYINT DEFAULT 0
 );
 
+/---------------------------- BAD -------------------------------/
+
 CREATE TABLE IF NOT EXISTS tbl_order (
   id VARCHAR(10) PRIMARY KEY NOT NULL, 
   customer_id VARCHAR(10) NOT NULL,
@@ -118,13 +121,58 @@ CREATE TABLE IF NOT EXISTS tbl_order_item_option (
   FOREIGN KEY (cart_id) REFERENCES tbl_order_item(id) ON DELETE CASCADE
 );
 
+/-----------------------------------------------------------------/
+
+CREATE TABLE IF NOT EXISTS tbl_order (
+  id VARCHAR(10) PRIMARY KEY NOT NULL, 
+  customer_id VARCHAR(10) NOT NULL,
+  buyer_name VARCHAR(255), 
+  buyer_email VARCHAR(255),
+  buyer_phone VARCHAR(20), 
+  receiver_name VARCHAR(255), 
+  receiver_phone VARCHAR(20),
+  receive_address VARCHAR(255),
+  take_in_shop TINYINT DEFAULT 0,
+  district VARCHAR(50),
+  city VARCHAR(50),
+  ward VARCHAR(50),
+  order_state_id VARCHAR(10) NOT NULL, 
+  pay_method VARCHAR(255),
+  is_paid TINYINT DEFAULT 0, 
+  total BIGINT,
+  note LONGTEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+  FOREIGN KEY (customer_id) REFERENCES tbl_customer(id) ON DELETE CASCADE, 
+  FOREIGN KEY (order_state_id) REFERENCES tbl_order_state(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tbl_order_item (
+  id VARCHAR(10) PRIMARY KEY NOT NULL, 
+  order_id VARCHAR(10) NOT NULL,
+  order_product_name VARCHAR(50), 
+  order_product_image VARCHAR(255),
+  order_product_category VARCHAR(50), 
+  order_product_price BIGINT, 
+  order_product_currency VARCHAR(8), 
+  quantity INT,
+  FOREIGN KEY (order_id) REFERENCES tbl_order(id) ON DELETE CASCADE
+); 
+
+CREATE TABLE IF NOT EXISTS tbl_order_item_option (
+  order_item_id VARCHAR(10) NOT NULL, 
+  addon_val VARCHAR(50), 
+  PRIMARY KEY (order_item_id, addon_val), 
+  FOREIGN KEY (order_item_id) REFERENCES tbl_order_item(id) ON DELETE CASCADE
+);
+
 INSERT INTO tbl_category (id, category_name) VALUES ('CT001', 'Pizza');
 INSERT INTO tbl_category (id, category_name) VALUES ('CT002', N'Món ăn kèm');
 INSERT INTO tbl_category (id, category_name) VALUES ('CT003', N'Thức uống');
 INSERT INTO tbl_category (id, category_name) VALUES ('CT004', N'Đồ ăn vặt');
 
 INSERT INTO tbl_addon (id, addon_name) VALUES ('AD001', N'Tùy chọn đế bánh');
-INSERT INTO tbl_addon (id, addon_name) VALUES ('AD002', N'Tùy chọn cỡ bánh');
+INSERT INTO tbl_addon (id, addon_name, apply_product_price) VALUES ('AD002', N'Tùy chọn cỡ bánh', 1);
 INSERT INTO tbl_addon (id, addon_name) VALUES ('AD003', N'Tùy chọn phô mai');
 INSERT INTO tbl_addon (id, addon_name) VALUES ('AD004', N'Tùy chọn viền bánh');
 
@@ -170,6 +218,10 @@ INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV009
 INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV010', 'PD002');
 INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV011', 'PD002');
 INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV012', 'PD002');
+
+INSERT INTO tbl_order_state (id, order_state) VALUES ('ODS001', 'Chờ tiếp nhận');
+INSERT INTO tbl_order_state (id, order_state) VALUES ('ODS002', 'Đang xử lý');
+INSERT INTO tbl_order_state (id, order_state) VALUES ('ODS003', 'Giao thành công');
 
 INSERT INTO tbl_pay_method (id, pay_method) VALUES ('PM001', 'Thanh toán khi nhận hàng');
 INSERT INTO tbl_pay_method (id, pay_method) VALUES ('PM002', 'Thanh toán trực tuyến');
