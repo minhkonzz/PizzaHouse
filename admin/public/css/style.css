@@ -123,6 +123,19 @@ table td {
   margin-top: 15px;
 }
 
+#alert {
+  position: fixed;
+  right: 2%;
+  top: 12%; 
+  padding: 7px 16px; 
+  box-shadow: 0 1px 10px rgb(240, 240, 240);
+  border-radius: 5px;
+  font-size: 13px;
+  background: rgb(183, 251, 183);
+  color: rgb(59, 126, 59);
+  font-weight: 600;
+}
+
 section {
   margin-top: 20px;
 }

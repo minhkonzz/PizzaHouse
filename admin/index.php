@@ -5,6 +5,11 @@
   require_once "../core/controller.core.php";
   require_once "../controllers/exception.controller.php";
 
+  foreach([
+    "category", 
+    "jwttoken"
+  ] as $class) require_once "../classes/$class.class.php";
+
   foreach ([
     "database", 
     "model", 
@@ -15,20 +20,23 @@
 
   foreach ([
     "category",
-    "discount"
-  ] as $model) require_once "../models/$model.model.php";
+    "discount",
+    "addon",
+    "product"
+  ] as $model) require_once "models/$model.model.php";
 
   foreach ([
     "auth",
-    "catalog",
+    "category",
     "staff",
     "dashboard",
     "customer",
     "order",
+    "product",
+    "addon",
     "test"
   ] as $controller) {
-    $require = "controllers/$controller.controller.php";
-    require_once $controller[0] === "@" ? "../" . $require : $require;
+    require_once "controllers/$controller.controller.php";
   }
 
   foreach ([
@@ -57,11 +65,13 @@
     "auth", 
     "test",
     "category", 
+    "product",
     "staff",
     "dashboard",
     "article", 
     "discount",
     "customer",
-    "order"
+    "order",
+    "addon"
   ] as $api) require_once "apis/$api.api.php";
 ?>

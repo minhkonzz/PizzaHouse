@@ -8,7 +8,7 @@
       <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li><a href="<?= ROOT_ADMIN_CLIENT . "quan-ly-thuc-don/danh-muc" ?>"><i class="bi bi-circle"></i><span>Danh mục thực đơn</span></a></li>
         <li><a href="<?= ROOT_ADMIN_CLIENT . "quan-ly-thuc-don/san-pham" ?>"><i class="bi bi-circle"></i><span>Tất cả thực đơn</span></a></li>
-        <li><a href="<?= ROOT_ADMIN_CLIENT . "quan-ly-thuc-don/dac-tinh-san-pham" ?>"><i class="bi bi-circle"></i><span>Quản lý đặc tính sản phẩm</span></a></li>
+        <li><a href="<?= ROOT_ADMIN_CLIENT . "quan-ly-thuc-don/thuoc-tinh" ?>"><i class="bi bi-circle"></i><span>Quản lý đặc tính sản phẩm</span></a></li>
       </ul>
     </li>
     <li class="nav-item"><a class="nav-link collapsed" href="<?= ROOT_ADMIN_CLIENT . "quan-ly-don-hang" ?>"><i class="bi bi-person"></i><span>Quản lý đặt hàng</span></a></li>

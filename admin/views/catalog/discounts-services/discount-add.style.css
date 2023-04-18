@@ -1,6 +1,5 @@
 .discount-add-part {
   padding: 42px 160px;
-  margin-top: 12px;
   box-shadow: 0 2px 5px rgb(230, 230, 230);
   background: #fff;
 }
@@ -45,6 +44,13 @@
 #discount__code-generate:hover {
   background: rgb(191, 191, 191);
   color: #fff;
+}
+
+.c1,
+.c2 {
+  display: none; 
+  column-gap: 1.5rem; 
+  margin-top: 20px;
 }
 
 .add-discount__actions {

@@ -19,7 +19,6 @@
         <style><?php include_once ROOT_ADMIN . "public/css/" . $css . ".css"; ?></style>
       <?php endforeach ?>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    
   </head>
   <body>
     <?php 
@@ -29,6 +28,7 @@
       }
     ?>
     <main id="main" class="main"><?= $PAGE_CONTENT ?></main>
+    <!-- <p id="alert">Thêm danh mục thành công</p> -->
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.3.2/tinymce.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"></script>

@@ -1,7 +1,6 @@
 <?php 
   class CategoryModel extends Model {
-    // no-mapped 
-    public static function getAllCategories() {
+    public static function selectAllCategories() {
       $res = parent::performQuery([[
         "query_str" => Database::table("tbl_category")
           ->select("id", "category_name", "created_at")
@@ -22,7 +21,7 @@
       ]]);
     }
 
-    public static function getCategoryById($id) {
+    public static function selectCategoryById($id) {
       $query_str = Database::table("tbl_category")
         ->select("id", "category_name")
         ->where("id", ":id")

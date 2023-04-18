@@ -1,7 +1,7 @@
 <?php 
   class AuthController extends Controller {
 
-    public function init(Request $req = null, $params = []) {
+    public function init(Request $req, $params = []) {
       parent::view(
         ROOT_ADMIN,
         "Pizza House VietNam - Đăng nhập quản trị", 

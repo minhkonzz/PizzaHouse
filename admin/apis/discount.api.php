@@ -1,4 +1,4 @@
 <?php 
-  $router->get("/quan-ly-uu-dai-dich-vu", "CatalogController@showAllDiscounts");
-  $router->get("/quan-ly-uu-dai-dich-vu/tao-uu-dai", "CatalogController@redirectToAddDiscount");
+  $router->get("/quan-ly-uu-dai-dich-vu", "DiscountController@getAllDiscounts");
+  $router->get("/quan-ly-uu-dai-dich-vu/tao-uu-dai", "DiscountController@redirectToAddDiscount");
 ?>

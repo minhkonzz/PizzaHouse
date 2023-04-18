@@ -11,6 +11,15 @@
       $this->body = $body;
     }
 
+    public function withJson() {
+      echo json_encode([
+        "code" => $this->status_code, 
+        "message" => $this->message, 
+        "body" => $this->body
+      ]);
+      return $this;
+    }
+
     public function getBody() {
       return $this->body;
     }

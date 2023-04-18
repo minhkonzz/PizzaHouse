@@ -1,6 +1,6 @@
 <?php 
   class CustomerController extends Controller {
-    public function init(Request $req = null, $params = []) {
+    public function init(Request $req, $params = []) {
       parent::view(
         ROOT_ADMIN, 
         "Pizza House Việt Nam - Quản lý khách hàng", 

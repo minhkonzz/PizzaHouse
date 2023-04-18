@@ -37,7 +37,7 @@
     }
 
     public function getMethod() {
-      return $this->method; 
+      return strtoupper($this->method); 
     }
 
     public function getPathInfo() {

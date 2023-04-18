@@ -1,19 +1,19 @@
 <?php
   class Model {
 
-    protected $id = null; 
+    // protected $id = null; 
 
-    function __construct($id_prefix = "") {
-      $this->generateId($id_prefix);
-    }
+    // function __construct($id_prefix = "") {
+    //   $this->generateId($id_prefix);
+    // }
 
-    private function generateId($id_prefix) {
-      $this->id = $id_prefix.time(); 
-    }
+    // private function generateId($id_prefix) {
+    //   $this->id = $id_prefix.time(); 
+    // }
 
-    public function getId() {
-      return $this->id;
-    }
+    // public function getId() {
+    //   return $this->id;
+    // }
 
     public static function performQuery($queries) {
       $is_query_success = false;
