@@ -151,4 +151,4 @@
     </div>
   </div>
 </section>
-<script src="<?= ROOT_ADMIN_CLIENT . "public/js/products.js" ?>"></script>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/products1.js" ?>"></script>

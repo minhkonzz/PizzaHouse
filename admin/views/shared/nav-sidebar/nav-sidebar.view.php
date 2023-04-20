@@ -11,7 +11,7 @@
         <li><a href="<?= ROOT_ADMIN_CLIENT . "quan-ly-thuc-don/thuoc-tinh" ?>"><i class="bi bi-circle"></i><span>Quản lý đặc tính sản phẩm</span></a></li>
       </ul>
     </li>
-    <li class="nav-item"><a class="nav-link collapsed" href="<?= ROOT_ADMIN_CLIENT . "quan-ly-don-hang" ?>"><i class="bi bi-person"></i><span>Quản lý đặt hàng</span></a></li>
+    <li class="nav-item"><a class="nav-link collapsed" href="<?= ROOT_ADMIN_CLIENT . "quan-ly-dat-hang" ?>"><i class="bi bi-person"></i><span>Quản lý đặt hàng</span></a></li>
     <li class="nav-item"><a class="nav-link collapsed" href="<?= ROOT_ADMIN_CLIENT . "quan-ly-bai-viet" ?>"><i class="bi bi-book"></i><span>Quản lý bài viết</span></a></li>
     <li class="nav-item"><a class="nav-link collapsed" href="<?= ROOT_ADMIN_CLIENT . "quan-ly-uu-dai-dich-vu" ?>"><i class="bi bi-person"></i><span>Quản lý ưu đãi - dịch vụ</span></a></li>
     <li class="nav-item"><a class="nav-link collapsed" href="<?= ROOT_ADMIN_CLIENT . "quan-ly-nhan-vien" ?>"><i class="bi bi-person"></i><span>Quản lý nhân viên</span></a></li>

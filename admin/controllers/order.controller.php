@@ -26,29 +26,22 @@
 
     public function getOrderById(Request $req, $params = []) {
       try {
-        $order = OrderModel::selectOrderById($params["order_id"]); 
-        if (parent::isJsonOnly($req, $order)) return (new Response($order))->withJson(); 
+        $body_response = [
+          "order" => OrderModel::selectOrderById($params["order_id"]), 
+          "order_states" => OrderModel::selectAllOrderStates()
+        ];
+        if (parent::isJsonOnly($req, $body_response)) return (new Response($body_response))->withJson(); 
         parent::view(
           ROOT_ADMIN, 
           "Pizza House Việt Nam - Đơn hàng", 
           "orders/order.view.php", 
           "orders/order.style.css", 
           "bundle.view.php",
-          new Response(["order" => $order])
+          new Response($body_response)
         );
       } catch (InternalErrorException $e) {
         return (new Response([], $e->getCode(), $e->getMessage()))->withJson();
       }
     }
-    // public function showOrderDetail(Request $req, $params = []) {
-    //   parent::view(
-    //     ROOT_ADMIN, 
-    //     "Pizza House Việt Nam - Đơn hàng", 
-    //     "orders/order.view.php", 
-    //     "orders/order.style.css", 
-    //     "bundle.view.php",
-    //     new Response()
-    //   );
-    // }
   }
 ?>

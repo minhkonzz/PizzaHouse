@@ -8,8 +8,7 @@
         "login/login.view.php", 
         "login/login.style.css", 
         "bundle.view.php",
-        new Response([]),
-        false
+        new Response()
       );
     }
 

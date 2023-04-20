@@ -63,7 +63,7 @@
           <td><?= $order["name"] ?></td>
           <td><span style="display: block; padding: 6px 12px; border-radius: 5px;"><?= $order["order_state"] ?></span></td>
           <td><?= $order["created_at"] ?></td>
-          <td><button><i class="bi bi-search"></i></button></td>
+          <td><button><a href="<?= ROOT_ADMIN_CLIENT . "quan-ly-dat-hang/" . $order["order_id"] ?>"><i class="bi bi-search"></i></a></button></td>
         </tr>
     <?php endforeach ?>
   </table>

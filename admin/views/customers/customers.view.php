@@ -16,7 +16,7 @@
         <th></th>
         <th>Mã khách hàng</th>
         <th>Tên khách hàng</th>
-        <th>Nhóm khách hàng</th>
+        <th>Tổng số lần đặt hàng</th>
         <th>Số điện thoại</th>
         <th>Email</th>
         <th>Hành động</th>
@@ -25,23 +25,24 @@
         <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
         <td><input type="text" placeholder="Mã khách hàng"></td>
         <td><input type="text" placeholder="Tên khách hàng"></td>
-        <td><select name="" id="">
-          <option value="">Đã đăng ký</option>
-          <option value="">Khách viếng thăm</option>
-        </select></td>
+        <td><input type="text" placeholder="Số lần đặt hàng"></td>
         <td><input type="text" placeholder="Số điện thoại"></td>
         <td><input type="text" placeholder="Email"></td>
         <td><button id="table__filter-btn">Tìm kiếm</button></td>
       </tr>
-      <tr class="table__row">
-        <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
-        <td>#KH88238239</td>
-        <td>Phạm Quang Minh</td>
-        <td>Khách viếng thăm</td>
-        <td>0967105498</td>
-        <td>minhphm37@gmail.com</td>
-        <td><button id="table__filter-btn">Tìm kiếm</button></td>
-      </tr>
+      <?php 
+        list("customers" => $customers) = $response->getBody(); 
+        foreach ($customers as $customer): ?>
+          <tr class="table__row">
+            <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
+            <td><?= $customer["customer_id"] ?></td>
+            <td><?= $customer["name"] ?></td>
+            <td><?= $customer["total_order"] ?></td>
+            <td><?= $customer["phone"] ?></td>
+            <td><?= $customer["email"] ?></td>
+            <td><button><a href="<?= ROOT_ADMIN_CLIENT . "danh-sach-khach-hang/" . $customer["customer_id"] ?>"><i class="bi bi-search"></i></a></button></td>
+          </tr>
+      <?php endforeach ?>
     </table>
     <div class="pages__list">
       <ul class="pagination">
