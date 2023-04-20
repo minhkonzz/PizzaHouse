@@ -1,3 +1,3 @@
 <?php 
-  $router->get("/quan-ly-nhan-vien", "StaffController@showAllEmployees")
+  $router->get("/quan-ly-nhan-vien", "StaffController@getAllStaff")
 ?>

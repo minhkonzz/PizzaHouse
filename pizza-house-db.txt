@@ -166,6 +166,30 @@ CREATE TABLE IF NOT EXISTS tbl_order_item_option (
   FOREIGN KEY (order_item_id) REFERENCES tbl_order_item(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS tbl_role (
+  id VARCHAR(10) PRIMARY KEY NOT NULL, 
+  role VARCHAR(50), 
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+  is_deleted TINYINT DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS tbl_staff (
+  id VARCHAR(10) PRIMARY KEY NOT NULL,
+  name VARCHAR(50),  
+  role_id VARCHAR(10) NOT NULL,  
+  is_activated TINYINT DEFAULT 1, 
+  address VARCHAR(255), 
+  phone VARCHAR(20), 
+  gender ENUM('Nam', 'Nữ'), 
+  born DATE, 
+  email VARCHAR(50),
+  password VARCHAR(16),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+  FOREIGN KEY (role_id) REFERENCES tbl_role(id) ON DELETE CASCADE
+);
+
 INSERT INTO tbl_category (id, category_name) VALUES ('CT001', 'Pizza');
 INSERT INTO tbl_category (id, category_name) VALUES ('CT002', N'Món ăn kèm');
 INSERT INTO tbl_category (id, category_name) VALUES ('CT003', N'Thức uống');
@@ -240,3 +264,10 @@ insert into tbl_order_item (id, order_id, order_product_name, order_product_imag
 INSERT INTO tbl_order_item_option VALUES ('ODI002', 'Đế dày xốp');
 INSERT INTO tbl_order_item_option VALUES ('ODI002', 'Cỡ 12 inch');
 INSERT INTO tbl_order_item_option VALUES ('ODI002', 'Gấp 3 phô mai');
+
+INSERT INTO tbl_role (id, role) VALUES ('R001', 'Đầu bếp'); 
+INSERT INTO tbl_role (id, role) VALUES ('R002', 'Bán hàng'); 
+INSERT INTO tbl_role (id, role) VALUES ('R003', 'Trực hotline');
+INSERT INTO tbl_role (id, role) VALUES ('R004', 'Quản lý');
+
+INSERT INTO tbl_staff (id, name, role_id, address, phone, gender, born, email, password) VALUES ('ST001', 'Phạm Minh Trí', 'R001', '294 ngõ chợ Khâm Thiên', '098232323', 'Nam', '2001-06-01', 'triduc201@gmail.com', '@01062001');

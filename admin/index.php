@@ -24,7 +24,8 @@
     "addon",
     "product",
     "order",
-    "customer"
+    "customer", 
+    "staff"
   ] as $model) require_once "models/$model.model.php";
 
   foreach ([

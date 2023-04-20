@@ -45,35 +45,27 @@
               <option value="">Bán hàng</option>
             </select></td>
             <td><select name="" id="">
-              <option value="">Đã kích hoạt</option>
-              <option value="">Chưa kích hoạt</option>
+              <option value="1">Đã kích hoạt</option>
+              <option value="0">Chưa kích hoạt</option>
             </select></td>
             <td><button id="employees__filter-btn">Tìm kiếm</button></td>
           </tr>
-          <tr class="table__row">
-            <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
-            <td>#NV00121299</td>
-            <td>Phạm Quang Minh</td>
-            <td>29-03-2023</td>
-            <td>Đầu bếp</td>
-            <td></td>
-            <td>
-              <button><i class="bi bi-pencil-square"></i></button>
-              <button><i class="bi bi-three-dots-vertical"></i></button>
-            </td>
-          </tr>
-          <tr class="table__row">
-            <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
-            <td>#NV00121299</td>
-            <td>Phạm Quang Minh</td>
-            <td>29-03-2023</td>
-            <td>Đầu bếp</td>
-            <td></td>
-            <td>
-              <button><i class="bi bi-pencil-square"></i></button>
-              <button><i class="bi bi-three-dots-vertical"></i></button>
-            </td>
-          </tr>
+          <?php 
+            list("staff" => $staff, "roles" => $roles) = $response->getBody();
+            foreach ($staff as $s): ?>
+              <tr class="table__row">
+                <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
+                <td><?= $s["staff_id"] ?></td>
+                <td><?= $s["name"] ?></td>
+                <td><?= $s["created_at"] ?></td>
+                <td><?= $s["role"] ?></td>
+                <td><?= $s["is_activated"] ?></td>
+                <td>
+                  <button><i class="bi bi-pencil-square"></i></button>
+                  <button><i class="bi bi-three-dots-vertical"></i></button>
+                </td>
+              </tr>
+          <?php endforeach ?>
         </table>
         <div class="pages__list">
           <ul class="pagination">
@@ -99,32 +91,29 @@
             <th></th>
             <th>Mã bộ phận</th>
             <th>Tên bộ phận</th>
+            <th>Số nhân viên</th>
             <th>Hành động</th>
           </tr>
           <tr class="table__row filters">
             <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
             <td><input type="text" placeholder="Mã bộ phận"></td>
             <td><input type="text" placeholder="Tên bộ phận"></td>
+            <td><input type="text" placeholder="Số nhân viên"></td>
             <td><button id="table__filter-btn">Tìm kiếm</button></td>
           </tr>
-          <tr class="table__row">
-            <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
-            <td>#BP00121299</td>
-            <td>Đầu bếp</td>
-            <td>
-              <button><i class="bi bi-pencil-square"></i></button>
-              <button><i class="bi bi-three-dots-vertical"></i></button>
-            </td>
-          </tr>
-          <tr class="table__row">
-            <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
-            <td>#BP00121299</td>
-            <td>Đầu bếp</td>
-            <td>
-              <button><i class="bi bi-pencil-square"></i></button>
-              <button><i class="bi bi-three-dots-vertical"></i></button>
-            </td>
-          </tr>
+          <?php 
+            foreach ($roles as $role): ?>
+              <tr class="table__row">
+                <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
+                <td><?= $role["role_id"] ?></td>
+                <td><?= $role["role"] ?></td>
+                <td><?= $role["total_staff"] ?></td>
+                <td>
+                  <button><i class="bi bi-pencil-square"></i></button>
+                  <button><i class="bi bi-three-dots-vertical"></i></button>
+                </td>
+              </tr>
+          <?php endforeach ?>
         </table>
         <div class="pages__list">
           <ul class="pagination">
