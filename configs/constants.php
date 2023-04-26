@@ -5,6 +5,6 @@
   define("ROOT_ADMIN_CLIENT", "/pizza-complete-version/admin/");
   define("__CONTROLLER_ACTION_DEFAULT__", "ExceptionController@handle");
   define("__CART_SESSION_KEY__", "cart");
-  define("__CART_INITIAL__", [ "list" => [], "cart_total" => 0 ]);
+  define("__CART_INITIAL__", [ "items" => [], "cart_total" => 0 ]);
   define("__SECRET_KEY_LENGTH__", 40);
 ?>

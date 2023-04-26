@@ -5,7 +5,7 @@
       parent::__construct();
     }
 
-    public function init(Request $req = null, $params = []) {
+    public function init(Request $req, $params = []) {
       parent::view(
         __ROOT__,
         "Pizza House Việt Nam - Trang chủ", 

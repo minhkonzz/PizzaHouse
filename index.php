@@ -1,8 +1,13 @@
 <?php 
+  header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
   // helpers
   require_once "helper/functions.php";
 
+  require_once "core/data-instance.core.php";
+
   // classes 
+  require_once "classes/category.class.php";
+  require_once "classes/order.class.php";
   require_once "classes/jwttoken.class.php";
   
   require_once "configs/constants.php";
@@ -20,7 +25,6 @@
   // controllers
   require_once "controllers/home.controller.php";
   require_once "controllers/menu.controller.php";
-  require_once "controllers/product.controller.php";
   require_once "controllers/cart.controller.php";
   require_once "controllers/order.controller.php";
   require_once "controllers/auth.controller.php";
@@ -40,6 +44,7 @@
   // exceptions
   require_once "exceptions/auth.exception.php";
   require_once "exceptions/not-found.exception.php";
+  require_once "exceptions/internal-error.exception.php";
   require_once "exceptions/access-denied.exception.php";
   require_once "exceptions/method-not-allowed.exception.php";
   require_once "exceptions/encryption.exception.php";
@@ -64,4 +69,5 @@
   require_once "apis/auth.php";
   require_once "apis/article.php";
   require_once "apis/service.php";
+  // unset($_SESSION[__CART_SESSION_KEY__]);
 ?>

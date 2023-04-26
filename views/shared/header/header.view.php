@@ -26,7 +26,7 @@
       <li><a href="/pizza-complete-version/tin-tuc">TIN TỨC</a></li>
     </ul>
     <div class="nav__center">
-      <img src="http://pizzahouse.themerex.net/wp-content/uploads/2016/08/logo_main.png">
+      <img src="<?= ROOT_CLIENT . "public/images/header_logo.png" ?>">
     </div>
     <div class="nav__right">
       <div class="nav__right__p nav__contact">
@@ -35,8 +35,8 @@
       </div>
       <div class="nav__right__p nav__cart">
         <?php 
-          $response = $response->getBody(); 
-          list("list" => $cart_items, "cart_total" => $cart_total) = $response["cart"];
+          list("cart" => $cart) = $response->getBody(); 
+          list("items" => $cart_items, "cart_total" => $cart_total) = $cart;
         ?>
         <ion-icon name="cart"></ion-icon>
         <span style="margin-left: 8px;"><?= array_reduce($cart_items, fn($acc, $cur) => $acc + $cur["qty_add"], 0) ?> số lượng - <?= number_format($cart_total) ?>đ</span>
@@ -44,12 +44,12 @@
           <div>
           <?php 
             foreach ($cart_items as $cart_item): 
-              list("product_name" => $product_name, "qty_add" => $qty_add, "addons" => $addons, "total_price" => $total_price) = $cart_item; ?>
+              list("product_image" => $product_image, "product_name" => $product_name, "qty_add" => $qty_add, "addons" => $addons, "total_price" => $total_price) = $cart_item; ?>
               <div class="nav__cart-item">
-                <img src="https://demo037051.web30s.vn/datafiles/32945/upload/thumb_images/product/pizza-bo-me-hi-co-thuong-hang-a.png?t=1614946190" alt="__k">
+                <img src="<?= ROOT_CLIENT . "public/images/products/" . $product_image ?>" alt="__k">
                 <div class="nav__cart-item__detail">
                   <p><?= $product_name ?> x <?= number_format($qty_add) ?></p>
-                  <p><?= implode(", ", array_map(fn($e) => $e["addon_val"], $addons)) ?></p>
+                  <p><?= implode(", ", $addons) ?></p>
                   <p><?= number_format($total_price) ?>đ</p>
                 </div>
                 <button><a href="#"><ion-icon name="trash"></ion-icon></a></button>

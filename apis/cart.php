@@ -38,5 +38,5 @@
 	// 	}
 	// }); 
 
-	$router->put("/gio-hang/:cart_id", "CartController@updateCart");
+	$router->put("/gio-hang", "CartController@updateCart");
 ?>

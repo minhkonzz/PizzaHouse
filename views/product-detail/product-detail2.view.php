@@ -43,38 +43,56 @@
           </ul>
         </div>
       </aside>
-      <div class="product-detail__main">
+      <?php 
+        list("product" => $product) = $response->getBody();
+        list(
+          "product_name" => $product_name, 
+          "category_name" => $category_name, 
+          "price" => $price, 
+          "image" => $image, 
+          "description" => $description, 
+          "addons" => $addons
+        ) = $product;
+      ?>
+      <div class="product-detail__main" data-product="<?= htmlspecialchars(json_encode($product), ENT_QUOTES, "UTF-8") ?>">
         <div class="product-detail__images">
           <div class="product-detail__main-image">
-            <img src="https://demo037051.web30s.vn/datafiles/32945/upload/images/product/pizza-bo-me-hi-co-thuong-hang-a.png?t=1612776651" alt="">
+            <img src="<?= ROOT_CLIENT . "public/images/products/" . $image ?>" alt="">
           </div>
           <div class="product-detail__images-list">
-            <img src="https://demo037051.web30s.vn/datafiles/32945/upload/images/product/pizza-bo-me-hi-co-thuong-hang-a.png?t=1612776651" alt="">
-            <img src="https://demo037051.web30s.vn/datafiles/32945/upload/images/product/pizza-bo-me-hi-co-thuong-hang-a.png?t=1612776651" alt="">
-            <img src="https://demo037051.web30s.vn/datafiles/32945/upload/images/product/pizza-bo-me-hi-co-thuong-hang-a.png?t=1612776651" alt="">
+            <img src="<?= ROOT_CLIENT . "public/images/products/" . $image ?>" alt="">
           </div>
         </div>
         <div class="product-detail__main-information">
-          <p class="product-detail__name">Pizza gà phô mai thịt heo xông khói</p>
-          <p class="product-detail__description">Sốt phô mai, thịt heo, thịt gà, thịt heo muối, phô mai Mozzarelia, cà chua</p>
-          <p class="product-detail__category"><b>Danh mục</b>: <span>Pizza</span></p>
-          <div class="product-detail__addon">
-            <p class="product-detail__addon-name">Kích cỡ</p>
-            <ul class="product-detail__addon-options">
-              <li>Nhỏ</li>
-              <li>Vừa</li>
-              <li>Lớn</li>
-            </ul>
-          </div>
-          <p class="product-detail__price"><b>Giá</b>: <span>239.000đ</span></p>
+          <p class="product-detail__name"><?= $product_name ?></p>
+          <p class="product-detail__description"><?= $description ?></p>
+          <p class="product-detail__category"><b>Danh mục</b>: <span><?= $category_name ?></span></p>
+          <?php 
+            foreach ($addons as $addon_id => $addon_meta): 
+              list("addon_name" => $addon_name, "apply_product_price" => $apply_product_price, "addon_options" => $addon_options) = $addon_meta; ?>
+              <div class="product-detail__addon">
+                <p class="product-detail__addon-name"><?= $addon_name ?></p>
+                <ul class="product-detail__addon-options">
+                  <?php 
+                    foreach ($addon_options as $addon_val_id => $addon_val_meta): 
+                      list("addon_val" => $addon_val, "addon_val_price" => $addon_val_price) = $addon_val_meta;
+                      $data_addon_selection = json_encode([
+                        "addon_id" => $addon_id,
+                        "addon_val_id" => $addon_val_id, 
+                        "addon_val" => $addon_val,
+                        "addon_val_price" => $addon_val_price, 
+                        "apply_product_price" => $apply_product_price
+                      ]); ?>
+                      <li><div class="product-detail__addon-option" data-addon="<?= htmlspecialchars($data_addon_selection, ENT_QUOTES, "UTF-8") ?>" ><?= $addon_val ?></div></li>
+                  <?php endforeach ?>
+                </ul>
+              </div>
+          <?php endforeach ?>
+          <p class="product-detail__price"><b>Giá</b>: <span></span></p>
           <div class="product-detail__actions">
             <p>Chọn số lượng</p>
             <div>
-              <div class="product-detail__quantity">
-                <button class="product-detail__quantity-btn decrease"><ion-icon name="remove"></ion-icon></button>
-                <input type="number" value="1" min="1">
-                <button class="product-detail__quantity-btn increase"><ion-icon name="add"></ion-icon></button>
-              </div>
+              <input id="product-detail__quantity" type="number" value="1" min="1">
               <button id="product-detail__add-cart">
                 <ion-icon name="cart"></ion-icon>
                 Thêm vào giỏ hàng
@@ -86,4 +104,5 @@
     </div>
   </main>
 </div>
+<script src="<?= ROOT_CLIENT . "public/scripts/product-detail/product-detail1.js"?>"></script>
 

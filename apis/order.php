@@ -19,5 +19,5 @@
 	// 	}
 	// });
 
-	$router->post("/thanh-toan", "OrderController@showMakeOrderResponse");
+	$router->post("/thanh-toan", "OrderController@createNewOrder");
 ?>
