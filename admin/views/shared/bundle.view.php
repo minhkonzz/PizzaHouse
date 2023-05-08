@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/2.5.0/remixicon.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css">
     <style><?= include_once __ROOT__ . "views/global.css"; ?></style>
-    <style><?= include_once $style_path ?></style>
+    <?php if (file_exists($style_path)) { ?><style><?php include_once $style_path; ?></style> <?php } ?>
     <?php 
       foreach (["style", "reuse", "reset", "custom"] as $css): ?>
         <style><?php include_once ROOT_ADMIN . "public/css/" . $css . ".css"; ?></style>

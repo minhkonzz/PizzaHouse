@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-04-25T10:14:46.109Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="vIvmFIW1OAyR6i4KJXea" version="21.2.1" type="device" pages="12">
+<mxfile host="app.diagrams.net" modified="2023-05-03T10:49:49.019Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="MOu3xh3GBWguvar0zGa6" version="21.2.3" type="device" pages="13">
   <diagram name="use-case-diagram" id="CqUq1iM6CTlsbTxeexh8">
-    <mxGraphModel dx="2950" dy="2246" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="3475" dy="2533" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -10690,11 +10690,81 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="sRcPuiIBsZOsNOfxSCQX" name="integrate-woocommerce">
-    <mxGraphModel dx="1050" dy="573" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+  <diagram id="sRcPuiIBsZOsNOfxSCQX" name="integrate-okta">
+    <mxGraphModel dx="1750" dy="1958" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="fDTvYSPIgVn2tBDZro---4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;dashed=1;" edge="1" parent="1" source="fDTvYSPIgVn2tBDZro---1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="677.5" y="1076.3333129882812" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---1" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Authorization Server &lt;br&gt;(Okta)&lt;/font&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="567" y="322" width="221" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;dashed=1;" edge="1" parent="1" source="fDTvYSPIgVn2tBDZro---2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="981" y="1083" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="981" y="1079" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---2" value="&lt;p style=&quot;line-height: 150%;&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Resource Server &lt;br&gt;(Hệ thống QL Pizza House VN)&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="858" y="322" width="246" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="161" y="1071.0000610351562" as="targetPoint" />
+            <mxPoint x="161" y="447" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---3" value="&lt;p style=&quot;line-height: 150%; font-size: 14px;&quot;&gt;&lt;b&gt;Resource owner&lt;br&gt;(Nhân viên, Quản lý của Pizza House VN)&lt;/b&gt;&lt;/p&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="146" y="309" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---12" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="fDTvYSPIgVn2tBDZro---7" target="fDTvYSPIgVn2tBDZro---9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---13" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="fDTvYSPIgVn2tBDZro---7" target="fDTvYSPIgVn2tBDZro---10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---14" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="fDTvYSPIgVn2tBDZro---7" target="fDTvYSPIgVn2tBDZro---11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---16" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="fDTvYSPIgVn2tBDZro---7" target="fDTvYSPIgVn2tBDZro---15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---19" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="fDTvYSPIgVn2tBDZro---7" target="fDTvYSPIgVn2tBDZro---17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---20" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;startArrow=none;startFill=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="fDTvYSPIgVn2tBDZro---7" target="fDTvYSPIgVn2tBDZro---18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---7" value="&lt;p style=&quot;line-height: 150%; font-size: 14px;&quot;&gt;&lt;b&gt;Resource owner&lt;br&gt;Người sở hữu tài nguyên hệ thống&lt;/b&gt;&lt;/p&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="100" y="-221" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---8" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Okta Indentity integration&lt;/font&gt;&lt;/b&gt;" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=204;height=38;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="317" y="-679" width="392" height="745" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---9" value="&lt;p style=&quot;line-height: 60%;&quot;&gt;&lt;b&gt;Thêm Authentication và&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 60%;&quot;&gt;&lt;b&gt;Authorization cho ứng dụng&lt;/b&gt;&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="387" y="-596" width="248" height="77" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---10" value="&lt;p style=&quot;line-height: 140%;&quot;&gt;&lt;b&gt;Thêm Authentication &lt;br&gt;và Authorization cho APIs&lt;/b&gt;&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="387" y="-482" width="248" height="77" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---11" value="&lt;p style=&quot;line-height: 150%;&quot;&gt;&lt;b&gt;Thiết lập cơ chế Single Sign On&lt;br&gt;(SSO) cho nhiều ứng dụng&lt;br&gt;&lt;/b&gt;&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="387" y="-371" width="248" height="77" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---15" value="&lt;p style=&quot;line-height: 60%;&quot;&gt;&lt;b&gt;Thiết lập xác thực đa yếu tố (MFA)&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 60%;&quot;&gt;&lt;b&gt;đối&amp;nbsp;&lt;/b&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;với&amp;nbsp;&lt;/b&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;yêu cầu dữ liệu nhạy cảm&lt;/b&gt;&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="387" y="-262" width="248" height="77" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---17" value="&lt;b&gt;Quản lý tài nguyên&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="391" y="-150" width="248" height="77" as="geometry" />
+        </mxCell>
+        <mxCell id="fDTvYSPIgVn2tBDZro---18" value="&lt;b&gt;Quản lý user sử dụng hệ thống&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="391" y="-39" width="248" height="77" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
@@ -12669,6 +12739,14 @@
             </Array>
           </mxGeometry>
         </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="SLpVvst5V_YRep-nt2Yp" name="Page-13">
+    <mxGraphModel dx="1050" dy="573" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
       </root>
     </mxGraphModel>
   </diagram>

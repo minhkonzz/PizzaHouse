@@ -45,6 +45,7 @@ ul, ol {
   --delay: all .2s ease;
   --long-delay: all 1s ease;
   --header-height: 4rem;
+  --section-max-width: 1280px;
 }
 
 .hl__primary {
@@ -64,7 +65,7 @@ ul, ol {
 
 }
 
-@media (min-width: 800px) {
+@media (min-width: 792px) {
 
 }
 
@@ -72,10 +73,10 @@ ul, ol {
 
 }
 
-@media (min-width: 1024) {
+@media (min-width: 1024px) {
 
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1450px) {
 
 }

@@ -43,11 +43,8 @@
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: .5rem;">
               <div class="form-floating">
-                <select class="form-select" id="currency-selection">
-                  <option value="vnd" selected>VND</option>
-                  <option value="usd">USD</option>
-                </select>
-                <label for="currency-selection">Đơn vị tiền</label>
+                <input type="text" class="form-control" name="product_price" id="product-price-float-inp" placeholder="Giá sản phẩm">
+                <label for="product-price-float-inp">Giá sản phẩm</label>
               </div>
               <div class="form-floating">
                 <select class="form-select" id="category-selection">
@@ -68,7 +65,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-            <input type="submit" class="btn btn-primary" value="Lưu">
+            <input id="save-product-btn" type="submit" class="btn btn-primary" value="Lưu">
           </div>
         </div>
       </div>
@@ -151,4 +148,4 @@
     </div>
   </div>
 </section>
-<script src="<?= ROOT_ADMIN_CLIENT . "public/js/products1.js" ?>"></script>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/products.js" ?>"></script>

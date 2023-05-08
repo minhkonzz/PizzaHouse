@@ -1,80 +1,40 @@
 <?php 
-  require_once "../helper/functions.php";
-  require_once "../configs/constants.php";
+  header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 
-  require_once "../core/controller.core.php";
-  require_once "../controllers/exception.controller.php";
+  require_once "../vendor/autoload.php";
+  define("__ROOT__", $_SERVER["DOCUMENT_ROOT"]);
 
-  foreach([
-    "category", 
-    "jwttoken"
-  ] as $class) require_once "../classes/$class.class.php";
+  use Dotenv\Dotenv; 
 
-  foreach ([
-    "database", 
-    "model", 
-    "request", 
-    "response", 
-    "router"
-  ] as $core) require_once "../core/$core.core.php";
+  $dotenv = Dotenv::createImmutable(__ROOT__);
+  $dotenv->load();
 
-  foreach ([
-    "category",
-    "discount",
-    "addon",
-    "product",
-    "order",
-    "customer", 
-    "staff"
-  ] as $model) require_once "models/$model.model.php";
+  echo "<pre>"; 
+  print_r($_ENV);
 
-  foreach ([
-    "auth",
-    "category",
-    "staff",
-    "dashboard",
-    "customer",
-    "order",
-    "product",
-    "addon",
-    "test"
-  ] as $controller) {
-    require_once "controllers/$controller.controller.php";
-  }
+  // if (session_id() === "") session_start();
 
-  foreach ([
-    "access-denied", 
-    "auth", 
-    "decryption", 
-    "encryption", 
-    "method-not-allowed",
-    "internal-error",
-    "not-found"
-  ] as $exception) require_once "../exceptions/$exception.exception.php";
+  // $dirs = [
+  //   "../helper", 
+  //   "configs", 
+  //   "../classes", 
+  //   "../core", 
+  //   "models", 
+  //   "controllers", 
+  //   "../interfaces", 
+  //   "middlewares", 
+  //   "../security/encryptors", 
+  //   "../exceptions"
+  // ];
 
-  foreach ([
-    "encryption", 
-    "jwt-encryptor", 
-    "middleware"
-  ] as $interface) require_once "../interfaces/$interface.interface.php";
+  // foreach ($dirs as $dir) {
+  //   foreach (glob($dir."/*.php") as $file_path)
+  //     if (file_exists($file_path)) require_once $file_path;
+  // }
 
-  foreach ([
-    "auth"
-  ] as $middleware) require_once "../middlewares/$middleware.middleware.php";
+  // require_once "../controllers/ExceptionController.php";
 
-  $router = new Router();
-
-  foreach ([
-    "auth", 
-    "test",
-    "category", 
-    "product",
-    "staff",
-    "dashboard",
-    "article", 
-    "discount",
-    "customer",
-    "order",
-    "addon"
-  ] as $api) require_once "apis/$api.api.php";
+  // $router = new Router();
+  // foreach (glob("apis/*.php") as $file_path)
+  //   if (file_exists($file_path)) require_once $file_path;
 ?>

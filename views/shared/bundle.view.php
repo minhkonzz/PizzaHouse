@@ -23,7 +23,7 @@
         background-position: center;
       }
     </style>
-    <?php if (!empty($style_path)) { ?><style><?php include_once $style_path; ?></style> <?php } ?>
+    <?php if (file_exists($style_path)) { ?><style><?php include_once $style_path; ?></style> <?php } ?>
     <script 
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
       integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" 
@@ -57,6 +57,8 @@
   </head>
   <body>
     <div id="content"><?= $PAGE_CONTENT ?></div>
+    <?php include_once __ROOT__ . "views/shared/sidebar-nav/sidebar-nav.view.php"; ?>
     <div id="loading"></div>
   </body>
+  <script src="<?= ROOT_CLIENT . "public/scripts/sidebar.js" ?>"></script>
 </html>

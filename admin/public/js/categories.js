@@ -32,8 +32,7 @@ $(document).ready(() => {
     const categoryId = $(this).data("category-id")
     $.ajax({
       url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc/${categoryId}`, 
-      method: "DELETE", 
-      data: JSON.stringify({ categoryId })
+      method: "DELETE"
     }).done((response) => {
       console.log("this is response:", response)
       alert(`Xóa danh mục có mã ${categoryId} thành công`)

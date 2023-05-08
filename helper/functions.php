@@ -7,6 +7,6 @@
 	}
 
 	function nonnull($x) {
-		return isset($x) && !empty($x);
+	   return isset($x) && !empty($x);
 	}
 ?>

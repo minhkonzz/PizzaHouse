@@ -57,11 +57,11 @@ $(document).ready(() => {
         addonName !== currentAddonCopy["addonName"] ? 
         { addonId, addonName, addonOptionsChange } : { addonId, addonOptionsChange }
       )
-      config["url"] = `http://localhost/pizza-complete-version/quan-ly-thuc-don/thuoc-tinh/${currentAddon.addonId}`
+      config["url"] = `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh/${currentAddon.addonId}`
       config["method"] = "PUT"
     } else {
       config["data"] = currentAddon
-      config["url"] = "http://localhost/pizza-complete-version/quan-ly-thuc-don/thuoc-tinh"
+      config["url"] = "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh"
       config["method"] = "POST"
     }
 
@@ -85,12 +85,13 @@ $(document).ready(() => {
       const newAddonOption = {
         "addon_val_id": `ADV${Math.floor(Math.random() * 10000).toString().padStart(5, 0)}`, 
         "addon_val": $("#addon-val-float-inp").val(), 
-        "addon_val_price": $("#addon-val-price-float-inp").val()
+        "addon_val_price": Number($("#addon-val-price-float-inp").val())
       }
-      currentAddon.addonOptions.unshift(newAddonOption)
+      // currentAddon.addonOptions.unshift(newAddonOption)
+      currentAddon.addonOptions = [newAddonOption, ...currentAddon.addonOptions];
       $("#addon-options").prepend(`
         <div class="addon-option d-flex justify-content-between align-items-center" data-addon-val-id="${newAddonOption["addon_val_id"]}" style="padding: 18px 12px; background-color: rgb(238, 238, 238); font-weight: 500; margin: 8px 0; border-radius: 7px;">
-          <p>${newAddonOption["addon_val"]} - ${newAddonOption["addon_val_price"]}đ</p>
+          <p>${newAddonOption["addon_val"]} ${newAddonOption["addon_val_price"] ? `- ${newAddonOption["addon_val_price"]}đ` : ""}</p>
           <button class="addon-val-remove-btn" data-addon-val-id="${newAddonOption["addon_val_id"]}" style="opacity: .8;"><i class="bi bi-dash-circle"></i></button>
         </div>
       `)
@@ -100,7 +101,7 @@ $(document).ready(() => {
       currentAddonOption = {
         ...currentAddonOption, 
         addonVal: $("#addon-val-float-inp").val(), 
-        addonValPrice: $("#addon-val-price-float-inp").val()
+        addonValPrice: Number($("#addon-val-price-float-inp").val())
       }
       const { addonValId, addonVal, addonValPrice } = currentAddonOption
       currentAddon.addonOptions = currentAddon.addonOptions.map((e) => 
@@ -122,7 +123,7 @@ $(document).ready(() => {
       $("#cancel-add-addon-val-btn").css("display", "initial")
     }
     if (currentAddon && currentAddon.addonOptions && Array.isArray(currentAddon.addonOptions)) {
-      const addonValId = $(this).data("addon-val-id");
+      const addonValId = $(this).data("addon-val-id")
       const addonOptionSelected = currentAddon.addonOptions.find((e) => e["addon_val_id"] === addonValId)
       if (addonOptionSelected) {
         $("#add-addon-val-btn").text("Cập nhật đặc tính")
@@ -159,21 +160,22 @@ $(document).ready(() => {
     $.each(currentAddon.addonOptions, function(i, addonOption) {
       $("#addon-options").append(`
         <div class="addon-option d-flex justify-content-between align-items-center" data-addon-val-id="${addonOption["addon_val_id"]}" style="padding: 18px 12px; background-color: rgb(238, 238, 238); font-weight: 500; margin: 8px 0; border-radius: 7px;">
-          <p>${addonOption["addon_val"]} - ${addonOption["addon_val_price"]}đ</p>
+          <p>${addonOption["addon_val"]} ${addonOption["addon_val_price"] ? `- ${addonOption["addon_val_price"]}đ` : ""}</p>
           <button class="addon-val-remove-btn" data-addon-val-id="${addonOption["addon_val_id"]}" style="opacity: .8;"><i class="bi bi-dash-circle"></i></button>
         </div>
       `)
     })
   })
 
-  $(".addons__list").delegate(".addon-update-btn", "click", function(e) {
+  $("#addon__list").delegate(".addon-update-btn", "click", function(e) {
     e.preventDefault()
     const addonId = $(this).data("addon-id")
     $.ajax({
-      url: `http://localhost/pizza-complete-version/quan-ly-thuc-don/thuoc-tinh/${addonId}`,
+      url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh/${addonId}`,
       method: "GET"
     }).done((response) => {
-      const addon = response.body
+      const { code, message, body } = JSON.parse(response)
+      const addon = body
       currentAddon = {
         addonId: addon["addon_id"],
         addonName: addon["addon_name"], 
@@ -200,12 +202,12 @@ $(document).ready(() => {
     e.preventDefault()
     const addonId = $(this).data("addon-id")
     $.ajax({
-      url: `http://localhost/pizza-complete-version/quan-ly-thuc-don/thuoc-tinh/${addonId}`, 
-      method: "DELETE", 
-      data: JSON.stringify({ addonId: addonId })
+      url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh/${addonId}`, 
+      method: "DELETE"
     }).done((response, textStatus, jqXHR) => {
       if (jqXHR.status === 200 && textStatus === "success") {
         alert("Delete success")
+        console.log(response);
       }
     }).fail((jqXHR, textStatus, errorThrown) => {
       alert("Delete not success")

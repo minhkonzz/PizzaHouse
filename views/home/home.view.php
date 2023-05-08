@@ -5,7 +5,6 @@
   <?php include_once __ROOT__ . "views/home/banner/banner.view.php"; ?>
   <?php include_once __ROOT__ . "views/home/welcome/welcome.view.php"; ?>
   <?php include_once __ROOT__ . "views/home/delicious/delicious.view.php"; ?>
-  <!-- <?php include_once __ROOT__ . "views/home/reviews/reviews.view.php"; ?> -->
   <?php include_once __ROOT__ . "views/home/blogs/blogs.view.php"; ?>
   <?php include_once __ROOT__ . "views/shared/footer/footer.view.php"; ?>
 </div>

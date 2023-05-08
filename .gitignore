@@ -1,0 +1,5 @@
+# ignore vendor folder
+/vendor
+
+# ignore env declares
+/.env

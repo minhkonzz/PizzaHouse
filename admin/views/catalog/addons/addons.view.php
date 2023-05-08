@@ -8,7 +8,10 @@
   </nav>
   <div style="display: flex; justify-content: space-between; align-items: center;">
     <h1>Quản lý thuộc tính sản phẩm</h1>
-    <button id="add-addon-btn" type="button" class="btn btn-primary">Thêm thuộc tính</button>
+    <button id="add-addon-btn" type="button" class="btn btn-primary">
+      <i style="margin-right: 4px;" class="bi bi-plus-circle"></i>
+      Thêm thuộc tính
+    </button>
     <div class="modal fade" id="modalDialogScrollable" tabindex="-1" style="display: none;" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
         <form class="modal-content">

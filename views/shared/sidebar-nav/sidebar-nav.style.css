@@ -1,0 +1,65 @@
+#sidebar-nav {
+   position: fixed;
+   top: 0; 
+   left: -300px;
+   width: 300px;
+   height: 100vh;
+   z-index: 1000;
+   background-color: var(--primary-color);
+   transition: left .6s ease;
+}
+
+#sidebar-nav #close {
+   position: absolute;
+   top: 15px;
+   right: 18px;
+   font-size: 20px;
+}
+
+#sidebar-nav > *, 
+#sidebar-nav ul li a {
+   color: #fff;
+}
+
+#sidebar-nav ul li {
+   padding: 22px 0 22px 28px;
+}
+
+#sidebar-nav ul li:not(:last-child) {
+   border-bottom: 0.3px solid rgb(127, 127, 127);
+}
+
+#sidebar-nav ul li a {
+   font-size: 14px;
+   font-weight: 600;
+   text-transform: uppercase;
+}
+
+#sidebar-nav .contact {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: rgb(164, 39, 39);
+   padding: 20px;
+}
+
+#sidebar-nav .contact p {
+   margin-left: 12px;
+}
+
+#book-table__btn {
+   position: absolute;
+   left: 50%; 
+   transform: translateX(-50%);
+   border: 2px solid #fff;
+   padding: 14px 0;
+   width: 150px;
+   margin-top: 24px;
+   font-size: 15px;
+}
+
+@media (min-width: 792px) {
+   #sidebar-nav {
+      display: none;
+   }
+}

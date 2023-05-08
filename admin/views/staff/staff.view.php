@@ -52,12 +52,14 @@
           </tr>
           <?php 
             list("staff" => $staff, "roles" => $roles) = $response->getBody();
-            foreach ($staff as $s): ?>
+            foreach ($staff as $s): 
+              $created_datetime = DateTime::createFromFormat("Y-m-d\TH:i:s.u\Z", $s["created"]);
+              list("employeeNumber" => $id, "firstName" => $first_name, "lastName" => $last_name) = $s["profile"] ?>
               <tr class="table__row">
                 <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
                 <td><?= $s["staff_id"] ?></td>
                 <td><?= $s["name"] ?></td>
-                <td><?= $s["created_at"] ?></td>
+                <td><?= $created_datetime->format("Y-m-d H:i:s") ?></td>
                 <td><?= $s["role"] ?></td>
                 <td><?= $s["is_activated"] ?></td>
                 <td>
@@ -86,7 +88,7 @@
         </div>
       </div>
       <div class="tab-pane fade" id="employee-roles" role="tabpanel" aria-labelledby="employee-roles-tab">
-        <table>
+        <!-- <table>
           <tr class="table__fields">
             <th></th>
             <th>Mã bộ phận</th>
@@ -131,7 +133,7 @@
               </a>
             </li>
           </ul>
-        </div>
+        </div> -->
       </div>
       <div class="tab-pane fade" id="employee-permissions" role="tabpanel" aria-labelledby="employee-permissions-tab">
         <div style="display: grid; grid-template-columns: 1fr 3.5fr; column-gap: 1rem; margin-top: 8px;">

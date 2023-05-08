@@ -1,19 +1,20 @@
 <div style="height: 0;">
   <?php 
     foreach ([
-       "header/header.view.php",
-       "short-banner/short-banner.view.php"
+      "header/header.view.php",
+      "short-banner/short-banner.view.php"
     ] as $shared) include_once __ROOT__ . "views/shared/" . $shared;
   ?>
   <main id="menu-main">
+    <?php list("categories" => $categories, "addons" => $addons, "products" => $products) = $response->getBody(); ?>
     <aside id="menu-left">
       <div class="menu-left__part categories">
         <div class="menu-left__title"><p>DANH MỤC SẢN PHẨM</p></div>
         <ul class="menu-left__categories__list">
           <?php 
-            foreach ($response["categories"] as $category): 
+            foreach ($categories as $category): 
               list("id" => $id, "category_name" => $category_name) = $category; ?>
-              <li class="menu-left__categories__item"><a href="<?= "/pizza-complete-version/thuc-don/danh-muc/" . $id ?>"><?= $category_name ?></a></li>
+              <li class="menu-left__categories__item"><a href="<?= ROOT_CLIENT . "thuc-don/danh-muc/" . $id ?>"><?= $category_name ?></a></li>
           <?php endforeach ?>
         </ul>
       </div>
@@ -24,7 +25,7 @@
         <div class="menu-left__title"><p>TÍNH NĂNG SẢN PHẨM</p></div>
         <div style="padding: 12px;">
         <?php 
-          foreach ($response["addons"] as $k => $v): ?>
+          foreach ($addons as $k => $v): ?>
           <div style="margin-bottom: 20px;">
             <p><?= $v["addon_name"] ?></p>
             <?php 
@@ -68,7 +69,7 @@
       <div class="menu-right__center">
         <!-- menu item -->
         <?php 
-        foreach ($response["products"] as $product): ?>
+        foreach ($products as $product): ?>
           <div class="menu__item">   
             <div class="menu__item__img-wrapper">
               <a href="">
@@ -102,15 +103,3 @@
   </main>
   <?php include_once __ROOT__ . "views/shared/footer/footer.view.php"; ?>
 </div>
-<!-- <script>
-  $("#menu_size_display").change(function() {
-    const selected_value = $(this).find(":selected").val();
-    const requestConfig = {
-      "method": "GET", 
-      "url": `http://localhost/pizza-complete-version/menu?limit=${selected_value}`;
-    };
-    $.ajax(requestConfig).done((response) => {
-      console.log("response:", response);
-    });
-  });
-</script> -->
