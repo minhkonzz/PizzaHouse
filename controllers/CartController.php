@@ -8,25 +8,19 @@
 
   class CartController extends Controller {
 
-    function __construct() {
-      parent::__construct();
-    }
-
     public function init(Request $req, $params = []) {
       $this->getCart($req, $params); 
     }
 
     public function getCart(Request $req, $params = []) {
       try {
-        $body_response = ["cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__]; 
-        if (parent::isJsonOnly($req, $body_response)) return (new Response($body_response))->withJson();
         parent::view(
           __ROOT__, 
-          "Pizza House Việt Nam - Giỏ hàng", 
+          [ "title" => "Giỏ hàng", "path" => ["Trang chủ", "Giỏ hàng"]], 
           "cart/cart.view.php", 
           "cart/cart.style.css", 
           "bundle.view.php",
-          new Response($body_response)
+          new Response()
         );      
       } catch (InternalErrorException $e) {
         return (new Response([], $e->getCode(), $e->getMessage()))->withJson();

@@ -40,10 +40,11 @@ $(document).ready(() => {
         }, {})
       }
     }).done((response) => {
-      const { code, message, body } = JSON.parse(response);
-      if (code === 200 && message === "200 OK") {
-        alert("Thêm giỏ hàng thành công")
-      }
+      console.log(response)
+      // const { code, message, body } = JSON.parse(response)
+      // if (code === 200 && message === "200 OK") {
+      //   alert("Thêm giỏ hàng thành công")
+      // }
     }).fail((jqXHR) => {
       console.log(jqXHR)
     })

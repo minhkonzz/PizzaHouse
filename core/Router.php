@@ -24,8 +24,7 @@
 
     function __call($method_name, $args) {
       $request_method = strtoupper($method_name);
-      if (!in_array($request_method, self::SUPPORT_HTTP_METHODS)) 
-        $this->handle(__EXCEPTION__, [new MethodNotAllowedException]);
+      if (!in_array($request_method, self::SUPPORT_HTTP_METHODS)) $this->handle(__EXCEPTION__, [new MethodNotAllowedException]);
       list($path, $handler) = $args; 
       $rtrim_path = rtrim($path);
       $this->routes[] = [

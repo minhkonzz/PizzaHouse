@@ -3,7 +3,7 @@
 
   // use PZHouse\Core\DataInstance;
 
-  require_once __ROOT__ . "core/DataInstance.php";
+  include_once __ROOT__ . "core/DataInstance.php";
 
   class Category extends DataInstance {
 

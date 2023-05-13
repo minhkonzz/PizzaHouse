@@ -6,9 +6,6 @@
   // use PZHouse\Core\Response; 
 
   class ServiceController extends Controller {
-    function __construct() {
-      parent::__construct();
-    }
 
     public function init(Request $req, $params = []) {
       parent::view(

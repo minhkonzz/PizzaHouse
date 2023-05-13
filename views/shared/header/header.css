@@ -318,23 +318,24 @@ header.sticky .nav__cart > ion-icon {
   }
 }
 
-@media (min-width: 960px) {
+@media (min-width: 480px) {
+
+}
+
+@media (min-width: 792px) {
    .header-above__main, 
    nav {
-      max-width: calc(100vw - 35px);
+      max-width: calc(100vw - 60px);
    }
+}
 
+@media (min-width: 960px) {
    nav ul, .nav__right {
       column-gap: 1.6rem;
    }
 }
 
 @media (min-width: 1024px) {
-   .header-above__main, 
-   nav {
-      max-width: calc(100vw - 60px);
-   }
-
    nav ul, .nav__right {
       column-gap: 1.8rem;
    }

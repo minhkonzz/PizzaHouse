@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0;">
-    <title><?= $page_name ?></title>
+    <title><?= PAGE_TITLE_PREFIX . $page_name["title"] ?></title>
     <style><?php include_once __ROOT__ . "views/global.css"; ?></style>
     <style>
       #content {

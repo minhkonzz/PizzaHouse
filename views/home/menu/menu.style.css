@@ -1,0 +1,135 @@
+.home__menu {
+   position: relative;
+   padding: 60px 0;   
+}
+
+.home__menu-bg {
+   position: absolute;
+   top: 0; 
+   left: 0;
+   bottom: 0;
+   right: 0; 
+   background-image: url("https://demo037051.web30s.vn/datafiles/web30s/upload/images/bg-menu.png");
+   opacity: .3;
+   z-index: -1;
+}
+
+.home__menu-main {
+   max-width: calc(100vw - 40px);
+   margin: 0 auto;
+}
+
+.home__menu-title {
+   text-align: center;
+   font-size: 2vw;
+   font-weight: 600;
+}
+
+.home__menu-tabs {
+   display: flex;
+   justify-content: center;
+   column-gap: 4rem;
+   margin-top: 32px;
+   text-align: center;
+}
+
+.home__menu-tab button {
+   font-size: 1.5vw;
+   font-style: italic;
+   font-weight: 600;
+   text-transform: uppercase;
+}
+
+.home__menu-main .list, 
+.home__menu-main .items {
+   display: flex;
+   align-items: center;
+}
+
+.home__menu-main .list {
+   margin-top: 20px;
+   justify-content: space-between;
+}
+
+.home__menu-main .items-container {
+   width: 70vw;
+   margin: 0 25px;
+   overflow: hidden;
+}
+
+.home__menu-main .items {
+   transition: all .3s;
+}
+
+.home__menu-main .item {
+   text-align: center;
+   border: 1px solid gray;
+   padding-bottom: 16px;
+   background: #fff;
+}
+
+.home__menu-main .item > *:not(:nth-child(2)) {
+   margin-top: 20px;
+}
+
+.item__image {
+   margin-top: 0 !important;
+}
+
+.item__image img {
+   width: 90%;
+}
+
+.item__name {
+   font-weight: 600;
+   font-size: 18px;
+}
+
+.item__price {
+   font-size: 17px;
+   color: var(--primary-color);
+}
+
+.item__desc {
+   line-height: 1.5;
+   font-size: 15px;
+   opacity: .8;
+}
+
+.home__menu-nav-button ion-icon {
+   font-size: 36px;
+}
+
+/* .home__menu-nav-button#next {
+   margin-left: 12px;
+}
+
+.home__menu-nav-button#prev {
+   margin-right: 12px;
+} */
+
+.item__detail-button {
+   padding: 10px 24px;
+   border-radius: 20px; 
+   background: var(--primary-color);
+   color: #fff;
+   font-size: 1.1vw;
+}
+
+@media (min-width: 960px) {
+   .home__menu-main {
+      max-width: calc(100vw - 60px);
+   }
+}
+
+@media (min-width: 1024px) {
+   .home__menu-main {
+      max-width: calc(100vw - 80px);
+   }
+}
+
+@media (min-width: 1450px) {
+   .home__menu-main {
+      max-width: var(--section-max-width);
+   }
+}

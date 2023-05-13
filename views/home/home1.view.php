@@ -4,4 +4,5 @@
    include_once __ROOT__ . "views/shared/header/header.view.php";
    include_once __ROOT__ . "views/home/banner/banner.view.php";
    include_once __ROOT__ . "views/home/welcome/welcome.view.php";
+   include_once __ROOT__ . "views/home/menu/menu.view.php";
 ?>

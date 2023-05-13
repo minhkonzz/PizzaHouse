@@ -1,13 +1,16 @@
 main {
-  padding: 75px 0;
+  padding: 15px 0;
 }
 
 .product-detail {
-  max-width: 1280px;
+  display: flex;
+  flex-direction: column-reverse;
+  max-width: calc(100vw - 30px);
   margin: 0 auto;
-  display: grid; 
-  grid-template-columns: 1fr 3fr; 
-  column-gap: 1.8rem;
+}
+
+#aside__main {
+  margin-top: 20px;
 }
 
 .aside__main__section:not(:last-child) {
@@ -48,7 +51,6 @@ main {
 }
 
 .aside__main__list li p {
-  line-height: 1.5; 
   text-transform: uppercase; 
   font-size: 13px; 
 }
@@ -57,20 +59,23 @@ main {
   font-weight: 500;
 }
 
+.aside__main__list li p,
 .articles li p {
-  font-weight: 600;
+  line-height: 1.8;
+}
+
+.articles li p {
+  margin-left: 10px;
 }
 
 .articles li {
   display: flex; 
+  align-items: center;
   margin: 6px 0;
 }
 
-.product-detail__main {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  column-gap: 1rem;
-  row-gap: 3rem;
+.product-detail__main-information {
+  margin-top: 30px;
 }
 
 .product-detail__main-image {
@@ -141,6 +146,9 @@ main {
 }
 
 .product-detail__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 14px 0;
 }
 
@@ -176,6 +184,66 @@ main {
 #product-detail__add-cart ion-icon {
   font-size: 18px;
   margin-right: 8px;
+}
+
+@media (min-width: 480px) {
+   main {
+      padding: 25px 0; 
+   } 
+}
+
+@media (min-width: 792px) {
+  .product-detail {
+    max-width: calc(100vw - 60px);
+    display: grid; 
+    grid-template-columns: 1fr 3fr; 
+    column-gap: 1.8rem;
+  }
+
+  #aside__main {
+    margin-top: 0;
+  }
+
+   main {
+      padding: 35px 0; 
+   }
+}
+
+@media (min-width: 960px) {
+   main {
+      padding: 40px 0;
+   }
+}
+
+@media (min-width: 1024px) {
+   main {
+      padding: 45px 0; 
+   } 
+
+   .product-detail__main {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      column-gap: 1rem;
+      row-gap: 3rem;
+   }
+
+   .product-detail__actions {
+      display: block;
+   }
+
+   .product-detail__main-information {
+      margin-top: 0;
+   }
+}
+
+@media (min-width: 1450px) {
+  .product-detail {
+    max-width: var(--section-max-width);
+  }
+
+   main {
+      padding: 50px 0;
+   }
 }
 
 

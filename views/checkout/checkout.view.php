@@ -5,10 +5,7 @@
       "short-banner/short-banner.view.php"
     ] as $shared) include_once __ROOT__ . "views/shared/" . $shared; 
   ?>
-  <main class="checkout">
-    <div class="checkout__header">
-      <p class="checkout__title">THANH TOÁN</p>
-    </div>
+  <main>
     <div class="checkout__main">
       <div class="checkout__main-left">
         <div class="checkout__section">
@@ -17,7 +14,7 @@
             <p class="checkout__section__header__title">THÔNG TIN KHÁCH HÀNG</p>
           </div>
           <div class="checkout__section__main">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem;">
+            <div class="customer__detail">
               <div>
                 <p class="checkout__section__main__title">NGƯỜI MUA HÀNG</p>
                 <input type="text" name="buyer_name" placeholder="Họ và tên">
@@ -36,7 +33,7 @@
             </div>
             <div style="margin-top: 22px;">
               <p class="checkout__section__main__title">ĐỊA CHỈ NHẬN HÀNG</p>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem;">
+              <div class="address__detail">
                 <input type="text" name="buyer_address" placeholder="Địa chỉ">
                 <select name="checkout_district">
                   <option value="Đống Đa">Đống Đa</option>
@@ -66,29 +63,29 @@
             <div>
               <?php foreach (array_filter($pay_methods, fn($e) => $e["is_online_pay"] === 0) as $pay_method): 
                 list("id" => $pay_method_id, "pay_method" => $method_name) = $pay_method ?>
-                <div>
+                <div style="display: flex;">
                   <input type="radio" name="checkout-pay-method" value="<?= $pay_method_id ?>">
-                  <button style="background: #1bbc9b; height: 42px; overflow: hidden; padding: 0 14px 0 0; position: relative; margin-left: 8px;">
-                    <span style="background: #129b7f; position: absolute; display: block; width: 50px; height: 300px; transform: translate(-40%, -40%) rotate(25deg);"></span>
-                    <p style="margin-left: 55px; font-size: 14px; color: #fff; font-weight: 700;"><?= $method_name ?></p>
+                  <button class="payment-button inst">
+                    <span class="payment-button__decor"></span>
+                    <p class="payment-button__txt"><?= $method_name ?></p>
                   </button>
                 </div>
               <?php endforeach ?>
             </div>
             <div>
-              <button style="background: #3199d8; height: 42px; overflow: hidden; padding: 0 14px 0 0; position: relative; margin-left: 8px;">
-                <span style="background: #1a7cbd; position: absolute; display: block; width: 50px; height: 300px; transform: translate(-40%, -40%) rotate(25deg);"></span>
-                <p style="margin-left: 55px; font-size: 14px; color: #fff; font-weight: 700;">Thanh toán trực tuyến</p>
+              <button class="payment-button onl">
+                <span class="payment-button__decor"></span>
+                <p class="payment-button__txt">Thanh toán trực tuyến</p>
               </button>
-              <ul id="online-payments" style="width: 320px; background: rgb(240, 240, 240); margin-top: 15px; padding: 0 12px;">
+              <ul id="online-payments">
                 <?php foreach (array_filter($pay_methods, fn($e) => $e["is_online_pay"] === 1) as $online_pay_method): 
                   list("id" => $online_pay_method_id, "pay_method" => $method_name, "thumbnail" => $pay_method_thumbnail) = $online_pay_method ?>
-                  <li style="position: relative; border-bottom: .8px solid rgb(220, 220, 220); padding: 0 12px; height: 40px;">
-                    <div style="position: absolute; display: flex; align-items: center; top: 50%; transform: translateY(-50%);">
+                  <li class="online-payment">
+                    <div class="online-payment__select">
                       <input type="radio" name="checkout-pay-method" value="<?= $online_pay_method_id ?>">
-                      <img style="margin-left: 12px;" width="60" src="<?= ROOT_CLIENT . "public/images/online-pays/" . $pay_method_thumbnail ?>" alt="">
+                      <img src="<?= ROOT_CLIENT . "public/images/online-pays/" . $pay_method_thumbnail ?>" alt="">
                     </div>
-                    <p style="position: absolute; right: 8%; font-size: 13px; opacity: .8; top: 50%; transform: translateY(-50%);"><?= $method_name ?></p>
+                    <p class="online-payment__txt"><?= $method_name ?></p>
                   </li>
                 <?php endforeach ?>
               </ul>
@@ -132,9 +129,9 @@
               </div>
             </div>
             <textarea id="checkout__order-note" placeholder="Ghi chú"></textarea>
-            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-              <button id="make-order-btn" type="submit">Thanh toán</button>
-              <button id="explore-more-btn"><a href="<?= ROOT_CLIENT . "thuc-don" ?>">XEM THÊM SẢN PHẨM</a></button>
+            <div class="checkout__confirm-buttons">
+              <button class="checkout__confirm-button" id="make-order-btn" type="submit">Thanh toán</button>
+              <button class="checkout__confirm-button" id="explore-more-btn"><a href="<?= ROOT_CLIENT . "thuc-don" ?>">XEM THÊM SẢN PHẨM</a></button>
             </div>
           </div>
         </div>

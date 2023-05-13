@@ -2,7 +2,7 @@
 
   // namespace PZHouse\Classes;
 
-  require_once __ROOT__ . "core/DataInstance.php";
+  include_once __ROOT__ . "core/DataInstance.php";
 
   class Order extends DataInstance {
 

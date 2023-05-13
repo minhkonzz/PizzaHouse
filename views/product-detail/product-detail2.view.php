@@ -83,12 +83,12 @@
                         "addon_val_price" => $addon_val_price, 
                         "apply_product_price" => $apply_product_price
                       ]); ?>
-                      <li><div class="product-detail__addon-option" data-addon="<?= htmlspecialchars($data_addon_selection, ENT_QUOTES, "UTF-8") ?>" ><?= $addon_val ?></div></li>
+                      <li><button class="product-detail__addon-option" data-addon="<?= htmlspecialchars($data_addon_selection, ENT_QUOTES, "UTF-8") ?>" ><?= $addon_val ?></button></li>
                   <?php endforeach ?>
                 </ul>
               </div>
           <?php endforeach ?>
-          <p class="product-detail__price"><b>Giá</b>: <span></span></p>
+          <p class="product-detail__price"><b>Giá</b>: <span><?= number_format($price) ?></span></p>
           <div class="product-detail__actions">
             <p>Chọn số lượng</p>
             <div>

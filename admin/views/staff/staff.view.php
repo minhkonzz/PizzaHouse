@@ -7,7 +7,10 @@
   </nav>
   <div style="display: flex; justify-content: space-between; align-items: center;">
     <h1>Quản lý nhân viên</h1>
-    <button id="add-employee-btn" type="button" class="btn btn-primary">Thêm nhân viên</button>
+    <button id="add-employee-btn" type="button" class="btn btn-primary">
+      <i style="margin-right: 4px;" class="bi bi-plus-circle"></i>
+      Thêm nhân viên
+    </button>
   </div>
 </div>
 <section class="section employees">
@@ -19,9 +22,9 @@
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="employee-roles-tab" data-bs-toggle="tab" data-bs-target="#employee-roles" type="button" role="tab" aria-controls="employee-roles" aria-selected="false">Bộ phận</button>
       </li>
-      <li class="nav-item" role="presentation">
+      <!-- <li class="nav-item" role="presentation">
         <button class="nav-link" id="employee-permissions-tab" data-bs-toggle="tab" data-bs-target="#employee-permissions" type="button" role="tab" aria-controls="employee-permissions" aria-selected="false">Phân quyền</button>
-      </li>
+      </li> -->
     </ul>
     <div class="tab-content pt-2" id="myTabContent">
       <div class="tab-pane fade show active" id="employee-list" role="tabpanel" aria-labelledby="employee-list-tab">
@@ -53,15 +56,14 @@
           <?php 
             list("staff" => $staff, "roles" => $roles) = $response->getBody();
             foreach ($staff as $s): 
-              $created_datetime = DateTime::createFromFormat("Y-m-d\TH:i:s.u\Z", $s["created"]);
-              list("employeeNumber" => $id, "firstName" => $first_name, "lastName" => $last_name) = $s["profile"] ?>
+              list("firstName" => $first_name, "lastName" => $last_name) = $s["profile"] ?>
               <tr class="table__row">
                 <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
-                <td><?= $s["staff_id"] ?></td>
-                <td><?= $s["name"] ?></td>
-                <td><?= $created_datetime->format("Y-m-d H:i:s") ?></td>
-                <td><?= $s["role"] ?></td>
-                <td><?= $s["is_activated"] ?></td>
+                <td><?= $s["id"] ?></td>
+                <td><?= $first_name . " " . $last_name ?></td>
+                <td><?= DateTime::createFromFormat("Y-m-d\TH:i:s.u\Z", $s["created"])->format("Y-m-d H:i:s") ?></td>
+                <td><?= "unknown role" ?></td>
+                <td><?= "activated" ?></td>
                 <td>
                   <button><i class="bi bi-pencil-square"></i></button>
                   <button><i class="bi bi-three-dots-vertical"></i></button>
@@ -88,11 +90,12 @@
         </div>
       </div>
       <div class="tab-pane fade" id="employee-roles" role="tabpanel" aria-labelledby="employee-roles-tab">
-        <!-- <table>
+        <table>
           <tr class="table__fields">
             <th></th>
             <th>Mã bộ phận</th>
             <th>Tên bộ phận</th>
+            <th>Thời gian tạo</th>
             <th>Số nhân viên</th>
             <th>Hành động</th>
           </tr>
@@ -100,16 +103,19 @@
             <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
             <td><input type="text" placeholder="Mã bộ phận"></td>
             <td><input type="text" placeholder="Tên bộ phận"></td>
+            <td><input type="date" placeholder="Thời gian tạo"></td>
             <td><input type="text" placeholder="Số nhân viên"></td>
             <td><button id="table__filter-btn">Tìm kiếm</button></td>
           </tr>
           <?php 
-            foreach ($roles as $role): ?>
+            foreach ($roles as $role): 
+              list("role_id" => $role_id, "role_name" => $role_name, "created" => $created, "role_count" => $role_count) = $role; ?>
               <tr class="table__row">
                 <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
-                <td><?= $role["role_id"] ?></td>
-                <td><?= $role["role"] ?></td>
-                <td><?= $role["total_staff"] ?></td>
+                <td><?= $role_id ?></td>
+                <td><?= $role_name ?></td>
+                <td><?= DateTime::createFromFormat("Y-m-d\TH:i:s.u\Z", $created)->format("Y-m-d H:i:s") ?></td>
+                <td><?= number_format($role_count) ?></td>
                 <td>
                   <button><i class="bi bi-pencil-square"></i></button>
                   <button><i class="bi bi-three-dots-vertical"></i></button>
@@ -133,10 +139,10 @@
               </a>
             </li>
           </ul>
-        </div> -->
+        </div>
       </div>
       <div class="tab-pane fade" id="employee-permissions" role="tabpanel" aria-labelledby="employee-permissions-tab">
-        <div style="display: grid; grid-template-columns: 1fr 3.5fr; column-gap: 1rem; margin-top: 8px;">
+        <!-- <div style="display: grid; grid-template-columns: 1fr 3.5fr; column-gap: 1rem; margin-top: 8px;">
           <div>
             <ul style="border: .5px solid rgb(235, 235, 235); background-color: #fff; border-radius: 8px;">
               <li><button style="padding: 12px; border-bottom: .5px solid rgb(235, 235, 235); font-size: 13px; width: 100%; text-align: left;">SuperAdmin</button></li>
@@ -167,9 +173,9 @@
               </tr>
             </table>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 </section>
-<script></script>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/staff.js" ?>"></script>

@@ -10,24 +10,17 @@
 
 	class OrderController extends Controller {
 
-		function __construct() {
-			parent::__construct();
-		}
-
 		public function init(Request $req = null, $params = []) {
 			$this->toCheckout($req, $params);
 		}
 
 		public function toCheckout(Request $req, $params = []) {
 			try {
-				$body_response = [
-					"cart" => $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__, 
-					"pay_methods" => PaymentModel::getAllPaymentMethods()
-				];
+				$body_response = [ "pay_methods" => PaymentModel::getAllPaymentMethods() ];
 				if (parent::isJsonOnly($req, $body_response)) return (new Response($body_response))->withJson();
 				parent::view(
 					__ROOT__,
-					"Pizza House Việt Nam - Thanh toán",
+					["title" => "Thanh toán", "path" => ["Trang chủ", "Giỏ hàng", "Thanh toán"]],
 					"checkout/checkout.view.php",
 					"checkout/checkout.style.css",
 					"bundle.view.php", 

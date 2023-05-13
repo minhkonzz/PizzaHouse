@@ -40,6 +40,7 @@
             <ion-icon name="call"></ion-icon>
             <span class="nav__right__title">19001984</span>
          </div>
+         <?php if ($view_path !== __ROOT__ . "views/cart/cart.view.php") { ?>
          <div class="nav__right__p nav__cart">
             <?php 
                list("items" => $cart_items, "cart_total" => $cart_total) = $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__;
@@ -74,6 +75,7 @@
                </div>
             </div>
          </div>
+         <?php } ?>
          <div class="nav__right__p nav__user">
             <button class="nav__login">Liên hệ đặt bàn</button>
          </div>

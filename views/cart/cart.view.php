@@ -5,43 +5,58 @@
       "short-banner/short-banner.view.php"
     ] as $shared) include_once __ROOT__ . "views/shared/" . $shared;
   ?>
-  <main id="cart-main">
-    <p class="cart-main__title">GIỎ HÀNG</p>
-    <div class="cart-main__detail">
-    <?php 
-      if (count($cart_items) > 0) { ?>
-      <div class="cart-main__items">
-        <?php foreach ($cart_items as $cart_item_id => $cart_item): 
-          list("product_image" => $product_image, "product_name" => $product_name, "addons" => $product_addons, "total_price" => $total_price, "qty_add" => $qty_add) = $cart_item; ?>
-          <div class="cart-main__item">
-            <div class="cart-main__item__overview">
-              <img src="<?= ROOT_CLIENT . "public/images/products/" . $product_image ?>" alt="__l">
-              <div>
-                <p class="cart-main__item__name"><?= $product_name ?></p>
-                <p class="cart-main__item__options"><?= implode(", ", $product_addons) ?></p>
+  <main>
+    <div id="cart-main">
+      <p class="cart-main__title">GIỎ HÀNG</p>
+      <div class="cart-main__detail">
+      <?php 
+        list("items" => $cart_items, "cart_total" => $cart_total) = $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__;
+        if (count($cart_items) > 0) { ?>
+        <div class="cart-main__items">
+          <?php foreach ($cart_items as $cart_item_id => $cart_item): 
+            list("product_image" => $product_image, "product_name" => $product_name, "addons" => $product_addons, "total_price" => $total_price, "qty_add" => $qty_add) = $cart_item; ?>
+            <div class="cart-main__item">
+              <div class="cart-main__item__overview">
+                <img src="<?= ROOT_CLIENT . "public/images/products/" . $product_image ?>" alt="__l">
+                <div>
+                  <p class="cart-main__item__name"><?= $product_name ?></p>
+                  <p class="cart-main__item__options"><?= implode(", ", $product_addons) ?></p>
+                </div>
+              </div>
+              <div class="cart-main__item__calc">
+                <div class="cart-main__item__prices">
+                  <div class="cart-main__item__price__part">
+                    <span>Đơn giá:</span>
+                    <span><?= number_format($total_price) ?>đ</span>
+                  </div>
+                  <div class="cart-main__item__price__part">
+                    <span>Số lượng</span>
+                    <input data-cart-id="<?= $cart_item_id ?>" class="cart-qty-inp" style="border: .5px solid gray; margin-left: 8px; padding: 10px 8px; width: 100px;" type="number" value="<?= $qty_add ?>" min="1" max="100">
+                  </div>
+                  <div class="cart-main__item__price__part">
+                    <span>Thành tiền:</span>
+                    <span><?= number_format($total_price * $qty_add) ?>đ</span>
+                  </div>
+                </div>
+                <div class="remove-cart-item">
+                  <button class="remove-cart-item-btn icon" data-cart-id="<?= $cart_item_id ?>"><ion-icon name="trash"></ion-icon></button>
+                  <button class="remove-cart-item-btn norm" data-cart-id="<?= $cart_item_id ?>">
+                    <ion-icon name="trash"></ion-icon>
+                    Xóa sản phẩm
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="cart-main__item__prices">
-              <p class="cart-main__item__price-origin">Đơn giá: <?= number_format($total_price) ?>đ</p>
-              <div class="cart-main__item__qty">
-                <span style="font-size: 13px; font-weight: 600;">Số lượng</span>
-                <input data-cart-id="<?= $cart_item_id ?>" class="cart-qty-inp" style="border: .5px solid gray; margin-left: 8px; padding: 10px 8px; width: 100px;" type="number" value="<?= $qty_add ?>" min="1" max="100">
-              </div>
-              <p style="font-size: 13px; font-weight: 600; margin: 12px 0;">Thành tiền: <?= number_format($total_price * $qty_add) ?>đ</p>
-            </div>
-            <div style="padding: 0 22px;">
-              <button class="remove-cart-item-btn" data-cart-id="<?= $cart_item_id ?>" style="color: var(--primary-color); font-size: 24px;"><ion-icon name="trash"></ion-icon></button>
-            </div>
+          <?php endforeach ?>
+        </div>
+        <?php } else echo '<p style="text-align: center; opacity: .6; margin-top: 15px;">Không có dữ liệu</p>' ?>
+        <div class="cart-main__confirm">
+          <button class="cart__button" id="update-cart-btn">CẬP NHẬT GIỎ HÀNG</button>
+          <p class="cart-main__total">Tạm tính: <?= number_format($cart_total) ?>đ</p>
+          <div class="cart__confirm-buttons">
+            <button class="cart__button explore-more"><a href="<?= ROOT_CLIENT . "thuc-don" ?>">XEM THÊM SẢN PHẨM</a></button>
+            <button class="cart__button"><a href="<?= ROOT_CLIENT . "thanh-toan" ?>">THANH TOÁN</a></button>
           </div>
-        <?php endforeach ?>
-      </div>
-      <?php } else echo '<p style="text-align: center; opacity: .6;">Không có dữ liệu</p>' ?>
-      <div style="margin-top: 20px; align-self: flex-end; text-align: right;">
-        <button id="update-cart-btn" style="padding: 14px 20px; background-color: var(--primary-color); margin-bottom: 60px;">CẬP NHẬT GIỎ HÀNG</button>
-        <p style="font-size: 16px; color: var(--primary-color); font-weight: 600;">Tạm tính: <?= number_format($cart_total) ?>đ</p>
-        <div style="margin-top: 20px;">
-          <button style="padding: 14px 20px; background-color: var(--primary-color); margin-right: 10px;"><a style="color: #fff; font-weight: 600;">XEM THÊM SẢN PHẨM</a></button>
-          <button style="padding: 14px 20px; background-color: var(--primary-color);"><a href="<?= ROOT_CLIENT . "thanh-toan" ?>" style="color: #fff; font-weight: 600;">THANH TOÁN</a></button>
         </div>
       </div>
     </div>

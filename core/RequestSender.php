@@ -3,10 +3,14 @@
       private $url;
       private $curl;
 
-      public function __construct($url) {
+      function __construct($url) {
          $this->url = $url;
          $this->curl = curl_init();
          curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
+      }
+
+      public function setUrl($url) {
+         $this->url = $url;
       }
 
       public function get($headers = array()) {

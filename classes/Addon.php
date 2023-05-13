@@ -1,5 +1,5 @@
 <?php 
-   require_once __ROOT__ . "core/DataInstance.php";
+   include_once __ROOT__ . "core/DataInstance.php";
 
    class Addon extends DataInstance {
 

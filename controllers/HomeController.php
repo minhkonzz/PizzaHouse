@@ -8,13 +8,18 @@
   class HomeController extends Controller {
 
     public function init(Request $req, $params = []) {
+      $categories = CategoryModel::selectAllCategories();
+      $body_response = [
+         "categories" => $categories, 
+         "products_by_category" => ProductModel::selectProductsByCategory($categories[0]["id"])
+      ];
       parent::view(
         __ROOT__,
-        "Pizza House Việt Nam - Trang chủ", 
+        [ "title" => "Trang chủ" ], 
         "home/home1.view.php",
         "", 
         "bundle.view.php",
-        new Response()
+        new Response($body_response)
       );
     }
   }
