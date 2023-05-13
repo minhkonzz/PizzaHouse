@@ -40,6 +40,7 @@ ul, ol {
 
 :root {
   --primary-color: #C90014;
+  --secondary-color: #fac122;
   --green-color: #548c1d;
   --primary-hover-color: #a50414;
   --delay: all .2s ease;

@@ -15,7 +15,7 @@
         ];
         parent::view(
           ROOT_ADMIN,
-          "Pizza House VietNam - Quản lý nhân viến", 
+          ["title" => "Quản lý nhân viên"], 
           "staff/staff.view.php", 
           "staff/staff.style.css",
           "bundle.view.php",
@@ -30,7 +30,7 @@
       try {
         parent::view(
           ROOT_ADMIN, 
-          "Pizza House Việt Nam - Thêm bộ phận",
+          ["title" => "Thêm bộ phận"],
           "staff/add-role.view.php", 
           "staff/add-role.style.css", 
           "bundle.view.php", 

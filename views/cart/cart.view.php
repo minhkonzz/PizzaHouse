@@ -63,4 +63,3 @@
   </main>
   <?php include_once __ROOT__ . "views/shared/footer/footer.view.php"; ?>
 </div>  
-<script src="<?= ROOT_CLIENT . "public/scripts/cart/cart.js" ?>"></script>

@@ -10,7 +10,8 @@
       if (parent::isJsonOnly($req, $addons)) return (new Response($addons))->withJson();
       parent::view(
         ROOT_ADMIN, 
-        "Pizza House Việt Nam - Quản lý thuộc tính sản phẩm", 
+        "Pizza House Việt Nam - Quản lý thuộc tính sản phẩm",
+        ["title" => "Quản lý thuộc tính sản phẩm"], 
         "catalog/addons/addons.view.php",
         "catalog/addons/addons.style.css",
         "bundle.view.php",
@@ -19,7 +20,6 @@
     }
 
     public function getAddonById(Request $req, $params = []) {
-      // return (new Response(["name" => "Minh"]))->withJson();
       try {
         $addon = AddonModel::selectAddonById($params["addon_id"]);
         if (empty($addon)) throw new InternalErrorException();

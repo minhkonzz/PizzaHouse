@@ -1,5 +1,5 @@
 $(document).ready(() => {
-   $(".wk2").on("focusin focusout", ".custom__field", (e) => {
+   $(".wk2").delegate(".custom__field", "focusin focusout", (e) => {
       const styleSet = e.type === "focusin" ? 
       [
         { prop: "top", value: 0 }, 

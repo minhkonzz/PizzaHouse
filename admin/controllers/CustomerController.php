@@ -12,7 +12,7 @@
         if (parent::isJsonOnly($req, $body_response)) return (new Response($body_response))->withJson();
         parent::view(
           ROOT_ADMIN, 
-          "Pizza House Việt Nam - Quản lý khách hàng", 
+          ["title" => "Quản lý khách hàng"], 
           "customers/customers.view.php",
           "customers/customers.style.css",
           "bundle.view.php",
@@ -28,7 +28,8 @@
         $customer = CustomerModel::selectCustomerById($params["customer_id"]);
         if (parent::isJsonOnly($req, $customer)) return (new Response($customer))->withJson();
         parent::view(
-          "Pizza House Việt Nam - Quản lý khách hàng", 
+          ROOT_ADMIN,
+          ["title" => "Quản lý khách hàng"], 
           "customers/customers.view.php",
           "customers/customers.style.css",
           "bundle.view.php",

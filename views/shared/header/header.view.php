@@ -50,28 +50,28 @@
             <span class="nav__cart__title-md-sm nav__right__title"><?= $cart_qty ?></span>
             <span class="nav__cart__title-lg nav__right__title"><?= $cart_qty ?> số lượng - <?= number_format($cart_total) ?>đ</span>
             <div class="nav__cart__view">
-               <div>
+               <div class="cart-main__items">
                   <?php 
-                      foreach ($cart_items as $cart_item): 
+                     foreach ($cart_items as $cart_item_id => $cart_item): 
                         list("product_image" => $product_image, "product_name" => $product_name, "qty_add" => $qty_add, "addons" => $addons, "total_price" => $total_price) = $cart_item; ?>
                         <div class="nav__cart-item">
-                            <img src="<?= ROOT_CLIENT . "public/images/products/" . $product_image ?>" alt="__k">
-                            <div class="nav__cart-item__detail">
-                              <p><?= $product_name ?> x <?= number_format($qty_add) ?></p>
-                              <p><?= implode(", ", $addons) ?></p>
-                              <p><?= number_format($total_price) ?>đ</p>
-                            </div>
-                            <button><a href="#"><ion-icon name="trash"></ion-icon></a></button>
+                           <img src="<?= ROOT_CLIENT . "public/images/products/" . $product_image ?>" alt="__k">
+                           <div class="nav__cart-item__detail">
+                           <p><?= $product_name ?> x <?= number_format($qty_add) ?></p>
+                           <p><?= implode(", ", $addons) ?></p>
+                           <p><?= number_format($total_price) ?>đ</p>
+                           </div>
+                           <button class="remove-cart-item-btn" data-cart-id="<?= $cart_item_id ?>"><ion-icon name="trash"></ion-icon></button>
                         </div>
                   <?php endforeach ?>
                </div>
-               <div class="nav__cart-item__total">
+               <div class="nav__cart__total">
                   <span>Tổng tiền:</span>
                   <span><?= number_format($cart_total) ?>đ</span>
                </div>
-               <div class="nav__cart-item__options">
-                  <button class="nav__cart-item__option"><a href="./gio-hang" href="#">GIỎ HÀNG</a></button>
-                  <button class="nav__cart-item__option"><a href="./thanh-toan" href="#">THANH TOÁN</a></button>
+               <div class="nav__cart__options">
+                  <button class="nav__cart__option"><a href="./gio-hang" href="#">GIỎ HÀNG</a></button>
+                  <button class="nav__cart__option"><a href="./thanh-toan" href="#">THANH TOÁN</a></button>
                </div>
             </div>
          </div>
@@ -83,3 +83,4 @@
    </nav>
 </header>
 <script src="<?= ROOT_CLIENT . "public/scripts/scroll.js" ?>"></script>
+<script src="<?= ROOT_CLIENT . "public/scripts/cart.js" ?>"></script>

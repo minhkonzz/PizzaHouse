@@ -12,7 +12,7 @@
         if (parent::isJsonOnly($req, $categories)) return (new Response($categories))->withJson();
         parent::view(
           ROOT_ADMIN,
-          "Pizza House VietNam - Quản lý danh mục thực đơn",
+          ["title" => "Quản lý danh mục thực đơn"],
           "catalog/categories/categories.view.php",
           "catalog/categories/categories.style.css",
           "bundle.view.php",

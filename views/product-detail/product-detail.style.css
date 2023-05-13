@@ -174,7 +174,7 @@ main {
   display: flex;
   align-items: center;
   padding: 10px 14px;
-  background-color: #fac122;
+  background-color: var(--secondary-color);
   margin-left: 10px;
   text-transform: uppercase;
   font-weight: 600;

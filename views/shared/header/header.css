@@ -1,3 +1,9 @@
+
+@keyframes nav__cart__view-anim {
+  from { top: 55px; }
+  to { top: 36px; }
+}
+
 header {
   width: 100%;
   position: fixed;
@@ -8,7 +14,7 @@ header {
 
 .header-above {
   height: 50px; 
-  background-color: var(--primary-color);
+  background: var(--primary-color);
 }
 
 #sidebar-nav__btn ion-icon {
@@ -22,8 +28,8 @@ header {
 nav, 
 .nav__right__p,
 .nav__cart-item,
-.nav__cart-item__total,
-.nav__cart-item__options {
+.nav__cart__total,
+.nav__cart__options {
   display: flex;
   align-items: center;
 }
@@ -53,8 +59,8 @@ header.sticky .nav__center {
 
 nav,
 .header-above__main,
-.nav__cart-item__total,
-.nav__cart-item__options {
+.nav__cart__total,
+.nav__cart__options {
   justify-content: space-between; 
 }
 
@@ -73,7 +79,7 @@ nav,
 .header-above__left p, 
 nav ul a,
 .nav__cart-item__detail p:nth-child(1),
-.nav__cart-item__option a {
+.nav__cart__option a {
   font-weight: 600;
 }
 
@@ -129,7 +135,7 @@ nav ul {
 nav ul a {
   text-transform: uppercase;
   font-size: 14px;
-}
+} 
 
 .nav__center {
   max-width: 9vw;
@@ -142,7 +148,6 @@ nav ul a {
 
 .nav__center img {
   width: 100%;
-  /* height: 100%; */
 }
 
 header, nav, .nav__center img {
@@ -166,9 +171,10 @@ header, nav, .nav__center img {
   position: absolute;
   width: 350px;
   right: -20%;
-  top: 40px;
   padding: 12px;
-  border: .8px solid gray;
+  top: 36px;
+  border: .8px solid rgb(231, 231, 231);
+  animation: nav__cart__view-anim .8s; 
 }
 
 .nav__cart:hover .nav__cart__view,
@@ -178,7 +184,8 @@ header, nav, .nav__center img {
 
 .nav__cart-item {
   padding: 8px 0; 
-  border-bottom: .8px solid gray;
+  border-bottom: .8px solid rgb(213, 213, 213);
+  column-gap: .5rem;
 }
 
 .nav__cart-item img {
@@ -187,8 +194,8 @@ header, nav, .nav__center img {
   border: .8px solid rgb(230, 230, 230);
 }
 
-.nav__cart-item__detail {
-  margin-left: 8px;
+.remove-cart-item-btn {
+  color: var(--primary-color);
 }
 
 .nav__cart-item__detail p {
@@ -214,27 +221,32 @@ header, nav, .nav__center img {
   font-size: 13px; 
 }
 
-.nav__cart-item__total {
-  border-top: .8px solid gray; 
-  border-bottom: .8px solid gray; 
+.nav__cart__total {
+  border-bottom: .8px solid rgb(213, 213, 213); 
   padding: 20px 0;
 }
 
-.nav__cart-item__options {
+.nav__cart__options {
   margin-top: 10px;
 }
 
-.nav__cart-item__option, 
+.nav__cart__option, 
 .nav__login {
-  background-color: var(--primary-color);
+  background: var(--primary-color);
 }
 
-.nav__cart-item__option {
+.nav__cart__option {
   width: 45%; 
   padding: 15px 0; 
+  transition: .15s;
 }
 
-.nav__cart-item__option a {
+.nav__cart__option:hover {
+  background: var(--secondary-color);
+  color: #000;
+}
+
+.nav__cart__option a {
   text-transform: uppercase; 
   font-size: 14px; 
 }
@@ -250,7 +262,7 @@ nav ul a,
 .nav__cart > span,
 .nav__cart > ion-icon,
 .nav__login,
-.nav__cart-item__option a {
+.nav__cart__option a {
   color: #fff;
 }
 
@@ -277,10 +289,6 @@ header.sticky .nav__cart > ion-icon {
 .header-above__center ion-icon {
   color: #fff;
   font-size: 22px;
-}
-
-@media (min-width: 320px) {
-
 }
 
 @media (min-width: 480px) {

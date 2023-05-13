@@ -15,7 +15,7 @@
         if (parent::isJsonOnly($req, $body_response)) return (new Response($body_response))->withJson();
         parent::view(
           ROOT_ADMIN, 
-          "Pizza House Việt Nam - Quản lý đặt hàng", 
+          ["title" => "Quản lý đặt hàng"], 
           "orders/orders.view.php", 
           "orders/orders.style.css", 
           "bundle.view.php", 
@@ -35,7 +35,7 @@
         if (parent::isJsonOnly($req, $body_response)) return (new Response($body_response))->withJson(); 
         parent::view(
           ROOT_ADMIN, 
-          "Pizza House Việt Nam - Đơn hàng", 
+          ["title" => "Đơn hàng " . $params["order_id"]], 
           "orders/order.view.php", 
           "orders/order.style.css", 
           "bundle.view.php",

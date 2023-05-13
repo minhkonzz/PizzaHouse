@@ -14,12 +14,11 @@ $(document).ready(() => {
       url: `http://localhost/pizza-complete-version/gio-hang/${cartItemId}`, 
       method: "DELETE"
     }).done((response) => {
-      const { code, message, body } = JSON.parse(response)
-      if (code === 200 && message === "200 OK") 
-        alert("Xóa giỏ hàng thành công")
+      const { code, message } = JSON.parse(response)
+      if (code === 200 && message === "200 OK") alert("Xóa giỏ hàng thành công")
     }).fail((jqXHR) => {
       console.log(jqXHR)
-    })
+    })              
   })
 
   $("#update-cart-btn").click(() => {
@@ -28,10 +27,8 @@ $(document).ready(() => {
       method: "PUT", 
       data: JSON.stringify(cartUpdates)
     }).done((response) => {
-      const { code, message, body } = JSON.parse(response);
-      console.log("response:", response)
-      if (code === 200 && message === "200 OK") 
-        alert("Update giỏ hàng thành công")
+      const { code, message } = JSON.parse(response);
+      if (code === 200 && message === "200 OK") alert("Update giỏ hàng thành công")
     }).fail((jqXHR) => {
       console.log(jqXHR)
     })

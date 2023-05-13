@@ -104,5 +104,5 @@
     </div>
   </main>
 </div>
-<script src="<?= ROOT_CLIENT . "public/scripts/product-detail/product-detail1.js"?>"></script>
+<script src="<?= ROOT_CLIENT . "public/scripts/product-detail1.js"?>"></script>
 

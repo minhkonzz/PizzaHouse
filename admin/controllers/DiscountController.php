@@ -12,7 +12,7 @@
         if (parent::isJsonOnly($req, $discounts)) return (new Response($discounts))->withJson();
         parent::view(
           ROOT_ADMIN,
-          "Pizza House VietNam - Quản lý ưu đãi - dịch vụ",
+          ["title" => "Quản lý ưu đãi - dịch vụ"],
           "catalog/discounts-services/discounts-services.view.php",
           "catalog/discounts-services/discounts-services.style.css", 
           "bundle.view.php",
@@ -26,11 +26,11 @@
     public function redirectToAddDiscount(Request $req, $params = []) {
       parent::view(
         ROOT_ADMIN, 
-        "Pizza House Việt Nam - Tạo ưu đãi", 
+        ["title" => "Thêm ưu đãi"], 
         "catalog/discounts-services/discount-add.view.php", 
         "catalog/discounts-services/discount-add.style.css",
         "bundle.view.php",
-        new Response([])
+        new Response()
       );
     }
   }
