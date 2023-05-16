@@ -255,24 +255,24 @@ main {
   }
 
   .checkout__main {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    column-gap: 1.5rem;
+     display: grid;
+     grid-template-columns: 1.5fr 1fr;
+     column-gap: 1.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   main {
-    padding: 45px 0; 
+     padding: 45px 0; 
   }
 }
 
 @media (min-width: 1450px) {
-  main {
-    padding: 50px 0;
-  }
+   main {
+      padding: 50px 0;
+   }
 
-  .checkout__main {
-    max-width: var(--section-max-width);
-  }
+   .checkout__main {
+      max-width: var(--section-max-width);
+   }
 }

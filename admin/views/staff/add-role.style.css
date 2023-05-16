@@ -1,4 +1,6 @@
 .add-role__title {
+   display: flex;
+   justify-content: space-between;
    font-weight: 600;
    font-size: 18px;
    margin-bottom: 7px;
@@ -15,7 +17,7 @@
    padding: 22px;
 }
 
-.wk2 {
+.add-role__section__group {
    display: grid; 
    grid-template-columns: 1fr 1fr;
    column-gap: 1.5rem;
@@ -25,11 +27,11 @@
    position: relative;
 }  
 
-.wk2 .field__wrapper {
+.field__wrapper {
    height: 48px;
 }
 
-.wk3 .field__wrapper {
+.field__wrapper.txtarea {
    height: 120px;
 }
  
@@ -55,17 +57,17 @@
    font-size: 15px;
 }
 
-.wk2 .field__placeholder {
+.field__placeholder {
    top: 50%;
    transform: translateY(-50%); 
 }
 
-.wk3 {
-   margin-top: 30px;
+.field__wrapper[data-ident="role-desc"] {
+   margin-top: 20px;
 }
 
-.wk3 .field__placeholder {
-   top: 10px;
+.field__wrapper.txtarea .field__placeholder {
+   top: 20px;
 }
  
 .custom__field:disabled ~ .field__placeholder {
@@ -108,3 +110,15 @@
    background: rgb(76, 181, 242);
 }
 
+.spinner {
+   margin: 0 auto;
+}
+
+.add-role__dialog__employee {
+   padding: 16px 12px; 
+   display: flex; 
+   justify-content: space-between; 
+   align-items: center; 
+   border-radius: 7px; 
+   box-shadow: 0 2px 8px rgb(230, 230, 230);
+}

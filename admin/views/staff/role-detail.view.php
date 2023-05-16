@@ -1,23 +1,24 @@
+<?php list("id" => $role_id, "name" => $role_name, "description" => $role_desc) = $response->getBody(); ?>
 <div class="pagetitle">
    <nav>
       <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="<?= ROOT_ADMIN_CLIENT ?>">Bảng điều khiển</a></li>
          <li class="breadcrumb-item"><a href="<?= ROOT_ADMIN_CLIENT . "quan-ly-nhan-vien" ?>">Quản lý nhân viên</a></li>
-         <li class="breadcrumb-item active">Thêm bộ phận nhà hàng</li>
+         <li class="breadcrumb-item active">Cập nhật bộ phận <?= $role_id ?></li>
       </ol>
    </nav>
-  <h1>Thêm bộ phận nhà hàng</h1>
+  <h1>Cập nhật bộ phận <?= $role_id ?></h1>
 </div>
-<section class="section add-role">
+<section class="section add-role" data-role-id="<?= $role_id ?>">
    <div class="add-role__section">
       <p class="add-role__title">Thông tin cơ bản</p>
       <div class="add-role__section__about">
          <div class="field__wrapper" data-ident="role-name">
-            <input class="custom__field" type="text">
+            <input class="custom__field" type="text" value="<?= $role_name ?>">
             <label class="field__placeholder">Tên bộ phận</label>
          </div>
          <div class="field__wrapper txtarea" data-ident="role-desc">
-            <input class="custom__field" type="text">
+            <input class="custom__field" type="text" value="<?= $role_desc ?>">
             <label class="field__placeholder">Thêm mô tả</label>
          </div>
       </div>
@@ -53,25 +54,8 @@
             </div>
          </div>
       </p>
-      <table>
-         <tr class="table__fields">
-            <th></th>
-            <th>Mã nhân viên</th>
-            <th>Họ và tên</th>
-            <th>Thời gian tạo</th>
-            <th>Hành động</th>
-         </tr>
-         <tr class="table__row filters">
-            <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
-            <td><input type="text" placeholder="Mã nhân viên"></td>
-            <td><input type="text" placeholder="Họ và tên"></td>
-            <td><input type="date" placeholder="Thời gian tạo"></td>
-            <td><button id="employees__filter-btn">Tìm kiếm</button></td>
-         </tr>
-      </table>
-      <div style="margin-top: 25px; height: 35px; text-align: center;">
-         <button><i class="bi bi-caret-left-fill"></i></button>
-         <button><i class="bi bi-caret-right-fill"></i></button>
+      <div class="role__employees">
+         <div class="spinner"></div>
       </div>
    </div>
    <div class="add-role-actions">
@@ -80,4 +64,4 @@
    </div>
 </section>
 <script src="<?= ROOT_ADMIN_CLIENT . "public/js/widgets.js" ?>"></script>
-<script src="<?= ROOT_ADMIN_CLIENT . "public/js/add-role.js" ?>"></script>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/role-detail.js" ?>"></script>

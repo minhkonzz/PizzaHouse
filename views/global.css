@@ -23,6 +23,7 @@ button, input, select, textarea {
 
 a {
   text-decoration: none;
+  color: #000;
 }
 
 input[type=text], input[type=password], input[type=date], select, textarea {

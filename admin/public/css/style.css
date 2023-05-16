@@ -3,7 +3,6 @@
 --------------------------------------------------------------*/
 :root {
   scroll-behavior: smooth;
-  --primary-color: #548c1d;
 }
 
 body {
@@ -138,6 +137,21 @@ table td {
 
 section {
   margin-top: 20px;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 4px solid #ccc;
+  border-top-color: #333;
+  animation: spinner 0.8s ease-in-out infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /*--------------------------------------------------------------

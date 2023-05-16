@@ -12,4 +12,23 @@ $(document).ready(() => {
          window.location.href = "http://localhost/pizza-complete-version/admin/quan-ly-nhan-vien/them-bo-phan"
       })
    })
+
+   $("#employee-roles").delegate(".remove-role-btn", "click", function() {
+      const roleId = $(this).data("role-id")
+      $(".modal-body").html(`<p>Bạn có chắc muốn xóa bộ phận ${roleId}</p>`)
+      $("#confirm-btn").attr("data-role-id", roleId)
+      $(".modal").modal("show")
+   })
+
+   $("#confirm-btn").click(function() {
+      const roleId = $(this).data("role-id")
+      $.ajax({
+         url: `http://localhost/pizza-complete-version/admin/quan-ly-nhan-vien/bo-phan/${roleId}`,
+         method: "DELETE"
+      }).done((response) => {
+         $(".modal").modal("hide")
+      }).fail((jqXHR) => {
+         console.log(jqXHR)
+      })
+   })
 })

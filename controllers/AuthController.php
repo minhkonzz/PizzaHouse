@@ -14,7 +14,7 @@
     public function init(Request $req, $params = []) {
       parent::view(
         __ROOT__, 
-        "Pizza House Việt Nam - Đăng nhập",
+        ["title" => "Đăng nhập"],
         "auth/auth.view.php",
         "auth/auth.style.css", 
         "bundle.view.php", 
@@ -39,7 +39,8 @@
         $token->setToken($encrypted_token);
         setcookie("auth_token", $token->getToken(), $token->getExpireAt(), "/", "", true, true);
         parent::view(
-          "PizzaHouse VietNam - Trang chủ", 
+          __ROOT__,
+          ["title" => "Trang chủ"], 
           "home/home.view.php",
           "", 
           "bundle.view.php",
@@ -52,10 +53,10 @@
       catch (EncryptException $e) {}
     }
 
-    public function signup(Request $req, $params = []) {
+    public function register(Request $req, $params = []) {
       parent::view(
         __ROOT__, 
-        "Pizza House Việt Nam - Đăng nhập",
+        ["title" => "Đăng ký"],
         "auth/auth.view.php",
         "auth/auth.style.css", 
         "bundle.view.php", 

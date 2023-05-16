@@ -109,6 +109,7 @@
           </tr>
           <?php 
             foreach ($roles as $role): 
+              if ($role === null) continue;
               list("role_id" => $role_id, "role_name" => $role_name, "created" => $created, "role_count" => $role_count) = $role; ?>
               <tr class="table__row">
                 <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
@@ -117,12 +118,27 @@
                 <td><?= DateTime::createFromFormat("Y-m-d\TH:i:s.u\Z", $created)->format("Y-m-d H:i:s") ?></td>
                 <td><?= number_format($role_count) ?></td>
                 <td>
-                  <button><i class="bi bi-pencil-square"></i></button>
-                  <button><i class="bi bi-three-dots-vertical"></i></button>
+                  <button><a href="<?= ROOT_ADMIN_CLIENT . "quan-ly-nhan-vien/bo-phan/$role_id" ?>"><i class="bi bi-pencil-square"></i></a></button>
+                  <button class="remove-role-btn" data-role-id="<?= $role_id ?>" ><i class="bi bi-three-dots-vertical"></i></button>
                 </td>
               </tr>
           <?php endforeach ?>
         </table>
+        <div class="modal fade" id="verticalycentered" tabindex="-1" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Xóa bộ phận</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                  <input id="confirm-btn" type="submit" class="btn btn-primary" value="Đồng ý">
+                </div>
+            </div>
+          </div>
+        </div>
         <div class="pages__list">
           <ul class="pagination">
             <li class="page-item">
@@ -178,4 +194,4 @@
     </div>
   </div>
 </section>
-<script src="<?= ROOT_ADMIN_CLIENT . "public/js/staff.js" ?>"></script>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/staff3.js" ?>"></script>
