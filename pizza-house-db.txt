@@ -72,7 +72,9 @@ CREATE TABLE IF NOT EXISTS tbl_pay_method (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
   is_activated TINYINT DEFAULT 0, 
-  is_online_pay TINYINT DEFAULT 0
+  is_online_pay TINYINT DEFAULT 0, 
+  payment_endpoint LONGTEXT, 
+  type VARCHAR(20)
 );
 
 CREATE TABLE IF NOT EXISTS tbl_order (
@@ -200,7 +202,7 @@ INSERT INTO tbl_order_state (id, order_state) VALUES ('ODS002', 'Đang xử lý'
 INSERT INTO tbl_order_state (id, order_state) VALUES ('ODS003', 'Giao thành công');
 
 INSERT INTO tbl_pay_method (id, pay_method, is_activated) VALUES ('PM001', 'Thanh toán khi nhận hàng', 1);
-INSERT INTO tbl_pay_method (id, pay_method, is_activated, is_online_pay, thumbnail) VALUES ('PM002', 'Thanh toán qua Momo', 1, 1, 'momo.png');
+INSERT INTO tbl_pay_method (id, pay_method, is_activated, is_online_pay, thumbnail, payment_endpoint, type) VALUES ('PM002', 'Thanh toán qua Momo', 1, 1, 'momo1.png', 'https://test-payment.momo.vn/v2/gateway/api/create', 'Momo');
 INSERT INTO tbl_pay_method (id, pay_method, is_activated, is_online_pay, thumbnail) VALUES ('PM003', 'Thanh toán qua VNPAY', 1, 1, 'vnpay.png'); 
 INSERT INTO tbl_pay_method (id, pay_method, is_activated, is_online_pay, thumbnail) VALUES ('PM004', 'Thanh toán qua PayPal', 1, 1, 'paypal.png');
 

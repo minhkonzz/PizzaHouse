@@ -64,7 +64,7 @@
               <?php foreach (array_filter($pay_methods, fn($e) => $e["is_online_pay"] === 0) as $pay_method): 
                 list("id" => $pay_method_id, "pay_method" => $method_name) = $pay_method ?>
                 <div style="display: flex;">
-                  <input type="radio" name="checkout-pay-method" value="<?= $pay_method_id ?>">
+                  <input type="radio" name="checkout-pay-method" value="<?= htmlspecialchars(json_encode(["pay_method_id" => $pay_method_id])) ?>">
                   <button class="payment-button inst">
                     <span class="payment-button__decor"></span>
                     <p class="payment-button__txt"><?= $method_name ?></p>
@@ -79,10 +79,10 @@
               </button>
               <ul id="online-payments">
                 <?php foreach (array_filter($pay_methods, fn($e) => $e["is_online_pay"] === 1) as $online_pay_method): 
-                  list("id" => $online_pay_method_id, "pay_method" => $method_name, "thumbnail" => $pay_method_thumbnail) = $online_pay_method ?>
+                  list("id" => $online_pay_method_id, "pay_method" => $method_name, "thumbnail" => $pay_method_thumbnail, "payment_endpoint" => $payment_endpoint, "type" => $type) = $online_pay_method ?>
                   <li class="online-payment">
                     <div class="online-payment__select">
-                      <input type="radio" name="checkout-pay-method" value="<?= $online_pay_method_id ?>">
+                      <input type="radio" name="checkout-pay-method" value="<?= htmlspecialchars(json_encode(["pay_method_id" => $online_pay_method_id, "online_pay" => ["endpoint" => $payment_endpoint, "type" => $type]])) ?>">
                       <img src="<?= ROOT_CLIENT . "public/images/online-pays/" . $pay_method_thumbnail ?>" alt="">
                     </div>
                     <p class="online-payment__txt"><?= $method_name ?></p>

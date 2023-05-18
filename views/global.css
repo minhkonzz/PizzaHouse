@@ -67,7 +67,7 @@ ul, ol {
   width: 100vw;
   height: 100vh;
   background-color: #fff;
-  background-image: url("../public/images/front-loading.gif");
+  background-image: url("../../pizza-complete-version/public/images/front-loading.gif");
   background-repeat: no-repeat;
   background-position: center;
 }

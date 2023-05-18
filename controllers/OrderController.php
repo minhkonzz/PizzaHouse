@@ -36,14 +36,14 @@
 		public function redirectToPaymentResultPage(Request $req, $params = []) {
 			try {
 				$payloads = $req->getPayloads();
+				
 				if (isset($payloads["transId"]) && isset($payloads["resultCode"]) && $payloads["resultCode"] === 0)
 					$this->order->setIsPaid(true); 
 
 				$is_paid = $this->order->getIsPaid(); 
-				if ($is_paid) {
+				if ($is_paid) 
 					if (!OrderModel::addOrder($this->order)) throw new InternalErrorException();
-					
-				}
+
 				parent::view(
 					ROOT_ADMIN, 
 					["title" => "Thanh toán", "path" => ["Trang chủ", "Giỏ hàng", "Thanh toán"]],
@@ -72,12 +72,10 @@
 					list("endpoint" => $endpoint, "type" => $type) = $payloads["online_pay"]; 
 					switch (strtoupper($type)) {
 						case "MOMO": {
-							PaymentModel::processMomoPayment($endpoint, $new_order); 
-							break; 
+							return PaymentModel::processMomoPayment($endpoint, $new_order); 
 						}
 						case "VNPAY": {
-							PaymentModel::processVnpayPayment($endpoint, $new_order);
-							break;
+							return PaymentModel::processVnpayPayment($endpoint, $new_order);
 						}
 					}
 				}

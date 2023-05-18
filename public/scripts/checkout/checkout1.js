@@ -1,5 +1,4 @@
 $(document).ready(() => {
-
   const p1 = /^[a-zA-ZÀ-ỹ\s]+$/ig
   const p2 = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ig
   const p3 = /^[a-zA-Z0-9À-ỹ\s]+$/ig
@@ -24,35 +23,37 @@ $(document).ready(() => {
       const receiverPhone = $("input[name=receiver_phone]").val().match(p4)[0] || (errs.push("Điện thoại người nhận hàng") && "")
       console.log("receiver_phone_ok")
       const getInShopCheck = $("input[name=get-in-shop-checker][type=checkbox]").prop("checked")
-      const payMethodId = $("input[name=checkout-pay-method]:checked").val()
+      const payMethod = JSON.parse($("input[name=checkout-pay-method]:checked").val())
       const checkoutOrderNote = $("#checkout__order-note").val().match(p3)[0] || (errs.push("Ghi chú đơn hàng chứa ký tự không hợp lệ") && "")
       console.log("note_ok")
       if (errs.length > 0) throw new Error(errs.join("\n"))
+      const orderPayloads = {
+        "order": {
+          "buyer_name": customerName, 
+          "buyer_email": customerEmail, 
+          "buyer_phone": customerPhone, 
+          "receive_address": shipAddressDetail, 
+          "receiver_name": receiverName, 
+          "receiver_phone": receiverPhone, 
+          "take_in_shop": getInShopCheck, 
+          "district": checkoutDistrict, 
+          "city": checkoutCity, 
+          "ward": checkoutWard, 
+          "pay_method_id": payMethod["pay_method_id"],
+          "note": checkoutOrderNote
+        }
+      }
+      if (payMethod["online_pay"]) orderPayloads["online_pay"] = payMethod["online_pay"]
       $.ajax({
         url: "http://localhost/pizza-complete-version/thanh-toan", 
         method: "POST", 
-        data: {
-          "order": {
-            "buyer_name": customerName, 
-            "buyer_email": customerEmail, 
-            "buyer_phone": customerPhone, 
-            "receive_address": shipAddressDetail, 
-            "receiver_name": receiverName, 
-            "receiver_phone": receiverPhone, 
-            "take_in_shop": getInShopCheck, 
-            "district": checkoutDistrict, 
-            "city": checkoutCity, 
-            "ward": checkoutWard, 
-            "pay_method_id": payMethodId,
-            "note": checkoutOrderNote
-          }, 
-          "online_pay": {}
-        }
+        data: orderPayloads
       }).done((response) => {
-        const { code, message } = JSON.parse(response) 
-        if (code === 200 && message === "200 OK") {
-          alert("thanh toan thanh cong.")
-        }
+        // const { code, message } = JSON.parse(response) 
+        // if (code === 200 && message === "200 OK") {
+        //   alert("thanh toan thanh cong.")
+        // }
+        console.log(response)
       }).fail((jqXHR, textStatus, errorThrown) => {
         console.log("error:", jqXHR)
       })
