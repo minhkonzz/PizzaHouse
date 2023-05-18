@@ -32,21 +32,27 @@ $(document).ready(() => {
         url: "http://localhost/pizza-complete-version/thanh-toan", 
         method: "POST", 
         data: {
-          "buyer_name": customerName, 
-          "buyer_email": customerEmail, 
-          "buyer_phone": customerPhone, 
-          "receive_address": shipAddressDetail, 
-          "receiver_name": receiverName, 
-          "receiver_phone": receiverPhone, 
-          "take_in_shop": getInShopCheck, 
-          "district": checkoutDistrict, 
-          "city": checkoutCity, 
-          "ward": checkoutWard, 
-          "pay_method_id": payMethodId,
-          "note": checkoutOrderNote
+          "order": {
+            "buyer_name": customerName, 
+            "buyer_email": customerEmail, 
+            "buyer_phone": customerPhone, 
+            "receive_address": shipAddressDetail, 
+            "receiver_name": receiverName, 
+            "receiver_phone": receiverPhone, 
+            "take_in_shop": getInShopCheck, 
+            "district": checkoutDistrict, 
+            "city": checkoutCity, 
+            "ward": checkoutWard, 
+            "pay_method_id": payMethodId,
+            "note": checkoutOrderNote
+          }, 
+          "online_pay": {}
         }
       }).done((response) => {
-        console.log("responsea:", response)
+        const { code, message } = JSON.parse(response) 
+        if (code === 200 && message === "200 OK") {
+          alert("thanh toan thanh cong.")
+        }
       }).fail((jqXHR, textStatus, errorThrown) => {
         console.log("error:", jqXHR)
       })

@@ -1,7 +1,5 @@
 <?php 
-
   // namespace PZHouse\Core;
-
   class Response {
 
     private $status_code;

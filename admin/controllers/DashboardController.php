@@ -4,10 +4,17 @@
 
   class DashboardController extends Controller {
     public function init(Request $req, $params = []) {
-      echo "init DashboardController";
-      if (isset($_SESSION["user_info"])) {
-        echo "<pre>";
-        echo json_encode($_SESSION["user_info"]);
+      try {
+         parent::view(
+            ROOT_ADMIN, 
+            ["title" => "Thống kê hoạt động"], 
+            "dashboard/dashboard.view.php", 
+            "dashboard/dashboard.style.css", 
+            "bundle.view.php", 
+            new Response()
+         );
+      } catch (InternalErrorException $e) {
+         return (new Response([], $e->getCode(), $e->getMessage()))->withJson();
       }
     }
   }

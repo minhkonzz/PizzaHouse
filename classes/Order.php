@@ -111,6 +111,15 @@
       return $this->state_id;
     }
 
+    private $is_paid; 
+    public function setIsPaid($is_paid) {
+       $this->is_paid = $is_paid ? 1 : 0;
+    }
+
+    public function getIdPaid() {
+       return $this->is_paid;
+    }
+
     private $note; 
     public function setNote($note) {
       $this->note = $note;
@@ -157,6 +166,7 @@
       $this->setPaymentMethodId($order["pay_method_id"]);
       $this->setStateId("ODS001"); 
       $this->setNote($order["note"]);
+      $this->setIsPaid(false);
       $this->setIsTakeInShop($order["take_in_shop"]);
       $this->setTotal($order["total"]);
       $this->setOrderItems($order["order_items"]);

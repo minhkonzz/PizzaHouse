@@ -1,9 +1,6 @@
 <?php 
-
   // namespace PZHouse\Core;
-
   class Request {
-
     private $headers;
     private $method; 
     private $path_info; 

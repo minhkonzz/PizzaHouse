@@ -1,8 +1,6 @@
 <?php
   // namespace PZHouse\Core;
-
   // use PZHouse\Core\Database;
-
   class Model {
     public static function performQuery($queries) {
       $is_query_success = false;
@@ -28,8 +26,7 @@
         $connection->rollBack();
       }
       unset($connection);
-      if (count($fetch_result) > 0) return $fetch_result;
-      return $is_query_success;
+      return count($fetch_result) > 0 ? $fetch_result : $is_query_success;
     }
   }
 ?>

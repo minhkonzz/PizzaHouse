@@ -1,0 +1,101 @@
+.dashboard {
+   height: 250px;
+}
+
+.dashboard > *:not(:first-child) {
+   margin-top: 3rem;
+}
+
+.dashboard-block {
+   box-shadow: 0px 3px 12px rgb(235, 235, 235);
+   border-radius: 10px;
+   flex-grow: 1;
+   padding: 1.2rem 2.2rem;
+}
+
+.dashboard-block:not(:first-child) {
+   margin-top: 14px;
+}
+
+.dashboard-block .title, 
+.dashboard-block .value__num {
+   font-weight: 600;
+}
+
+.dashboard-block .title i {
+   margin-left: 10px;
+}
+
+.dashboard-block .value {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 18px;
+}
+
+.dashboard-block .value__num {
+   font-size: 25px;
+}
+
+.dashboard-block .value__ic i {
+   margin-right: 5px;
+   font-size: 16px;
+}
+
+.dashboard-block.total-income {
+   background: rgb(205, 255, 205);
+   color: rgb(32, 107, 32);
+}
+
+.dashboard-block.total-order {
+   background: rgb(255, 239, 185);
+   color: rgb(101, 87, 23);
+}
+
+.dashboard-block.registered-customer {
+   background: rgb(203, 226, 255);
+   color: rgb(49, 90, 139);
+}
+
+@media (min-width: 480px) {
+
+}
+
+@media (min-width: 792px) {
+   #dashboard-blocks {
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 1rem;
+   }
+
+   .dashboard-block:not(:first-child) {
+      margin-top: 0;
+   }
+}
+
+@media (min-width: 960px) {
+
+}
+
+@media (min-width: 1024px) {
+   #dashboard-blocks {
+      display: flex;
+      justify-content: space-between;
+      column-gap: 1.4rem;
+   } 
+
+   #dashboard-charts {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: 1rem;
+   }
+
+   .chart {
+      width: 100%;
+   }
+}
+
+@media (min-width: 1450px) {
+   
+}

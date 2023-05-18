@@ -82,5 +82,4 @@
       </div>
    </nav>
 </header>
-<script src="<?= ROOT_CLIENT . "public/scripts/scroll.js" ?>"></script>
 <script src="<?= ROOT_CLIENT . "public/scripts/cart.js" ?>"></script>

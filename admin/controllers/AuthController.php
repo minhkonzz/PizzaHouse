@@ -1,6 +1,5 @@
 <?php 
   // namespace PZHouse\Admin\Controllers;
-   // use Jumbojett\OpenIDConnectClient;
    class AuthController extends Controller {
       public function init(Request $req, $params = []) {
          // Generate a random state parameter for CSRF security
@@ -51,21 +50,14 @@
                'client_secret' => $_ENV['OKTA_OAUTH2_CLIENT_SECRET'],
             ])), true);
            
-            if (isset($response['error'])) 
-               throw new Exception("token endpoint returned an error: ".$response['error']);
-           
-            if (!isset($response['access_token'])) 
-               throw new Exception("token endpoint did not return an error or an access token");
+            if (isset($response['error'])) throw new Exception("token endpoint returned an error: ".$response['error']);
+            if (!isset($response['access_token'])) throw new Exception("token endpoint did not return an error or an access token");
            
              // Lưu Access token trả về vào Session hiện tại
             $_SESSION['okta_access_token'] = $response['access_token'];
            
-            if (isset($response['refresh_token']))
-               $_SESSION['okta_refresh_token'] = $response['refresh_token'];
-           
-            if (isset($response['id_token']))
-               $_SESSION['okta_id_token'] = $response['id_token'];
-           
+            if (isset($response['refresh_token'])) $_SESSION['okta_refresh_token'] = $response['refresh_token'];
+            if (isset($response['id_token'])) $_SESSION['okta_id_token'] = $response['id_token'];
             header("Location: " . ROOT_ADMIN_CLIENT); 
          } catch (Exception $e) {}
       }

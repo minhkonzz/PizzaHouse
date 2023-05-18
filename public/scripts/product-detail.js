@@ -27,6 +27,7 @@ $(document).ready(() => {
   })
 
   $("#product-detail__add-cart").click(() => {
+    $("#dialog").fadeIn(230)
     $.ajax({
       url: "http://localhost/pizza-complete-version/gio-hang", 
       method: "POST", 
@@ -40,11 +41,12 @@ $(document).ready(() => {
         }, {})
       }
     }).done((response) => {
-      console.log(response)
-      // const { code, message, body } = JSON.parse(response)
-      // if (code === 200 && message === "200 OK") {
-      //   alert("Thêm giỏ hàng thành công")
-      // }
+      const { code, message } = JSON.parse(response) 
+      if (code === 200 && message === "200 OK") {
+         $("body").css("overflow-y", "hidden")
+         $("#spinner").css("display", "none")
+         $("#dialog__main").css("display", "initial")
+      }
     }).fail((jqXHR) => {
       console.log(jqXHR)
     })

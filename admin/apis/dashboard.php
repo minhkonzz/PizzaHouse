@@ -1,4 +1,4 @@
 <?php 
-  $router->get("/", "DashboardController@init")->applyMiddlewares("AuthMiddleware");
-  $router->get("/tong-quan", "DashboardController@init")->applyMiddlewares("AuthMiddleware");
+  $router->get("/", "DashboardController@init");
+  $router->get("/tong-quan", "DashboardController@init");
 ?>

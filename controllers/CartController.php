@@ -1,6 +1,5 @@
 <?php 
   // namespace PZHouse\Controllers;
-
   // use PZHouse\Core\Controller;
   // use PZHouse\Core\Request; 
   // use PZHouse\Core\Response; 

@@ -5,24 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0;">
     <title><?= PAGE_TITLE_PREFIX . $page_name["title"] ?></title>
     <style><?php include_once __ROOT__ . "views/global.css"; ?></style>
-    <style>
-      #content {
-        display: none;
-      }
-      #loading {
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 100;
-        width: 100vw;
-        height: 100vh;
-        background-color: #fff;
-        background-image: url(<?= ROOT_CLIENT . "public/images/front-loading.gif" ?>);
-        background-repeat: no-repeat;
-        background-position: center;
-      }
-    </style>
     <?php if (file_exists($style_path)) { ?><style><?php include_once $style_path; ?></style> <?php } ?>
     <script 
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
@@ -33,32 +15,24 @@
     <script src="<?= ROOT_CLIENT . "public/scripts/parallax/parallax.js" ?>"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script>
-      function onReady(cb) {
-        var intervalID = window.setInterval(checkReady, 1500);
-        function checkReady() {
-          if ($("body")[0] !== undefined) {
-            window.clearInterval(intervalID);
-            cb.call(this);
-          }
-        }
-      }
-
-      function show(id, value) {
-        $(`#${id}`).css("display", value ? 'block' : 'none')
-      }
-
-      onReady(function () {
-        show('content', true);
-        show('loading', false);
-      });
-
-    </script>
+    <script src="<?= ROOT_CLIENT . "public/scripts/main.js" ?>"></script>
   </head>
   <body>
     <div id="content"><?= $PAGE_CONTENT ?></div>
     <?php include_once __ROOT__ . "views/shared/sidebar-nav/sidebar-nav.view.php"; ?>
     <div id="loading"></div>
+    <div id="dialog">
+       <div id="spinner"></div>
+       <div id="dialog__main">
+          <div class="circle">
+             <div class="checkmark"></div>
+          </div>
+          <p id="dialog__title">Thêm giỏ hàng thành công</p>
+          <div id="dialog__buttons">
+             <button id="close-dialog-btn">Đóng</button>
+             <button>Xem giỏ hàng</button>
+          </div>
+       </div>
+    </div>
   </body>
-  <script src="<?= ROOT_CLIENT . "public/scripts/sidebar.js" ?>"></script>
 </html>
