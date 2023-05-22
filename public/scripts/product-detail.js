@@ -28,10 +28,15 @@ $(document).ready(() => {
 
   $("#product-detail__add-cart").click(() => {
     $("#dialog").fadeIn(230)
-    $.ajax({
-      url: "http://localhost/pizza-complete-version/gio-hang", 
-      method: "POST", 
-      data: {
+    callAjax(
+      "gio-hang", 
+      (body) => {
+        $("body").css("overflow-y", "hidden")
+        $("#spinner").css("display", "none")
+        $("#dialog__main").css("display", "initial")
+      },
+      "POST", 
+      {
         ...productAddCart, 
         total_price: lastPrice,
         addons: Object.values(productAddCart.addons).reduce((acc, cur) => {
@@ -40,16 +45,30 @@ $(document).ready(() => {
           return acc
         }, {})
       }
-    }).done((response) => {
-      const { code, message } = JSON.parse(response) 
-      if (code === 200 && message === "200 OK") {
-         $("body").css("overflow-y", "hidden")
-         $("#spinner").css("display", "none")
-         $("#dialog__main").css("display", "initial")
-      }
-    }).fail((jqXHR) => {
-      console.log(jqXHR)
-    })
+    )
+
+    // $.ajax({
+    //   url: "http://localhost/pizza-complete-version/gio-hang", 
+    //   method: "POST", 
+    //   data: {
+    //     ...productAddCart, 
+    //     total_price: lastPrice,
+    //     addons: Object.values(productAddCart.addons).reduce((acc, cur) => {
+    //       const k = Object.keys(cur)[0]
+    //       acc[k] = cur[k].addon_val 
+    //       return acc
+    //     }, {})
+    //   }
+    // }).done((response) => {
+    //   const { code, message } = JSON.parse(response) 
+    //   if (code === 200 && message === "200 OK") {
+    //      $("body").css("overflow-y", "hidden")
+    //      $("#spinner").css("display", "none")
+    //      $("#dialog__main").css("display", "initial")
+    //   }
+    // }).fail((jqXHR) => {
+    //   console.log(jqXHR)
+    // })
   })
 
   $("#product-detail__quantity").change(function() {

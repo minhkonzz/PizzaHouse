@@ -22,7 +22,7 @@
 
     private function sanitize($payloads) {
       $filters = array(
-        "string" => FILTER_SANITIZE_STRING,
+        "string" => FILTER_SANITIZE_SPECIAL_CHARS,
         "int" => FILTER_SANITIZE_NUMBER_INT,
         "float" => FILTER_SANITIZE_NUMBER_FLOAT
       );

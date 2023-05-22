@@ -14,10 +14,11 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css">
     <?php if (file_exists($style_path)) { ?><style><?php include_once $style_path; ?></style> <?php } ?>
     <?php 
-      foreach (["style", "reuse", "reset", "custom"] as $css): ?>
+      foreach (["style", "reuse", "reset", "custom", "widgets"] as $css): ?>
         <style><?php include_once ROOT_ADMIN . "public/css/" . $css . ".css"; ?></style>
       <?php endforeach ?>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="<?= ROOT_ADMIN_CLIENT . "public/js/common.js" ?>"></script>
   </head>
   <body>
     <?php 

@@ -15,7 +15,8 @@
     <script src="<?= ROOT_CLIENT . "public/scripts/parallax/parallax.js" ?>"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="<?= ROOT_CLIENT . "public/scripts/main.js" ?>"></script>
+    <script src="<?= ROOT_CLIENT . "public/scripts/main1.js" ?>"></script>
+    <script src="<?= ROOT_ADMIN_CLIENT . "public/js/common.js" ?>"></script>
   </head>
   <body>
     <div id="content"><?= $PAGE_CONTENT ?></div>

@@ -1,7 +1,8 @@
 <?php 
   $router->get("/quan-ly-nhan-vien", "StaffController@getAllStaff"); 
+  $router->get("/quan-ly-nhan-vien/them-nhan-vien", "StaffController@toAddEmployee");
   $router->get("/quan-ly-nhan-vien/vi-tri", "StaffController@getAllRoles");
-  $router->get("/quan-ly-nhan-vien/them-bo-phan", "StaffController@showAddRolePage");
+  $router->get("/quan-ly-nhan-vien/them-bo-phan", "StaffController@toAddRole");
   $router->get("/quan-ly-nhan-vien/bo-phan/0", "StaffController@getUnRoleEmployees");
   $router->get("/quan-ly-nhan-vien/bo-phan/:role_id", "StaffController@getRoleById");
   $router->get("/quan-ly-nhan-vien/bo-phan/:role_id/users", "StaffController@getEmployeesByRoleId");

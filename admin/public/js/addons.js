@@ -30,6 +30,41 @@ $(document).ready(() => {
       "method": "",
       "data": null
     }
+    // if (!isAddAddon) {
+    //   let addonOptionsChange = []
+    //   const currentAddonOptions = currentAddon.addonOptions
+    //   const currentAddonOptionsCopy = currentAddonCopy.addonOptions
+    //   const currentAddonValIds = currentAddonOptionsCopy.map((e) => e["addon_val_id"])
+    //   addonOptionsChange = [
+    //     ...currentAddonOptions
+    //       .filter((e) => !currentAddonValIds.includes(e["addon_val_id"]))
+    //       .map((e) => { return {...e, status: "ADD"} })
+    //   ]
+    //   currentAddonOptionsCopy.forEach((e) => {
+    //     const be = currentAddonOptions.find((be) => be["addon_val_id"] === e["addon_val_id"])
+    //     if (!be) {
+    //       addonOptionsChange.push({...e, status: "DELETE"})
+    //       return
+    //     }
+    //     if (e["addon_val_id"] !== be["addon_val_id"] || e["addon_val_price"] !== be["addon_val_price"]) {
+    //       addonOptionsChange.push({...be, status: "UPDATE"})
+    //       return;
+    //     }
+    //   })
+      
+    //   const { addonId, addonName } = currentAddon
+    //   config["data"] = JSON.stringify(
+    //     addonName !== currentAddonCopy["addonName"] ? 
+    //     { addonId, addonName, addonOptionsChange } : { addonId, addonOptionsChange }
+    //   )
+    //   config["url"] = `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh/${currentAddon.addonId}`
+    //   config["method"] = "PUT"
+    // } else {
+    //   config["data"] = currentAddon
+    //   config["url"] = "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh"
+    //   config["method"] = "POST"
+    // }
+
     if (!isAddAddon) {
       let addonOptionsChange = []
       const currentAddonOptions = currentAddon.addonOptions
@@ -57,19 +92,26 @@ $(document).ready(() => {
         addonName !== currentAddonCopy["addonName"] ? 
         { addonId, addonName, addonOptionsChange } : { addonId, addonOptionsChange }
       )
-      config["url"] = `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh/${currentAddon.addonId}`
+      config["url"] = `admin/quan-ly-thuc-don/thuoc-tinh/${currentAddon.addonId}`
       config["method"] = "PUT"
     } else {
       config["data"] = currentAddon
-      config["url"] = "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh"
+      config["url"] = "admin/quan-ly-thuc-don/thuoc-tinh"
       config["method"] = "POST"
     }
 
-    $.ajax(config).done((response) => {
-      console.log("response when click save addon:", response)
-    }).fail((jqXHR, textStatus, errorThrown) => {
-      console.log("AJax request failed:" + textStatus + ", " + errorThrown)
-    })
+    callAjax(
+      config["url"], 
+      null, 
+      config["method"],
+      config["data"]
+    )
+
+    // $.ajax(config).done((response) => {
+    //   console.log("response when click save addon:", response)
+    // }).fail((jqXHR, textStatus, errorThrown) => {
+    //   console.log("AJax request failed:" + textStatus + ", " + errorThrown)
+    // })
   })
 
   $("#add-addon-val-btn").click(() => {
@@ -170,47 +212,78 @@ $(document).ready(() => {
   $("#addon__list").delegate(".addon-update-btn", "click", function(e) {
     e.preventDefault()
     const addonId = $(this).data("addon-id")
-    $.ajax({
-      url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh/${addonId}`,
-      method: "GET"
-    }).done((response) => {
-      const { code, message, body } = JSON.parse(response)
-      const addon = body
-      currentAddon = {
-        addonId: addon["addon_id"],
-        addonName: addon["addon_name"], 
-        addonOptions: addon["addon_options"]
-      }
-      currentAddonCopy = { ...currentAddon };
-      if (isAddAddon) isAddAddon = false; 
-      $(".modal").modal("show")
-      $("#addon-options").delegate(".addon-val-remove-btn", "click", function(event) {
-        event.preventDefault()
-        event.stopPropagation()
-        const addonValId = $(this).data("addon-val-id"); 
-        if (currentAddon && currentAddon.addonOptions && Array.isArray(currentAddon.addonOptions)) {
-          currentAddon.addonOptions = currentAddon.addonOptions.filter((addonOption) => addonOption["addon_val_id"] !== addonValId)
-          $(`.addon-option[data-addon-val-id="${addonValId}"]`).remove()
+    callAjax(
+      `admin/quan-ly-thuc-don/thuoc-tinh/${addonId}`,
+      (body) => {
+        const addon = body
+        currentAddon = {
+          addonId: addon["addon_id"],
+          addonName: addon["addon_name"], 
+          addonOptions: addon["addon_options"]
         }
-      })
-    }).fail((jqXHR, textStatus, errorThrown) => {
-      console.log(jqXHR)
-    })
+        currentAddonCopy = { ...currentAddon };
+        if (isAddAddon) isAddAddon = false; 
+        $(".modal").modal("show")
+        $("#addon-options").delegate(".addon-val-remove-btn", "click", function(event) {
+          event.preventDefault()
+          event.stopPropagation()
+          const addonValId = $(this).data("addon-val-id"); 
+          if (currentAddon && currentAddon.addonOptions && Array.isArray(currentAddon.addonOptions)) {
+            currentAddon.addonOptions = currentAddon.addonOptions.filter((addonOption) => addonOption["addon_val_id"] !== addonValId)
+            $(`.addon-option[data-addon-val-id="${addonValId}"]`).remove()
+          }
+        })
+      }
+    )
+    
+    // $.ajax({
+    //   url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh/${addonId}`,
+    //   method: "GET"
+    // }).done((response) => {
+    //   const { code, message, body } = JSON.parse(response)
+    //   const addon = body
+    //   currentAddon = {
+    //     addonId: addon["addon_id"],
+    //     addonName: addon["addon_name"], 
+    //     addonOptions: addon["addon_options"]
+    //   }
+    //   currentAddonCopy = { ...currentAddon };
+    //   if (isAddAddon) isAddAddon = false; 
+    //   $(".modal").modal("show")
+    //   $("#addon-options").delegate(".addon-val-remove-btn", "click", function(event) {
+    //     event.preventDefault()
+    //     event.stopPropagation()
+    //     const addonValId = $(this).data("addon-val-id"); 
+    //     if (currentAddon && currentAddon.addonOptions && Array.isArray(currentAddon.addonOptions)) {
+    //       currentAddon.addonOptions = currentAddon.addonOptions.filter((addonOption) => addonOption["addon_val_id"] !== addonValId)
+    //       $(`.addon-option[data-addon-val-id="${addonValId}"]`).remove()
+    //     }
+    //   })
+    // }).fail((jqXHR, textStatus, errorThrown) => {
+    //   console.log(jqXHR)
+    // })
   })
 
   $("#addon__list").delegate(".addon-remove-btn", "click", function(e) {
     e.preventDefault()
     const addonId = $(this).data("addon-id")
-    $.ajax({
-      url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh/${addonId}`, 
-      method: "DELETE"
-    }).done((response, textStatus, jqXHR) => {
-      if (jqXHR.status === 200 && textStatus === "success") {
+    callAjax(
+      `admin/quan-ly-thuc-don/thuoc-tinh/${addonId}`, 
+      (body) => {
         alert("Delete success")
-        console.log(response);
-      }
-    }).fail((jqXHR, textStatus, errorThrown) => {
-      alert("Delete not success")
-    })
+      }, 
+      "DELETE"
+    )
+    // $.ajax({
+    //   url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh/${addonId}`, 
+    //   method: "DELETE"
+    // }).done((response, textStatus, jqXHR) => {
+    //   if (jqXHR.status === 200 && textStatus === "success") {
+    //     alert("Delete success")
+    //     console.log(response);
+    //   }
+    // }).fail((jqXHR, textStatus, errorThrown) => {
+    //   alert("Delete not success")
+    // })
   })
 })

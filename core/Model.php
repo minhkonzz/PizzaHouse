@@ -4,6 +4,7 @@
   class Model {
     public static function performQuery($queries) {
       $is_query_success = false;
+      $is_fetch = false;
       $connection = Database::getInstance();
       $connection->beginTransaction();
       $fetch_result = array();
@@ -13,6 +14,7 @@
           if ($statement) {
             $statement->execute($query["params"] ?? []); 
             if (isset($query["is_fetch"])) {
+              $is_fetch = true;
               $fetch_result[$query["is_fetch"]] = array();
               while ($row = $statement->fetch(PDO::FETCH_ASSOC)) array_push($fetch_result[$query["is_fetch"]], $row);
             }
@@ -26,7 +28,7 @@
         $connection->rollBack();
       }
       unset($connection);
-      return count($fetch_result) > 0 ? $fetch_result : $is_query_success;
+      return $is_fetch ? $fetch_result : $is_query_success;
     }
   }
 ?>

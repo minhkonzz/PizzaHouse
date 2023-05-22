@@ -13,33 +13,52 @@ $(document).ready(() => {
 
   $("#category__list").delegate(".category-update-btn", "click", function() {
     const categoryId = $(this).data("category-id") 
-    $.ajax({
-      url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc/${categoryId}`,
-      method: "GET"
-    }).done((response) => {
-      const { code, message, body } = JSON.parse(response)
-      if (code === 200 && message === "200 OK") {
+
+    callAjax(
+      `admin/quan-ly-thuc-don/danh-muc/${categoryId}`, 
+      (body) => {
         const { id, category_name: categoryName } = body
         currentCategory = { id, categoryName }
         $(".modal").modal("show")
       }
-    }).fail((jqXHR, textStatus, errorThrown) => {
-      console.log("get category by id failed:", jqXHR)
-    })
+    )
+
+    // $.ajax({
+    //   url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc/${categoryId}`,
+    //   method: "GET"
+    // }).done((response) => {
+    //   const { code, message, body } = JSON.parse(response)
+    //   if (code === 200 && message === "200 OK") {
+    //     const { id, category_name: categoryName } = body
+    //     currentCategory = { id, categoryName }
+    //     $(".modal").modal("show")
+    //   }
+    // }).fail((jqXHR, textStatus, errorThrown) => {
+    //   console.log("get category by id failed:", jqXHR)
+    // })
   })
 
   $("#category__list").delegate(".category-delete-btn", "click", function() {
     const categoryId = $(this).data("category-id")
-    $.ajax({
-      url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc/${categoryId}`, 
-      method: "DELETE"
-    }).done((response) => {
-      console.log("this is response:", response)
-      alert(`Xóa danh mục có mã ${categoryId} thành công`)
-      setTimeout(() => { window.location.href = "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc" }, 3000)
-    }).fail((jqXHR, textStatus, errorThrown) => {
-      console.log(jqXHR)
-    })  
+    callAjax(
+      `admin/quan-ly-thuc-don/danh-muc/${categoryId}`, 
+      (body) => {
+        alert(`Xóa danh mục có mã ${categoryId} thành công`)
+        setTimeout(() => { window.location.href = `${host}admin/quan-ly-thuc-don/danh-muc` }, 3000)
+      },
+      "DELETE"
+    )
+
+    // $.ajax({
+    //   url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc/${categoryId}`, 
+    //   method: "DELETE"
+    // }).done((response) => {
+    //   console.log("this is response:", response)
+    //   alert(`Xóa danh mục có mã ${categoryId} thành công`)
+    //   setTimeout(() => { window.location.href = "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc" }, 3000)
+    // }).fail((jqXHR, textStatus, errorThrown) => {
+    //   console.log(jqXHR)
+    // })  
   })
 
   $(".modal").on("show.bs.modal", () => {
@@ -55,26 +74,50 @@ $(document).ready(() => {
   $("#save-category-btn").click(() => {
     const categoryId = currentCategory && currentCategory.id || $("#category-id-float-inp").val()
     const categoryName = $("#category-name-float-inp").val()
-    $.ajax({
+
+    const config = {
       ...(
         currentCategory ? 
-        { 
-          url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc/${categoryId}`, 
+        {
+          url: `admin/quan-ly-thuc-don/danh-muc/${categoryId}`, 
           method: "PUT", 
           data: JSON.stringify({ categoryId, categoryName }) 
         } : 
-        { url: "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc", 
+        {
+          url: "admin/quan-ly-thuc-don/danh-muc", 
           method: "POST", 
           data: { categoryId, categoryName } 
         }
-      ) 
-    }).done((response) => {
-      const { code, message } = JSON.parse(response);
-      if (code === 200 && message === "200 OK") {
-        window.location.href = "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc";
-      }
-    }).fail((jqXHR, textStatus, errorThrown) => {
-      console.log("fail:", jqXHR)
-    })
+      )
+    }
+
+    callAjax(
+      config["url"], 
+      (body) => { window.location.href = `${host}admin/quan-ly-thuc-don/danh-muc`; }, 
+      config["method"],
+      config["data"]
+    )
+
+    // $.ajax({
+    //   ...(
+    //     currentCategory ? 
+    //     { 
+    //       url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc/${categoryId}`, 
+    //       method: "PUT", 
+    //       data: JSON.stringify({ categoryId, categoryName }) 
+    //     } : 
+    //     { url: "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc", 
+    //       method: "POST", 
+    //       data: { categoryId, categoryName } 
+    //     }
+    //   ) 
+    // }).done((response) => {
+    //   const { code, message } = JSON.parse(response);
+    //   if (code === 200 && message === "200 OK") {
+    //     window.location.href = "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc";
+    //   }
+    // }).fail((jqXHR, textStatus, errorThrown) => {
+    //   console.log("fail:", jqXHR)
+    // })
   })
 })

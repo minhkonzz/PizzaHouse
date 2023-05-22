@@ -144,6 +144,17 @@ CREATE TABLE IF NOT EXISTS tbl_staff (
   FOREIGN KEY (role_id) REFERENCES tbl_role(id) ON DELETE SET NULL
 );
 
+CREATE TABLE IF NOT EXISTS tbl_article (
+  id VARCHAR(10) PRIMARY KEY NOT NULL, 
+  title VARCHAR(100),
+  thumbnail LONGTEXT, 
+  description LONGTEXT, 
+  content LONGTEXT, 
+  views_count INT DEFAULT 0, 
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 INSERT INTO tbl_category (id, category_name) VALUES ('CT001', 'Pizza');
 INSERT INTO tbl_category (id, category_name) VALUES ('CT002', N'Món ăn kèm');
 INSERT INTO tbl_category (id, category_name) VALUES ('CT003', N'Thức uống');
@@ -203,7 +214,7 @@ INSERT INTO tbl_order_state (id, order_state) VALUES ('ODS003', 'Giao thành cô
 
 INSERT INTO tbl_pay_method (id, pay_method, is_activated) VALUES ('PM001', 'Thanh toán khi nhận hàng', 1);
 INSERT INTO tbl_pay_method (id, pay_method, is_activated, is_online_pay, thumbnail, payment_endpoint, type) VALUES ('PM002', 'Thanh toán qua Momo', 1, 1, 'momo1.png', 'https://test-payment.momo.vn/v2/gateway/api/create', 'Momo');
-INSERT INTO tbl_pay_method (id, pay_method, is_activated, is_online_pay, thumbnail) VALUES ('PM003', 'Thanh toán qua VNPAY', 1, 1, 'vnpay.png'); 
+INSERT INTO tbl_pay_method (id, pay_method, is_activated, is_online_pay, thumbnail, payment_endpoint, type) VALUES ('PM003', 'Thanh toán qua VNPAY', 1, 1, 'vnpay.png', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html', 'VnPay'); 
 INSERT INTO tbl_pay_method (id, pay_method, is_activated, is_online_pay, thumbnail) VALUES ('PM004', 'Thanh toán qua PayPal', 1, 1, 'paypal.png');
 
 INSERT INTO tbl_customer (id, name, usr, address, email, phone, password) VALUES ('CM001', 'Phạm Quang Minh', 'minhkonzz', 'Số 94 ngõ 73 Nguyễn Lương Bằng', 'minhphm37@gmail.com', '0967105498', '@12345');

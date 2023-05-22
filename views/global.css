@@ -1,6 +1,6 @@
 /* ============== IMPORT FONTS USE ============== */
 /* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap'); */
-@import url("https://db.onlinewebfonts.com/c/3e8c66479e166f48e44525609aebd682?family=Graviola+Soft+W01");
+/* @import url("https://db.onlinewebfonts.com/c/3e8c66479e166f48e44525609aebd682?family=Graviola+Soft+W01"); */
 /* @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
 
@@ -54,6 +54,19 @@ ul, ol {
   color: var(--primary-color);
 }
 
+.no-records-notify {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  row-gap: 1.5rem;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.no-records-notify i {
+  font-size: 20px;
+}
+
 #content {
   display: none;
 }
@@ -67,7 +80,7 @@ ul, ol {
   width: 100vw;
   height: 100vh;
   background-color: #fff;
-  background-image: url("../../pizza-complete-version/public/images/front-loading.gif");
+  background-image: url("../public/images/front-loading.gif");
   background-repeat: no-repeat;
   background-position: center;
 }

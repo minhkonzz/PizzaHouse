@@ -27,7 +27,22 @@
       }
     }
 
-    public function showAddRolePage(Request $req, $params = []) {
+    public function toAddEmployee(Request $req, array $params = []) {
+      try {
+         parent::view(
+            ROOT_ADMIN, 
+            ["title" => "Thêm nhân viên"],
+            "staff/add-employee.view.php", 
+            "staff/add-employee.style.css", 
+            "bundle.view.php", 
+            new Response()
+         ); 
+      } catch (InternalErrorException $e) {
+         return (new Response([], $e->getCode(), $e->getMessage()))->withJson();
+      }
+    }
+
+    public function toAddRole(Request $req, $params = []) {
       try {
         parent::view(
           ROOT_ADMIN, 

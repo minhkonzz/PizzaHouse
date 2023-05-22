@@ -11,7 +11,7 @@
 <section class="section add-role">
    <div class="add-role__section">
       <p class="add-role__title">Thông tin cơ bản</p>
-      <div class="add-role__section__about">
+      <div class="add-role__section__about fields">
          <div class="field__wrapper" data-ident="role-name">
             <input class="custom__field" type="text">
             <label class="field__placeholder">Tên bộ phận</label>

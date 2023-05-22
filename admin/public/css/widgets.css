@@ -1,0 +1,104 @@
+.field__wrapper {
+   position: relative;
+   height: 48px;
+}  
+
+.field__wrapper.txtarea {
+   height: 120px;
+}
+ 
+.custom__field {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   border: 0.4px solid rgb(175, 175, 175);
+   border-radius: 5px;
+   outline: none;
+   font-size: 15px;
+   padding-left: 12px;
+   z-index: 0;
+   transition: all .3s;
+}
+ 
+.field__placeholder {
+   position: absolute;
+   left: 16px;
+   color: rgb(175, 175, 175);
+   z-index: 1;
+   transition: all .15s;
+   font-size: 15px;
+   top: 50%;
+   transform: translateY(-50%); 
+}
+
+.field__wrapper[data-ident="role-desc"] {
+   margin-top: 20px;
+}
+
+.field__wrapper.txtarea .field__placeholder {
+   top: 20px;
+}
+ 
+.custom__field:disabled ~ .field__placeholder {
+   top: 0; 
+   padding: 0 5px;
+   margin-left: -7px;
+   background: #fff;
+}
+ 
+.custom__field:focus {
+   border-color: rgb(73, 165, 210); 
+   border-width: 1px;
+}
+
+/************** Dropdown Selection **************/
+.select__wrapper {
+   position: relative;
+}
+
+.option,
+.select__wrapper > * {
+   border-radius: 6px;
+}
+
+.select__box {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 0 12px;
+   width: 100%;
+   height: 45px;
+   border: 1px solid rgb(160, 160, 160);
+}
+
+.select__box i {
+   font-size: 12px;
+   transition: all .2s;
+}
+
+.options__box {
+   display: none;
+   position: absolute;
+   z-index: 10;
+   width: 100%;
+   box-shadow: 0 4px 15px rgb(235, 235, 235);
+   padding: 12px;
+   top: 60px;
+   animation: option_box_appear .2s;
+   background: #fff;
+}
+
+.option {
+   line-height: 2.5;
+   padding-left: 12px;
+   transition: all .2s;
+}
+
+.option:hover {
+   background: rgb(240, 240, 240);
+}
+
+@keyframes option_box_appear {
+   from { top: 45px; } 
+   to { top: 60px; }
+}

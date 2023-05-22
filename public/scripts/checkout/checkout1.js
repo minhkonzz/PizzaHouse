@@ -44,19 +44,22 @@ $(document).ready(() => {
         }
       }
       if (payMethod["online_pay"]) orderPayloads["online_pay"] = payMethod["online_pay"]
-      $.ajax({
-        url: "http://localhost/pizza-complete-version/thanh-toan", 
-        method: "POST", 
-        data: orderPayloads
-      }).done((response) => {
-        // const { code, message } = JSON.parse(response) 
-        // if (code === 200 && message === "200 OK") {
-        //   alert("thanh toan thanh cong.")
-        // }
-        console.log(response)
-      }).fail((jqXHR, textStatus, errorThrown) => {
-        console.log("error:", jqXHR)
-      })
+      // $.ajax({
+      //   url: "http://localhost/pizza-complete-version/thanh-toan", 
+      //   method: "POST", 
+      //   data: orderPayloads
+      // }).done((response) => {
+      //   console.log(response)
+      // }).fail((jqXHR, textStatus, errorThrown) => {
+      //   console.log("error:", jqXHR)
+      // })
+
+      callAjax(
+        "thanh-toan", 
+        null, 
+        "POST",
+        orderPayloads
+      )
     } catch (error) { alert(error.message) }
   })
 })

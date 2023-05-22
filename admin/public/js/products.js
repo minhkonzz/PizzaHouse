@@ -1,5 +1,5 @@
 $(document).ready(() => {
-
+  
   let currentProduct = null
   let currentProductCopy = null 
   const currentProductAddonOptionIds = []
@@ -16,12 +16,9 @@ $(document).ready(() => {
     $("#product-addons__list").html('<p style="opacity: .8; text-align: center;">Chưa có dữ liệu</p>')
   }
 
-  $.ajax({
-    url: "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc?json_only=1", 
-    method: "GET"
-  }).done((response) => {
-    const { code, message, body } = JSON.parse(response)
-    if (code === 200 && message === "200 OK") {
+  callAjax(
+    "admin/quan-ly-thuc-don/danh-muc?json_only=1", 
+    (body) => {
       const categories = body
       $.each(categories, (i, category) => {
         const { id, category_name } = category
@@ -29,14 +26,26 @@ $(document).ready(() => {
         $("#category-selection").append(`<option value="${id}">${category_name}</option>`)
       })
     }
-  })
+  )
 
-  $.ajax({
-    url: "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh/detail", 
-    method: "GET"
-  }).done((response) => {
-    const { code, message, body } = JSON.parse(response)
-    if (code === 200 && message === "200 OK") {
+  // $.ajax({
+  //   url: "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/danh-muc?json_only=1", 
+  //   method: "GET"
+  // }).done((response) => {
+  //   const { code, message, body } = JSON.parse(response)
+  //   if (code === 200 && message === "200 OK") {
+  //     const categories = body
+  //     $.each(categories, (i, category) => {
+  //       const { id, category_name } = category
+  //       $('select[name="product__list__categories"]').append(`<option value="${id}">${category_name}</option>`)
+  //       $("#category-selection").append(`<option value="${id}">${category_name}</option>`)
+  //     })
+  //   }
+  // })
+
+  callAjax(
+    "admin/quan-ly-thuc-don/thuoc-tinh/detail", 
+    (body) => {
       addons = Object.values(body).reduce((acc, cur) => {
         const curAddonOptions = cur["addon_options"]
         Object.keys(curAddonOptions).forEach((e) => {
@@ -49,11 +58,32 @@ $(document).ready(() => {
         })
         return acc
       }, {})
-      console.log("all addons fetched:", addons)
     }
-  }).fail((jqXHR, textStatus, errorThrown) => {
-    console.log("error when get addons detail:", jqXHR)
-  })
+  )
+
+  // $.ajax({
+  //   url: "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/thuoc-tinh/detail", 
+  //   method: "GET"
+  // }).done((response) => {
+  //   const { code, message, body } = JSON.parse(response)
+  //   if (code === 200 && message === "200 OK") {
+  //     addons = Object.values(body).reduce((acc, cur) => {
+  //       const curAddonOptions = cur["addon_options"]
+  //       Object.keys(curAddonOptions).forEach((e) => {
+  //         acc[e] = {
+  //           addon_val: curAddonOptions[e]["addon_val"],
+  //           addon_val_price: curAddonOptions[e]["addon_val_price"],
+  //           addon_name: cur["addon_name"],
+  //           is_current: false
+  //         }
+  //       })
+  //       return acc
+  //     }, {})
+  //     console.log("all addons fetched:", addons)
+  //   }
+  // }).fail((jqXHR, textStatus, errorThrown) => {
+  //   console.log("error when get addons detail:", jqXHR)
+  // })
 
   $("#add-product-btn").click(() => {
     if (currentProduct) currentProduct = null 
@@ -63,28 +93,52 @@ $(document).ready(() => {
   $("#product__list").delegate(".product-delete-btn", "click", function(e) {
     e.preventDefault()
     const productId = $(this).data("product-id")
-    $.ajax({
-      url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/san-pham/${productId}`, 
-      method: "DELETE"
-    }).done((response) => {
-      const { code, message, body } = JSON.parse(response) 
-      if (code === 200 && message === "200 OK") {
-        alert("Delete success")
-      }
-    }).fail((jqXHR, textStatus, errorThrown) => {
-      console.log(jqXHR)
-    })
+    // $.ajax({
+    //   url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/san-pham/${productId}`, 
+    //   method: "DELETE"
+    // }).done((response) => {
+    //   const { code, message, body } = JSON.parse(response) 
+    //   if (code === 200 && message === "200 OK") {
+    //     alert("Delete success")
+    //   }
+    // }).fail((jqXHR, textStatus, errorThrown) => {
+    //   console.log(jqXHR)
+    // })
+
+    callAjax(
+      `admin/quan-ly-thuc-don/san-pham/${productId}`, 
+      (body) => { alert("Delete success") }, 
+      "DELETE"
+    )
   })
 
   $("#product__list").delegate(".product-update-btn", "click", function(e) {
     e.preventDefault() 
     const productId = $(this).data("product-id")
-    $.ajax({
-      url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/san-pham/${productId}?json_only=1`, 
-      method: "GET"
-    }).done((response) => {
-      const { code, message, body } = JSON.parse(response)
-      if (code === 200 && message === "200 OK") {
+    // $.ajax({
+    //   url: `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/san-pham/${productId}?json_only=1`, 
+    //   method: "GET"
+    // }).done((response) => {
+    //   const { code, message, body } = JSON.parse(response)
+    //   if (code === 200 && message === "200 OK") {
+    //     const { id, product_name, price, image, description, category_id, addons: productAddons } = body 
+    //     currentProduct = { id, product_name, price, image, description, category_id }
+    //     currentProductCopy = { ...currentProduct }
+    //     Object.values(productAddons).forEach((addon) => {
+    //       Object.keys(addon["addon_options"]).forEach((addonOptionId) => {
+    //         addons[addonOptionId]["is_current"] = true
+    //         currentProductAddonOptionIds.push(addonOptionId)
+    //       })
+    //     })
+    //     $(".modal").modal("show")
+    //   }
+    // }).fail((jqXHR, textStatus, errorThrown) => {
+    //   console.log(jqXHR)
+    // })  
+
+    callAjax(
+      `admin/quan-ly-thuc-don/san-pham/${productId}?json_only=1`, 
+      (body) => {
         const { id, product_name, price, image, description, category_id, addons: productAddons } = body 
         currentProduct = { id, product_name, price, image, description, category_id }
         currentProductCopy = { ...currentProduct }
@@ -96,9 +150,7 @@ $(document).ready(() => {
         })
         $(".modal").modal("show")
       }
-    }).fail((jqXHR, textStatus, errorThrown) => {
-      console.log(jqXHR)
-    })  
+    )
   })
 
   $("#product-id-float-inp").prop("disabled", true)
@@ -193,8 +245,49 @@ $(document).ready(() => {
       data: null
     }
 
-    if (currentProduct) {
+    // if (currentProduct) {
 
+    //   // update current product fields
+    //   currentProduct = {
+    //     ...currentProduct, 
+    //     product_name: $("#product-name-float-inp").val(),
+    //     price: Number($("#product-price-float-inp").val()),
+    //     category_id: $("#category-selection").val(), 
+    //     description: $("#product-description-textarea").val()
+    //   }
+
+    //   const payload = {}
+    //   const addonOptionIdsSelected = Object.keys(addons).filter((e) => addons[e]["is_current"])
+    //   const addonOptionIdsCompare = new Set([...addonOptionIdsSelected, ...currentProductAddonOptionIds])
+    //   const isAddonOptionsChange = addonOptionIdsCompare.size !== addonOptionIdsSelected.length || addonOptionIdsCompare.size !== currentProductAddonOptionIds.length
+    //   if (isAddonOptionsChange) {
+    //     payload["addon_options_change"] = [...addonOptionIdsSelected, ...currentProductAddonOptionIds].reduce((acc, cur) => {
+    //       if (addonOptionIdsSelected.includes(cur) && !currentProductAddonOptionIds.includes(cur)) return [...acc, { addon_option_id: cur, status: "ADD" }]
+    //       if (!addonOptionIdsSelected.includes(cur) && currentProductAddonOptionIds.includes(cur)) return [...acc, { addon_option_id: cur, status: "DELETE" }]
+    //       return acc
+    //     }, [])
+    //   } 
+    //   Object.keys(currentProduct).forEach((e) => {
+    //     if (currentProduct[e] !== currentProductCopy[e]) payload[e] = currentProduct[e]
+    //   })
+    //   ajaxConfig["url"] = `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/san-pham/${currentProduct.id}`
+    //   ajaxConfig["method"] = "PUT"
+    //   ajaxConfig["data"] = JSON.stringify(payload)
+    // } else {
+    //   ajaxConfig["url"] = "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/san-pham"
+    //   ajaxConfig["method"] = "POST"
+    //   ajaxConfig["data"] = {
+    //     product_id: $("#product-id-float-inp").val(), 
+    //     product_name: $("#product-name-float-inp").val(),
+    //     product_image: "",
+    //     product_price: Number($("#product-price-float-inp").val()),
+    //     product_category: $("#category-selection").val(),
+    //     product_description: $("#product-description-textarea").val(),
+    //     addon_options: Object.keys(addons).filter((e) => addons[e]["is_current"])
+    //   }
+    // }
+
+    if (currentProduct) {
       // update current product fields
       currentProduct = {
         ...currentProduct, 
@@ -218,11 +311,11 @@ $(document).ready(() => {
       Object.keys(currentProduct).forEach((e) => {
         if (currentProduct[e] !== currentProductCopy[e]) payload[e] = currentProduct[e]
       })
-      ajaxConfig["url"] = `http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/san-pham/${currentProduct.id}`
+      ajaxConfig["url"] = `admin/quan-ly-thuc-don/san-pham/${currentProduct.id}`
       ajaxConfig["method"] = "PUT"
       ajaxConfig["data"] = JSON.stringify(payload)
     } else {
-      ajaxConfig["url"] = "http://localhost/pizza-complete-version/admin/quan-ly-thuc-don/san-pham"
+      ajaxConfig["url"] = "admin/quan-ly-thuc-don/san-pham"
       ajaxConfig["method"] = "POST"
       ajaxConfig["data"] = {
         product_id: $("#product-id-float-inp").val(), 
@@ -235,16 +328,19 @@ $(document).ready(() => {
       }
     }
 
-    $.ajax(ajaxConfig)
-      .done((response) => {
-        // const { code, message, body } = JSON.parse(response) 
-        // if (code === 200 && message === "200 OK") {
-        //   console.log("body:", body)
-        // }
-        console.log("response:", response)
-      })
-      .fail((jqXHR, textStatus, errorThrown) => {
-        console.log(jqXHR)
-      })
+    callAjax(
+      ajaxConfig["url"], 
+      null,
+      ajaxConfig["method"],
+      ajaxConfig["data"]
+    )
+
+    // $.ajax(ajaxConfig)
+    //   .done((response) => {
+    //     console.log("response:", response)
+    //   })
+    //   .fail((jqXHR, textStatus, errorThrown) => {
+    //     console.log(jqXHR)
+    //   })
   })
 })

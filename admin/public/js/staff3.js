@@ -2,14 +2,14 @@ $(document).ready(() => {
    $("#employee-list-tab").click(() => {
       $("#add-employee-btn").html('<i style="margin-right: 4px;" class="bi bi-plus-circle"></i>Thêm nhân viên')
       $("#add-employee-btn").click(() => {
-         window.location.href = "http://localhost/pizza-complete-version/admin/quan-ly-nhan-vien/them-nhan-vien"
+         window.location.href = `${host}admin/quan-ly-nhan-vien/them-nhan-vien`
       })
    })
 
    $("#employee-roles-tab").click(() => {
       $("#add-employee-btn").html('<i style="margin-right: 4px;" class="bi bi-plus-circle"></i>Thêm bộ phận')
       $("#add-employee-btn").click(() => {
-         window.location.href = "http://localhost/pizza-complete-version/admin/quan-ly-nhan-vien/them-bo-phan"
+         window.location.href = `${host}admin/quan-ly-nhan-vien/them-bo-phan`
       })
    })
 
@@ -22,13 +22,19 @@ $(document).ready(() => {
 
    $("#confirm-btn").click(function() {
       const roleId = $(this).data("role-id")
-      $.ajax({
-         url: `http://localhost/pizza-complete-version/admin/quan-ly-nhan-vien/bo-phan/${roleId}`,
-         method: "DELETE"
-      }).done((response) => {
-         $(".modal").modal("hide")
-      }).fail((jqXHR) => {
-         console.log(jqXHR)
-      })
+      // $.ajax({
+      //    url: `http://localhost/pizza-complete-version/admin/quan-ly-nhan-vien/bo-phan/${roleId}`,
+      //    method: "DELETE"
+      // }).done((response) => {
+      //    $(".modal").modal("hide")
+      // }).fail((jqXHR) => {
+      //    console.log(jqXHR)
+      // })
+
+      callAjax(
+         `admin/quan-ly-nhan-vien/bo-phan/${roleId}`, 
+         (body) => { $(".modal").modal("hide") }, 
+         "DELETE"
+      ) 
    })
 })

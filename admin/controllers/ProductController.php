@@ -43,7 +43,7 @@
           "product_description" => $product_description,
           "addon_options" => $addon_options 
         ) = $req->getPayloads();
-        $new_product = new Product($product_id, $product_name, $product_image, $product_price, $category_id, $product_description, $addon_options);
+        $new_product = new Product($product_name, $product_image, $product_price, $category_id, $product_description, $addon_options, $product_id);
         if (!ProductModel::addProduct($new_product)) throw new InternalErrorException();
         return (new Response())->withJson();
       } catch (InternalErrorException $e) {
