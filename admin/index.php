@@ -5,7 +5,7 @@
 
   use Dotenv\Dotenv; 
 
-  $dotenv = Dotenv::createImmutable($_SERVER["DOCUMENT_ROOT"] . "/pizza-complete-version/");
+  $dotenv = Dotenv::createImmutable($_SERVER["DOCUMENT_ROOT"] . ($_SERVER["SERVER_NAME"] === "localhost" ? "/pizza-complete-version/" : "/"));
   $dotenv->load();
 
   if (session_id() === "") session_start();

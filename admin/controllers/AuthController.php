@@ -16,7 +16,7 @@
             'response_type' => 'code',
             'client_id' => $_ENV['OKTA_OAUTH2_CLIENT_ID'],
             'state' => $_SESSION['oauth_state'],
-            'redirect_uri' => $_ENV['OKTA_OAUTH2_REDIRECT_URI'],
+            'redirect_uri' => OKTA_REDIRECT_URI,
             'code_challenge' => $code_challenge,
             'code_challenge_method' => 'S256',
             'scope' => 'openid profile email',
