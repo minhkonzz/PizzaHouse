@@ -5,4 +5,5 @@
   define("ORDER_ID_PREFIX", "OD");
   define("PAYMENT_METHOD_ID_PREFIX", "PM");
   define("ARTICLE_ID_PREFIX", "A");
+  define("CUSTOMER_ID_PREFIX", "CM");
 ?>

@@ -1,5 +1,4 @@
 <?php 
-
   // namespace PZHouse\Classes;
 
   class JWTToken {
@@ -24,7 +23,7 @@
       return $this->expire_at;
     }
 
-    public function getPayload(): array {
+    public function getPayload() {
       return $this->payload;
     }
 

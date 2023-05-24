@@ -9,16 +9,19 @@ main {
 
 .auth__form {
    border: .8px solid rgb(180, 180, 180); 
-   width: 650px; 
-   padding: 30px;
    margin: 0 auto; 
    display: flex;
    flex-direction: column;
    align-items: center;
+   padding: 30px;
+}
+
+.auth__form.login {
+   width: 650px;
 }
 
 .auth__form > *:not(:first-child) {
-   margin-top: 24px;
+   margin-top: 28px;
 }
 
 .auth__form__title {
@@ -31,7 +34,8 @@ main {
    align-self: flex-start;
 }
 
-.auth__requires > *:not(:first-child) {
+.auth__form.login .auth__requires > *:not(:first-child),
+.auth__form.register .auth__requires > div > *:not(:first-child) {
    margin-top: 20px;
 }
 
@@ -45,7 +49,6 @@ main {
 
 .auth__req__btn {
    text-transform: uppercase;
-   color: #fff; 
    background: var(--primary-color);
    font-size: 16px;
    padding: 14px 24px;
@@ -53,9 +56,13 @@ main {
    font-weight: 600;
 }
 
+.auth__req__btn {
+   color: #fff;
+}
+
 .auth__req__btn:hover {
-   color: #000;
    background: var(--secondary-color);
+   color: #000;
 }
 
 .auth__social__methods {
@@ -102,8 +109,26 @@ main {
    color: rgb(208, 76, 76);
 }
 
-#register__link:hover {
+.__link:hover {
    color: var(--primary-color);
+}
+
+.auth__form.register .auth__req__btn {
+   margin: 0 6px;
+}
+
+.auth__form.register .auth__requires {
+   display: grid;
+   grid-template-columns: 1fr 1fr; 
+   column-gap: 3rem;
+}
+
+.error__title {
+   display: none;
+   color: var(--primary-color);
+   font-size: 13px;
+   font-style: italic;
+   margin-top: 12px;
 }
 
 @media (min-width: 480px) {

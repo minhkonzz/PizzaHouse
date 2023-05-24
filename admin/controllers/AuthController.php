@@ -24,7 +24,7 @@
          header('Location: '.$authorize_url);
       }
 
-      public function handleAuthorizationCode(Request $req, $params = []) {
+      public function handleAuthorizationCode(Request $req, array $params = []) {
          try {
             $payloads = $req->getPayloads();
             if (empty($payloads['state']) || $payloads['state'] != $_SESSION['oauth_state']) throw new Exception("state does not match");

@@ -2,7 +2,7 @@ $(document).ready(() => {
    // window.onload = () => { 
       
    // } 
-   console.log("vao day deee")
+
    $("#loading").css("display", "none")
    $("#content").css("display", "initial")
 

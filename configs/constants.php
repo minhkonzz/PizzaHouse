@@ -16,11 +16,16 @@
   
   define("ROOT_ADMIN_CLIENT", ($is_local_env ? "/pizza-complete-version" : $_SERVER["SERVER_NAME"]) . "/admin/");
   
-  define("OKTA_REDIRECT_URI", ($is_local_env ? "http://localhost/pizza-complete-version/" : $_SERVER["SERVER_NAME"] . "/") . $_ENV["OKTA_OAUTH2_REDIRECT_URI"]);
+  define("OKTA_REDIRECT_URI", ($is_local_env ? "http://localhost/pizza-complete-version/" : "http://" . $_SERVER["SERVER_NAME"] . "/") . $_ENV["OKTA_OAUTH2_REDIRECT_URI"]);
   
   define("OKTA_API_REQUEST_HEADERS", [
     "Accept: application/json", 
     "Content-Type: application/json", 
     "Authorization: SSWS " . $_ENV["OKTA_ACCESS_TOKEN"]
   ]); 
+
+  define("DB_HOST", "localhost");
+  define("DB_NAME", $is_local_env ? "pizza-house-db" : $_ENV["DB_NAME"]); 
+  define("DB_USER", $is_local_env ? "root" : $_ENV["DB_USER"]); 
+  define("DB_PASSWORD", $is_local_env ? "" : $_ENV["DB_PASSWORD"]); 
 ?>
