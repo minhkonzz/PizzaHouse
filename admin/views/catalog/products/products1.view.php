@@ -31,50 +31,27 @@
                 </div>
               </div>
               <div>
-                <!-- <div class="form-floating">
-                  <input type="text" class="form-control" name="product_id" id="product-id-float-inp" placeholder="Mã sản phẩm">
-                  <label for="product-id-float-inp">Mã sản phẩm</label>
-                </div> -->
                 <div class="field__wrapper" data-ident="product-id">
                   <input id="product-id-float-inp" class="custom__field" type="text">
                   <label for="product-id-float-inp" class="field__placeholder">Mã sản phẩm</label>
                 </div>
-                <!-- <div style="margin-top: 10px;" class="form-floating">
-                  <input type="text" class="form-control" name="product_name" id="product-name-float-inp" placeholder="Tên sản phẩm">
-                  <label for="product-name-float-inp">Tên sản phẩm</label>
-                </div> -->
                 <div style="margin-top: 10px;" class="field__wrapper" data-ident="product-name">
                   <input id="product-name-float-inp" class="custom__field" type="text">
                   <label for="product-name-float-inp" class="field__placeholder">Tên sản phẩm</label>
                 </div>
               </div>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: .5rem;">
-              <!-- <div class="form-floating">
-                <input type="text" class="form-control" name="product_price" id="product-price-float-inp" placeholder="Giá sản phẩm">
-                <label for="product-price-float-inp">Giá sản phẩm</label>
-              </div> -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: .5rem;" class="selects">
               <div class="field__wrapper" data-ident="product-price">
                 <input id="product-price-float-inp" class="custom__field" type="text">
                 <label for="product-price-float-inp" class="field__placeholder">Giá sản phẩm</label>
               </div>
-              <!-- <div class="form-floating">
-                <select class="form-select" id="category-selection">
-                  <option value="0" selected>----</option>
-                </select>
-                <label for="category-selection">Danh mục thực đơn</label>
-              </div> -->
-              <div class="select__wrapper" data-ident="nations">
+              <div class="select__wrapper" id="category__selection" data-ident="categories">
                 <div class="select__box">
-                  <p class="value">Chọn Quốc gia</p>
+                  <p class="value">Chọn danh mục</p>
                   <i class="bi bi-chevron-down"></i>
                 </div>
-                <div class="options__box">
-                  <p class="option" data-value="n1">Nation 1</p>
-                  <p class="option" data-value="n2">Nation 2</p>
-                  <p class="option" data-value="n3">Nation 3</p>
-                  <p class="option" data-value="n4">Nation 4</p>
-                </div>
+                <div class="options__box"></div>
               </div>
             </div>
             <div class="form-floating">
@@ -113,7 +90,16 @@
         <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
         <td><input type="text" placeholder="Mã sản phẩm"></td>
         <td><input type="text" placeholder="Tên sản phẩm"></td>
-        <td><select name="product__list__categories" id=""></select></td>
+        <!-- <td><select name="product__list__categories" id=""></select></td> -->
+        <td class="selects">
+          <div class="select__wrapper" data-ident="categories">
+              <div class="select__box">
+                <p class="value">Chọn danh mục</p>
+                <i class="bi bi-chevron-down"></i>
+              </div>
+              <div class="options__box"></div>
+          </div>
+        </td>
         <td><input type="text" placeholder="Giá sản phẩm"></td>
         <td><input type="text" placeholder="Tổng được đặt"></td>
         <td>
@@ -172,4 +158,5 @@
     </div>
   </div>
 </section>
-<script src="<?= ROOT_ADMIN_CLIENT . "public/js/products.js" ?>"></script>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/widgets1.js" ?>"></script>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/temp-products3.js" ?>"></script>

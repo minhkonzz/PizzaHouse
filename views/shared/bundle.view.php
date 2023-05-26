@@ -16,7 +16,7 @@
       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
       <script src="<?= ROOT_CLIENT . "public/scripts/main2.js" ?>"></script>
-      <script src="<?= ROOT_ADMIN_CLIENT . "public/js/common5.js" ?>"></script>
+      <script src="<?= ROOT_ADMIN_CLIENT . "public/js/common7.js" ?>"></script>
    </head>
    <body>
       <div id="content"><?= $PAGE_CONTENT ?></div>

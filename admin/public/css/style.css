@@ -39,6 +39,8 @@ table {
   width: 100%;
   border-collapse: collapse;
   overflow-y: scroll;
+  box-shadow: 0 5px 12px rgb(245, 245, 245);
+  border-radius: 12px;
 }
 
 table td {
@@ -70,10 +72,11 @@ table td {
 }
 
 .table__row {
-  border-left: 1px solid #e4e4e4;
-  border-bottom: 1px solid #e4e4e4;
-  border-right: 1px solid #e4e4e4;
   background-color: #fff;
+}
+
+.table__row:not(:first-child):hover {
+  background: rgb(250, 250, 250);
 }
 
 .table__row:not(:first-child) td {
@@ -112,6 +115,14 @@ table td {
 #table__filter-btn {
   padding: 8px 12px;
   background-color: #fff;
+}
+
+.table__action {
+  color: rgb(150, 150, 150);
+}
+
+.table__action:hover {
+  color: #000;
 }
 
 .pages__list {

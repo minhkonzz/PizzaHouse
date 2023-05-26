@@ -116,7 +116,7 @@
        $this->is_paid = $is_paid ? 1 : 0;
     }
 
-    public function getIdPaid() {
+    public function getIsPaid() {
        return $this->is_paid;
     }
 

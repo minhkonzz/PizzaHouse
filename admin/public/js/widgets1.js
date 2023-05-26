@@ -1,5 +1,5 @@
 $(document).ready(() => {
-   $(".fields .part").delegate(".custom__field", "focusin focusout", function(e) {
+   $(".fields").delegate(".custom__field", "focusin focusout", function(e) {
       const parent = $(this).closest(".field__wrapper")
       const styleSet = e.type === "focusin" ? 
       {
@@ -25,7 +25,6 @@ $(document).ready(() => {
    function hideOptionsBox(ident) {
       $(`.select__wrapper[data-ident=${ident}] .options__box`).fadeOut(150)
       $(`.select__wrapper[data-ident=${ident}] .select__box i`).css("transform", "rotate(0)")
-
    }
 
    $(document).click((e) => {
@@ -38,15 +37,15 @@ $(document).ready(() => {
          hideOptionsBox(currentIdent)
          currentIdent = ident
       } 
-      console.log("chay vao daykk")
       $(`.select__wrapper[data-ident=${ident}] .options__box`).fadeIn(150)
       $(`.select__wrapper[data-ident=${ident}] .select__box i`).css("transform", "rotate(180deg)")
    })
-
    $(".selects").delegate(".option", "click", function() {
       const optionText = $(this).html()
       const optionValue = $(this).data("value")
       const ident = $(this).closest(".select__wrapper").data("ident")
+      const prevValue = $(`.select__wrapper[data-ident=${ident}] .value`).data("value") 
+      $(`.select__wrapper[data-ident=${ident}] .value`).attr("data-prev", prevValue)
       $(`.select__wrapper[data-ident=${ident}] .value`).attr("data-value", optionValue)
       $(`.select__wrapper[data-ident=${ident}] .value`).html(optionText)
       hideOptionsBox(ident)

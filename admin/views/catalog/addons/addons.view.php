@@ -19,23 +19,39 @@
             <h5 class="modal-title">Thêm thuộc tính sản phẩm</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <div class="form-floating">
+          <div class="modal-body fields">
+            <!-- <div class="form-floating">
               <input type="text" class="form-control" name="addon_id" id="addon-id-float-inp" placeholder="Mã đặc tính">
               <label for="addon-id-float-inp">Mã thuộc tính</label>
+            </div> -->
+            <div class="field__wrapper" data-ident="addon-id">
+              <input id="addon-id-float-inp" class="custom__field" type="text">
+              <label for="addon-id-float-inp" class="field__placeholder">Mã đặc tính</label>
             </div>
-            <div class="form-floating">
+            <!-- <div class="form-floating">
               <input type="text" class="form-control" name="addon_name" id="addon-name-float-inp" placeholder="Tên đặc tính">
               <label for="addon-name-float-inp">Tên thuộc tính</label>
+            </div> -->
+            <div class="field__wrapper" data-ident="addon-name">
+              <input id="addon-name-float-inp" class="custom__field" type="text">
+              <label for="addon-id-float-inp" class="field__placeholder">Tên đặc tính</label>
             </div>
             <div id="et" style="display: none; grid-template-columns: 1fr 1fr; column-gap: .5rem; transition: .5s all;">
-              <div class="form-floating">
+              <!-- <div class="form-floating">
                 <input type="text" class="form-control" name="addon_val" id="addon-val-float-inp" placeholder="Tên của tùy chọn">
                 <label for="addon-val-float-inp">Tên của tùy chọn</label>
+              </div> -->
+              <div class="field__wrapper" data-ident="addon-val">
+                <input id="addon-val-float-inp" class="custom__field" type="text">
+                <label for="addon-val-float-inp" class="field__placeholder">Tên của tùy chọn</label>
               </div>
-              <div class="form-floating">
+              <!-- <div class="form-floating">
                 <input type="text" class="form-control" name="addon_val_price" id="addon-val-price-float-inp" placeholder="Giá của tùy chọn">
                 <label for="addon-val-price-float-inp">Giá của tùy chọn</label>
+              </div> -->
+              <div class="field__wrapper" data-ident="addon-val-price">
+                <input id="addon-val-price-float-inp" class="custom__field" type="text">
+                <label for="addon-val-price-float-inp" class="field__placeholder">Giá của tùy chọn</label>
               </div>
             </div>
             <div style="margin-top: 14px;">
@@ -114,4 +130,5 @@
     </div>
   </div>
 </section>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/widgets1.js" ?>"></script>
 <script src="<?= ROOT_ADMIN_CLIENT . "public/js/addons.js" ?>"></script>

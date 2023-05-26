@@ -20,11 +20,9 @@ function callAjax(
          console.log("response:", response)
          return 
       }
-      console.log("response new:", response)
       const { code, message, body } = JSON.parse(response) 
       if (code === 200 && message === "200 OK") successCallback(body)
    }).fail((jqXHR) => {
-      console.log("call to failed")
       if (!failureCallback) {
          console.log(jqXHR)
          return

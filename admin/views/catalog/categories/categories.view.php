@@ -19,14 +19,14 @@
             <h5 class="modal-title">Thêm danh mục thực đơn mới</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <div class="form-floating">
-              <input type="text" id="category-id-float-inp" class="form-control" placeholder="Mã danh mục thực đơn">
-              <label for="category-id-float-inp">Mã danh mục thực đơn</label>
+          <div class="modal-body fields">
+            <div class="field__wrapper" data-ident="category-id">
+              <input id="category-id-float-inp" class="custom__field" type="text">
+              <label for="category-id-float-inp" class="field__placeholder">Mã danh mục thực đơn</label>
             </div>
-            <div class="form-floating">
-              <input type="text" id="category-name-float-inp" class="form-control" placeholder="Tên danh mục thực đơn">
-              <label for="category-name-float-inp">Tên danh mục thực đơn</label>
+            <div class="field__wrapper" data-ident="category-name">
+              <input id="category-name-float-inp" class="custom__field" type="text">
+              <label for="category-name-float-inp" class="field__placeholder">Tên danh mục thực đơn</label>
             </div>
           </div>
           <div class="modal-footer">
@@ -58,17 +58,18 @@
         <td><button id="table__filter-btn">Tìm kiếm</button></td>
       </tr>
       <?php 
-        list("categories" => $categories) = $response->getBody();
-        foreach ($categories as $category): ?>
+        list("categories" => $categories, "total_pages" => $total_pages, "current_page" => $current_page) = $response->getBody();
+        foreach ($categories as $category): 
+          list("category_id" => $id, "category_name" => $category_name, "created_at" => $created_at, "total_products" => $total_products) = $category; ?>
           <tr class="table__row">
             <td><input type="checkbox" style="width: 15px; height: 15px; margin: 0 15px;"></td>
-            <td><?= $category["id"] ?></td>
-            <td><?= $category["category_name"] ?></td>
-            <td><?= $category["created_at"] ?></td>
-            <td>5</td>
+            <td><?= $id ?></td>
+            <td><?= $category_name ?></td>
+            <td><?= $created_at ?></td>
+            <td><?= number_format($total_products) ?></td>
             <td>
-              <button class="category-update-btn" data-category-id="<?= $category["id"] ?>"><i class="bi bi-pencil-square"></i></button>
-              <button class="category-delete-btn" data-category-id="<?= $category["id"] ?>"><i class="bi bi-trash2-fill"></i></button>
+              <button class="category-update-btn table__action" data-category-id="<?= $id ?>"><i class="bi bi-pencil-square"></i></button>
+              <button class="category-delete-btn table__action" data-category-id="<?= $id ?>"><i class="bi bi-trash2-fill"></i></button>
             </td>
           </tr>
         <?php endforeach ?>
@@ -80,9 +81,10 @@
             <span aria-hidden="true">«</span>
           </a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <?php 
+          for ($i = 0; $i < $total_pages; $i++): ?>
+            <li class="page-item"><a class="page-link" <?php if($i === $current_page - 1) echo 'style="background: rgb(220, 220, 220);"' ?> href="<?= ROOT_ADMIN_CLIENT . "quan-ly-thuc-don/danh-muc?page=" . ($i + 1) ?>"><?= $i + 1 ?></a></li>
+        <?php endfor ?>
         <li class="page-item">
           <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">»</span>
@@ -92,4 +94,5 @@
     </div>
   </div>
 </section>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/widgets1.js" ?>"></script>
 <script src="<?= ROOT_ADMIN_CLIENT . "public/js/categories.js" ?>"></script>

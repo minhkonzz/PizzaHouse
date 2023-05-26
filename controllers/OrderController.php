@@ -10,9 +10,6 @@
 
 	class OrderController extends Controller {
 
-		private $order;
-		private $payment_type = "COD";
-
 		public function init(Request $req = null, $params = []) {
 			$this->toCheckout($req, $params);
 		}
@@ -34,20 +31,16 @@
 			}
 		}
 
-		public function testRedirect(Request $req, $params = []) {
-			return PaymentModel::testRedirect();
-		}
-
 		private function isPaid($payloads) {
-			if ($this->payment_type === "MOMO") {
+			if ($_SESSION["ORDER"]["PAYMENT_TYPE"] === "MOMO") {
 				return isset($payloads["transId"]) && isset($payloads["resultCode"]) && $payloads["resultCode"] === 0;
 			}
-			if ($this->payment_type === "VNPAY") {
+			if ($_SESSION["ORDER"]["PAYMENT_TYPE"] === "VNPAY") {
 				if (!isset($payloads["vnp_ResponseCode"]) || $payloads["vnp_ResponseCode"] !== "00") return false; 
-				$vnp_HashSecret = "DTHXNFNBUMNKFKQOZVHTXUXNUQUUXMTV";
+				$vnp_HashSecret = "QGJSRPICZPLMFPBJJUQIVQYXYWLXCIMJ";
 				$vnp_SecureHash = $payloads['vnp_SecureHash'];
 				$inputData = array();
-				foreach ($payloads as $k => $v) if (substr($key, 0, 4) == "vnp_") $inputData[$k] = $v;
+				foreach ($payloads as $k => $v) if (substr($k, 0, 4) == "vnp_") $inputData[$k] = $v;
 				unset($inputData['vnp_SecureHash']);
        		ksort($inputData);
         		$i = 0;
@@ -68,19 +61,18 @@
 		public function redirectToPaymentResultPage(Request $req, $params = []) {
 			try {
 				$payloads = $req->getPayloads();
-				$this->order->setIsPaid($this->isPaid($payloads));
-				$is_paid = $this->order->getIsPaid(); 
-				if ($is_paid) if (!OrderModel::addOrder($this->order)) throw new InternalErrorException();
+				$_SESSION["ORDER"]["EXTRA"]["is_paid"] = $this->isPaid($payloads); 
+				if ($_SESSION["ORDER"]["EXTRA"]["is_paid"]) if (!OrderModel::addOrder($_SESSION["ORDER"]["EXTRA"])) throw new InternalErrorException();
 				parent::view(
 					ROOT_ADMIN, 
 					["title" => "Thanh toán", "path" => ["Trang chủ", "Giỏ hàng", "Thanh toán"]],
 					"checkout/checkout.view.php",
 					"checkout/checkout.style.css",
 					"bundle.view.php", 
-					new Response(["paid" => $is_paid])
+					new Response(["paid" => $_SESSION["ORDER"]["EXTRA"]["is_paid"]])
 				);
 			} catch (InternalErrorException $e) {
-				return (new Response([], $e->getCode(), $e->getMessgae()))->withJson();
+				return (new Response([], $e->getCode(), $e->getMessage()))->withJson();
 			}
 		}
 
@@ -94,20 +86,41 @@
 					["order_items" => $cart_items],
 					["total" => $cart_total]
 				));
+				$_SESSION["ORDER"]["EXTRA"] = [
+					"id" => $new_order->getId(), 
+					"customer_id" => $new_order->getCustomerId(),
+					"buyer_name" => $new_order->getBuyerName(), 
+					"buyer_phone" => $new_order->getBuyerPhone(), 
+					"buyer_email" => $new_order->getBuyerEmail(), 
+					"receiver_name" => $new_order->getReceiverName(), 
+					"receiver_phone" => $new_order->getReceiverPhone(), 
+					"receive_address" => $new_order->getReceiveAddress(), 
+					"city" => $new_order->getCity(), 
+					"district" => $new_order->getDistrict(), 
+					"ward" => $new_order->getWard(), 
+					"pay_method_id" => $new_order->getPaymentMethodId(), 
+					"state_id" => $new_order->getStateId(),
+					"note" => $new_order->getNote(), 
+					"is_paid" => $new_order->getIsPaid(), 
+					"is_take_in_shop" => $new_order->getIsTakeInShop(), 
+					"total" => $new_order->getTotal(),
+					"order_items" => $new_order->getOrderItems()
+				];
 				if (isset($payloads["online_pay"])) {
-					$this->order = $new_order;
 					list("endpoint" => $endpoint, "type" => $type) = $payloads["online_pay"]; 
-					$this->payment_type = strtoupper($type);
-					switch ($this->payment_type) {
+					$_SESSION["ORDER"]["PAYMENT_TYPE"] = strtoupper($type);
+					$payment_url = "";
+					switch (strtoupper($type)) {
 						case "MOMO": {
-							return PaymentModel::processMomoPayment($endpoint, $new_order); 
+							$payment_url .= PaymentModel::processMomoPayment($endpoint, $_SESSION["ORDER"]["EXTRA"]); 
 						}
 						case "VNPAY": {
-							return PaymentModel::processVnpayPayment($endpoint, $new_order);
+							$payment_url .= PaymentModel::processVnpayPayment($endpoint, $_SESSION["ORDER"]["EXTRA"]);
 						}
 					}
+					return (new Response(["payment_url" => $payment_url]))->withJson();
 				}
-				if (!OrderModel::addOrder($new_order)) throw new InternalErrorException();
+				if (!OrderModel::addOrder($_SESSION["ORDER"]["EXTRA"])) throw new InternalErrorException();
 				return (new Response())->withJson();
 			} catch (InternalErrorException $e) {
 				return (new Response([], $e->getCode(), $e->getMessage()))->withJson();

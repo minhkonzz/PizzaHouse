@@ -18,7 +18,7 @@
         <style><?php include_once ROOT_ADMIN . "public/css/" . $css . ".css"; ?></style>
       <?php endforeach ?>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="<?= ROOT_ADMIN_CLIENT . "public/js/common.js" ?>"></script>
+    <script src="<?= ROOT_ADMIN_CLIENT . "public/js/common7.js" ?>"></script>
   </head>
   <body>
     <?php 

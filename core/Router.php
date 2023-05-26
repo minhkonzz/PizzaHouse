@@ -27,9 +27,7 @@
       if (!in_array($request_method, self::SUPPORT_HTTP_METHODS)) $this->handle(__EXCEPTION__, [new MethodNotAllowedException]);
       list($path, $handler) = $args; 
       $rtrim_path = rtrim($path);
-      $this->routes[] = [
-        "method" => $request_method,
-        "path" => $rtrim_path === "" ? "/" : $rtrim_path,
+      $this->routes[$request_method][$rtrim_path === "" ? "/" : $rtrim_path] = [
         "handler" => $handler,
         "middlewares" => []
       ];
@@ -57,23 +55,37 @@
       
     function __destruct() {
       $request = new Request();
-      foreach ($this->routes as $route) {
-        list("path" => $path, "method" => $method, "handler" => $target_handler, "middlewares" => $middlewares) = $route;
-        if ($method !== $request->getMethod()) continue;
-        $pattern = "@^" . preg_replace('/:[a-zA-Z0-9\_\-]+/', '([a-zA-Z0-9\-\_]+)', $path) . "$@D";
-        preg_match_all('/:([a-zA-Z0-9\_\-]+)/', $path, $param_names);
-        if ($target_handler && preg_match($pattern, $request->getPathInfo(), $matches)) {
-          $params = [];
-          for ($i = 1; $i < count($matches); $i++) 
-            $params[$param_names[1][$i - 1]] = $matches[$i];
-          foreach ($middlewares as $middleware) {
-            $middleware_instance = new $middleware; 
-            list($accepted, $handler) = $middleware_instance->process($request, $target_handler);
-            if (!$accepted) return $this->handle(__EXCEPTION__, [new AccessDeniedException]);
-            if ($handler !== $target_handler) return $this->handle($handler, [$request, $params]);
-          }
-          return $this->handle($target_handler, [$request, $params]);
-        }
+      $method = $request->getMethod();
+      $path_info = $request->getPathInfo();
+      if (isset($this->routes[$method])) {
+         if (isset($this->routes[$method][$path_info])) {
+            list("handler" => $target_handler, "middlewares" => $middlewares) = $this->routes[$method][$path_info];
+            foreach ($middlewares as $middleware) {
+              $middleware_instance = new $middleware; 
+              list($accepted, $handler) = $middleware_instance->process($request, $target_handler);
+              if (!$accepted) return $this->handle(__EXCEPTION__, [new AccessDeniedException]);
+              if ($handler !== $target_handler) return $this->handle($handler, [$request]);
+            }
+            return $this->handle($target_handler, [$request]);
+         }
+         else {
+            foreach ($this->routes[$method] as $path => $route) {
+               list("handler" => $target_handler, "middlewares" => $middlewares) = $route; 
+               $pattern = "@^" . preg_replace('/:[a-zA-Z0-9\_\-]+/', '([a-zA-Z0-9\-\_]+)', $path) . "$@D";
+               preg_match_all('/:([a-zA-Z0-9\_\-]+)/', $path, $param_names);
+               if ($target_handler && preg_match($pattern, $request->getPathInfo(), $matches)) {
+                  $params = [];
+                  for ($i = 1; $i < count($matches); $i++) $params[$param_names[1][$i - 1]] = $matches[$i];
+                  foreach ($middlewares as $middleware) {
+                    $middleware_instance = new $middleware; 
+                    list($accepted, $handler) = $middleware_instance->process($request, $target_handler);
+                    if (!$accepted) return $this->handle(__EXCEPTION__, [new AccessDeniedException]);
+                    if ($handler !== $target_handler) return $this->handle($handler, [$request, $params]);
+                  }
+                  return $this->handle($target_handler, [$request, $params]);
+               }        
+            }
+         }
       }
       return $this->handle(__EXCEPTION__, [new NotFoundException]);
     }

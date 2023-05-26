@@ -18,7 +18,10 @@
     public static function isJsonOnly(Request $req, $body_response) {
       if ($body_response === false) throw new InternalErrorException();
       $requested_payloads = $req->getPayloads();
-      return nonnull($requested_payloads) && (int)$requested_payloads["json_only"] === 1;
+      if (isset($requested_payloads["json_only"])) {
+        if ((int)$requested_payloads["json_only"] === 1) return true;
+      }
+      return false;
     }
   }
 ?>

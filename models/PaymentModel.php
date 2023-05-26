@@ -12,22 +12,15 @@
 			return $res["payment_methods"];
 		}
 
-		public static function testRedirect() {
-			$url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=546000&vnp_BankCode=NCB&vnp_Command=pay&vnp_CreateDate=20230518212031&vnp_CurrCode=VND&vnp_ExpireDate=20230518213531&vnp_IpAddr=%3A%3A1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+GD%3A+8742&vnp_OrderType=other&vnp_ReturnUrl=C%3A%2Fxampp%2Fhtdocs%2Fpizza-complete-version%2Fthanh-toan%2Fresp&vnp_TmnCode=Y4U88XFK&vnp_TxnRef=8742&vnp_Version=2.1.0&vnp_SecureHash=6e1aaf7b56a6c0c8d1266660d3e570b6ace7a7ec89d0cd74f3e939b3a3a960578f66962aad1c9da80308e4fa86af7a670a8fe8523c182a04896d44b2c96f1ccf";
-   		header("Location: " . $url);
-		}
-
 		public static function processVnpayPayment($endpoint, $new_order) {
-			$vnp_TmnCode = "Y4U88XFK";
-			$vnp_HashSecret = "DTHXNFNBUMNKFKQOZVHTXUXNUQUUXMTV";
-			$vnp_Returnurl = __ROOT__ . "thanh-toan/resp";
-
-			$vnp_TxnRef = rand(1, 10000); // Mã giao dịch thanh toán tham chiếu của merchant
-			$vnp_Amount = $new_order->getTotal();
+			$vnp_TmnCode = "WE6AD37V";
+			$vnp_HashSecret = "QGJSRPICZPLMFPBJJUQIVQYXYWLXCIMJ";
+			$vnp_Returnurl = "http://localhost/pizza-complete-version/thanh-toan/resp";
+			$vnp_TxnRef = $new_order["id"]; 
+			$vnp_Amount = $new_order["total"] * 100;
 			$vnp_Locale = "vn"; 
 			$vnp_BankCode = "NCB";
-			$vnp_IpAddr = $_SERVER['REMOTE_ADDR']; // IP Khách hàng thanh toán
-
+			$vnp_IpAddr = $_SERVER['REMOTE_ADDR']; 
 			$inputData = array(
 				"vnp_Version" => "2.1.0",
 				"vnp_TmnCode" => $vnp_TmnCode,
@@ -38,7 +31,7 @@
 				"vnp_BankCode" => $vnp_BankCode,
 				"vnp_IpAddr" => $vnp_IpAddr,
 				"vnp_Locale" => $vnp_Locale,
-				"vnp_OrderInfo" => "Thanh toan GD: $vnp_TxnRef",
+				"vnp_OrderInfo" => "pizza_house_order",
 				"vnp_OrderType" => "other",
 				"vnp_ReturnUrl" => $vnp_Returnurl,
 				"vnp_TxnRef" => $vnp_TxnRef,
@@ -63,7 +56,8 @@
 				$vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); 
 				$vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
 			}
-			header('Location: ' . $vnp_Url);
+			// header('Location: ' . $vnp_Url);
+			return $vnp_Url;
 		}
 
 		public static function processMomoPayment($endpoint, $new_order) {
@@ -71,10 +65,10 @@
          $accessKey = 'klm05TvNBzhg7h7j';
          $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
          $orderInfo = "Thanh toán qua MoMo";
-         $amount = $new_order->getTotal();
-         $orderId = $new_order->getId();
-         $redirectUrl = "http://localhost/pizza-complete-version/thanh-toan/resp";
-         $ipnUrl = "http://localhost/pizza-complete-version/thanh-toan/resp";
+         $amount = $new_order["total"];
+         $orderId = $new_order["id"];
+         $redirectUrl = __ROOT__ . "thanh-toan/resp";
+         $ipnUrl = __ROOT__ . "thanh-toan/resp";
          $extraData = "";
          $requestId = time() . "";
          $requestType = "payWithATM";
@@ -101,7 +95,8 @@
             'Content-Length: ' . strlen($data)
 			)), true);
 			unset($req_sender);
-         header('Location: ' . $jsonResult['payUrl']);
+         // header('Location: ' . $jsonResult['payUrl']);
+			return $jsonResult["payUrl"];
 		}
 	}
 ?>

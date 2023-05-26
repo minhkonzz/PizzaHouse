@@ -8,24 +8,24 @@ $(document).ready(() => {
     try {
       const errs = []
       const customerName = $("input[name=buyer_name]").val().match(p1)[0] || (errs.push("Tên người mua hàng không hợp lệ") && "")
-      console.log("buyer_name_ok")
+      // console.log("buyer_name_ok")
       const customerEmail = $("input[name=buyer_email]").val().match(p2)[0] || (errs.push("Email người mua không hợp lệ") && "")
-      console.log("buyer_email_ok")
+      // console.log("buyer_email_ok")
       const customerPhone = $("input[name=buyer_phone]").val().match(p4)[0] || (errs.push("Điện thoại người mua không hợp lệ") && "")
-      console.log("buyer_phone_ok")
+      // console.log("buyer_phone_ok")
       const shipAddressDetail = $("input[name=buyer_address]").val().match(p3)[0] || (errs.push("Địa chỉ nhận hàng không hợp lệ") && "")
-      console.log("receiver_address_ok")
+      // console.log("receiver_address_ok")
       const checkoutDistrict = $("select[name=checkout_district] option:selected").val()
       const checkoutCity = $("select[name=checkout_city] option:selected").val()
       const checkoutWard = $("select[name=checkout_ward] option:selected").val()
       const receiverName = $("input[name=receiver_name]").val().match(p1)[0] || (errs.push("Tên người nhận hàng không hợp lệ") && "")
-      console.log("receiver_name_ok")
+      // console.log("receiver_name_ok")
       const receiverPhone = $("input[name=receiver_phone]").val().match(p4)[0] || (errs.push("Điện thoại người nhận hàng") && "")
-      console.log("receiver_phone_ok")
+      // console.log("receiver_phone_ok")
       const getInShopCheck = $("input[name=get-in-shop-checker][type=checkbox]").prop("checked")
       const payMethod = JSON.parse($("input[name=checkout-pay-method]:checked").val())
       const checkoutOrderNote = $("#checkout__order-note").val().match(p3)[0] || (errs.push("Ghi chú đơn hàng chứa ký tự không hợp lệ") && "")
-      console.log("note_ok")
+      // console.log("note_ok")
       if (errs.length > 0) throw new Error(errs.join("\n"))
       const orderPayloads = {
         "order": {
@@ -44,19 +44,12 @@ $(document).ready(() => {
         }
       }
       if (payMethod["online_pay"]) orderPayloads["online_pay"] = payMethod["online_pay"]
-      // $.ajax({
-      //   url: "http://localhost/pizza-complete-version/thanh-toan", 
-      //   method: "POST", 
-      //   data: orderPayloads
-      // }).done((response) => {
-      //   console.log(response)
-      // }).fail((jqXHR, textStatus, errorThrown) => {
-      //   console.log("error:", jqXHR)
-      // })
-
       callAjax(
         "thanh-toan", 
-        null, 
+        (body) => {
+           const { payment_url } = body 
+           window.location.href = payment_url
+        },
         "POST",
         orderPayloads
       )
