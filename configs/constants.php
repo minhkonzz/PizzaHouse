@@ -14,7 +14,7 @@
 
   define("ROOT_ADMIN", $_SERVER["DOCUMENT_ROOT"] . ($is_local_env ? "/pizza-complete-version" : "") . "/admin/");
   
-  define("ROOT_ADMIN_CLIENT", ($is_local_env ? "/pizza-complete-version" : "/admin/"));
+  define("ROOT_ADMIN_CLIENT", ($is_local_env ? "/pizza-complete-version" : "") . "/admin/");
   
   define("OKTA_REDIRECT_URI", ($is_local_env ? "http://localhost/pizza-complete-version/" : "http://" . $_SERVER["SERVER_NAME"] . "/") . $_ENV["OKTA_OAUTH2_REDIRECT_URI"]);
   
