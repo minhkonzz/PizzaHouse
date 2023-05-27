@@ -1,5 +1,5 @@
 const localEnv = ["localhost", "127.0.0.1"];
-const host = localEnv.includes(window.location.hostname) && "http://localhost/pizza-complete-version/" || `${window.location.hostname}/`
+const host = localEnv.includes(window.location.hostname) && "http://localhost/pizza-complete-version/" || "/"
 
 function callAjax(
    url, 
