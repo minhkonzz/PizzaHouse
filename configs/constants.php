@@ -4,7 +4,7 @@
   
   define("__ROOT__", $_SERVER["DOCUMENT_ROOT"] . ($is_local_env ? "/pizza-complete-version/" : "/"));
   
-  define("ROOT_CLIENT", $is_local_env ? "/pizza-complete-version/" : $_SERVER["SERVER_NAME"] . "/");
+  define("ROOT_CLIENT", $is_local_env ? "/pizza-complete-version/" : "/");
   
   define("__EXCEPTION__", "ExceptionController@handle");
   define("__CART_SESSION_KEY__", "cart");
@@ -14,7 +14,7 @@
 
   define("ROOT_ADMIN", $_SERVER["DOCUMENT_ROOT"] . ($is_local_env ? "/pizza-complete-version" : "") . "/admin/");
   
-  define("ROOT_ADMIN_CLIENT", ($is_local_env ? "/pizza-complete-version" : $_SERVER["SERVER_NAME"]) . "/admin/");
+  define("ROOT_ADMIN_CLIENT", ($is_local_env ? "/pizza-complete-version" : "/admin/"));
   
   define("OKTA_REDIRECT_URI", ($is_local_env ? "http://localhost/pizza-complete-version/" : "http://" . $_SERVER["SERVER_NAME"] . "/") . $_ENV["OKTA_OAUTH2_REDIRECT_URI"]);
   
