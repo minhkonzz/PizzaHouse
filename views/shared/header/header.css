@@ -257,6 +257,7 @@ header, nav, .nav__center img {
 }
 
 .header-above__right > *,
+.header-above__right a,
 nav ul a,
 .nav__contact, 
 .nav__cart > span,

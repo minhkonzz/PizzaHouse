@@ -34,6 +34,16 @@
              // by making a request to the token endpoint
             $token_endpoint = $_ENV["OKTA_OAUTH2_ISSUER"] . "/v1/token";
             
+            echo "<pre>";
+            print_r([
+               'grant_type' => 'authorization_code',
+               'code' => $payloads['code'],
+               'code_verifier' => $_SESSION['oauth_code_verifier'],
+               'redirect_uri' => OKTA_REDIRECT_URI,
+               'client_id' => $_ENV['OKTA_OAUTH2_CLIENT_ID'],
+               'client_secret' => $_ENV['OKTA_OAUTH2_CLIENT_SECRET'],
+            ]);
+
             $req_sender = new RequestSender($token_endpoint);
             $response = json_decode($req_sender->post(http_build_query([
                'grant_type' => 'authorization_code',
@@ -58,8 +68,10 @@
             
             if (isset($response['refresh_token'])) $_SESSION['okta_refresh_token'] = $response['refresh_token'];
             if (isset($response['id_token'])) $_SESSION['okta_id_token'] = $response['id_token'];
-            header("Location: " . ROOT_ADMIN_CLIENT . "views/test-result.view.php"); 
-         } catch (Exception $e) {}
+            header("Location: " . ROOT_ADMIN_CLIENT); 
+         } catch (Exception $e) {
+            echo $e->getMessage();
+         }
       }
    }
 ?>

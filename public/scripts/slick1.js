@@ -2,7 +2,7 @@ $(document).ready(() => {
    // const containerHorzMargin = 25
 
    const gap = 20
-   const itemsShow = 3
+   const itemsShow = 4
    // let currentWindowWidth = $(window).width
 
    $(".home__menu-main .items").css("column-gap", gap)

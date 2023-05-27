@@ -5,27 +5,21 @@ $(document).ready(() => {
   const p4 = /^[0-9]+$/ig
 
   $("#make-order-btn").click(() => {
+    $("#dialog").fadeIn(230)
     try {
       const errs = []
       const customerName = $("input[name=buyer_name]").val().match(p1)[0] || (errs.push("Tên người mua hàng không hợp lệ") && "")
-      // console.log("buyer_name_ok")
       const customerEmail = $("input[name=buyer_email]").val().match(p2)[0] || (errs.push("Email người mua không hợp lệ") && "")
-      // console.log("buyer_email_ok")
       const customerPhone = $("input[name=buyer_phone]").val().match(p4)[0] || (errs.push("Điện thoại người mua không hợp lệ") && "")
-      // console.log("buyer_phone_ok")
       const shipAddressDetail = $("input[name=buyer_address]").val().match(p3)[0] || (errs.push("Địa chỉ nhận hàng không hợp lệ") && "")
-      // console.log("receiver_address_ok")
       const checkoutDistrict = $("select[name=checkout_district] option:selected").val()
       const checkoutCity = $("select[name=checkout_city] option:selected").val()
       const checkoutWard = $("select[name=checkout_ward] option:selected").val()
       const receiverName = $("input[name=receiver_name]").val().match(p1)[0] || (errs.push("Tên người nhận hàng không hợp lệ") && "")
-      // console.log("receiver_name_ok")
       const receiverPhone = $("input[name=receiver_phone]").val().match(p4)[0] || (errs.push("Điện thoại người nhận hàng") && "")
-      // console.log("receiver_phone_ok")
       const getInShopCheck = $("input[name=get-in-shop-checker][type=checkbox]").prop("checked")
       const payMethod = JSON.parse($("input[name=checkout-pay-method]:checked").val())
       const checkoutOrderNote = $("#checkout__order-note").val().match(p3)[0] || (errs.push("Ghi chú đơn hàng chứa ký tự không hợp lệ") && "")
-      // console.log("note_ok")
       if (errs.length > 0) throw new Error(errs.join("\n"))
       const orderPayloads = {
         "order": {
@@ -47,8 +41,18 @@ $(document).ready(() => {
       callAjax(
         "thanh-toan", 
         (body) => {
-           const { payment_url } = body 
-           window.location.href = payment_url
+           if (orderPayloads["online_pay"]) {
+              const { payment_url } = body 
+              window.location.href = payment_url
+              return
+           }
+           $("#dialog__title").html(`Đặt đơn thành công`)
+           $("#dialog-redirect-btn a").html("Xem thêm sản phẩm") 
+           $("#dialog-redirect-btn a").attr("href", `${host}`) 
+           $("body").css("overflow-y", "hidden")
+           $("#spinner").css("display", "none")
+           $("#dialog__main").css("display", "initial") 
+           setTimeout(() => { window.location.href = `${host}` }, 2000)
         },
         "POST",
         orderPayloads

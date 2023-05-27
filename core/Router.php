@@ -38,10 +38,11 @@
       return !in_array($request_method, self::SUPPORT_HTTP_METHODS);
     }
       
-    public function applyMiddlewares(...$middlewares) {
-      $last_route_idx = count($this->routes) - 1;
+    public function applyMiddlewares($method, $path, ...$middlewares) {
+      // $last_route_idx = count($this->routes) - 1;
       foreach ($middlewares as $middleware)
-        $this->routes[$last_route_idx]["middlewares"][] = $middleware;
+        // $this->routes[$last_route_idx]["middlewares"][] = $middleware;
+        $this->routes[strtoupper($method)][$path]["middlewares"][] = $middleware;
     } 
 
     private function handle($handler, $request_bundle) {

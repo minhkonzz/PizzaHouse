@@ -32,7 +32,7 @@
       }
 
       function __construct($customer) {
-         parent::__construct(CUSTOMER_ID_PREFIX); 
+         parent::__construct(CUSTOMER_ID_PREFIX, $customer["id"]); 
          $this->name = $customer["name"];
          $this->phone = $customer["phone"]; 
          $this->username = $customer["usr"];

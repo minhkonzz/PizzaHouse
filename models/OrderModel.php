@@ -5,7 +5,7 @@
     	public static function addOrder($new_order) { 
 			$order_items = $new_order["order_items"];
       	$queries = [[
-				"query_str" => !empty($new_order["customer_id"]) ? "INSERT INTO tbl_order (id, customer_id, buyer_name, buyer_email, buyer_phone, receiver_name, receiver_phone, receive_address, take_in_shop, district, city, ward, order_state_id, pay_method_id, note, total) VALUES (:id, :customer_id, :buyer_name, :buyer_email, :buyer_phone, :receiver_name, :receiver_phone, :receive_address, :take_in_shop, :district, :city, :ward, :order_state_id, :pay_method_id, :note, :total)" : "INSERT INTO tbl_order (id, buyer_name, buyer_email, buyer_phone, receiver_name, receiver_phone, receive_address, take_in_shop, district, city, ward, order_state_id, pay_method_id, note, total) VALUES (:id, :buyer_name, :buyer_email, :buyer_phone, :receiver_name, :receiver_phone, :receive_address, :take_in_shop, :district, :city, :ward, :order_state_id, :pay_method_id, :note, :total)", 
+				"query_str" => !empty($new_order["customer_id"]) ? "INSERT INTO tbl_order (id, customer_id, buyer_name, buyer_email, buyer_phone, receiver_name, receiver_phone, receive_address, take_in_shop, district, city, ward, order_state_id, pay_method_id, is_paid, note, total) VALUES (:id, :customer_id, :buyer_name, :buyer_email, :buyer_phone, :receiver_name, :receiver_phone, :receive_address, :take_in_shop, :district, :city, :ward, :order_state_id, :pay_method_id, :is_paid, :note, :total)" : "INSERT INTO tbl_order (id, buyer_name, buyer_email, buyer_phone, receiver_name, receiver_phone, receive_address, take_in_shop, district, city, ward, order_state_id, pay_method_id, is_paid, note, total) VALUES (:id, :buyer_name, :buyer_email, :buyer_phone, :receiver_name, :receiver_phone, :receive_address, :take_in_shop, :district, :city, :ward, :order_state_id, :pay_method_id, :is_paid, :note, :total)", 
 				"params" => !empty($new_order["customer_id"]) ? [
 					"id" => $new_order["id"], 
 					"customer_id" => $new_order["customer_id"], 
@@ -21,6 +21,7 @@
 					"ward" => $new_order["ward"], 
 					"order_state_id" => $new_order["state_id"], 
 					"pay_method_id" => $new_order["pay_method_id"], 
+					"is_paid" => $new_order["is_paid"],
 					"note" => $new_order["note"], 
 					"total" => $new_order["total"]
 				] : 
@@ -37,7 +38,8 @@
 					"city" => $new_order["city"], 
 					"ward" => $new_order["ward"], 
 					"order_state_id" => $new_order["state_id"], 
-					"pay_method_id" => $new_order["pay_method_id"], 
+					"pay_method_id" => $new_order["pay_method_id"],
+					"is_paid" => $new_order["is_paid"], 
 					"note" => $new_order["note"], 
 					"total" => $new_order["total"]
 				]

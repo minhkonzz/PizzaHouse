@@ -40,7 +40,7 @@
                 </div>
                 <div class="remove-cart-item">
                   <button class="remove-cart-item-btn icon" data-cart-id="<?= $cart_item_id ?>"><ion-icon name="trash"></ion-icon></button>
-                  <button class="remove-cart-item-btn norm" data-cart-id="<?= $cart_item_id ?>">
+                  <button class="remove-cart-item-btn norm" data-cart-id="<?= $cart_item_id ?>" data-product-name="<?= $product_name ?>">
                     <ion-icon name="trash"></ion-icon>
                     Xóa sản phẩm
                   </button>
@@ -51,11 +51,17 @@
         </div>
         <?php } else echo '<p style="text-align: center; opacity: .6; margin-top: 15px;">Không có dữ liệu</p>' ?>
         <div class="cart-main__confirm">
-          <button class="cart__button" id="update-cart-btn">CẬP NHẬT GIỎ HÀNG</button>
+          <?php 
+            if (count($cart_items) > 0 && $cart_total > 0) { ?>
+              <button class="cart__button" id="update-cart-btn">CẬP NHẬT GIỎ HÀNG</button>
+          <?php } ?>
           <p class="cart-main__total">Tạm tính: <?= number_format($cart_total) ?>đ</p>
           <div class="cart__confirm-buttons">
             <button class="cart__button explore-more"><a href="<?= ROOT_CLIENT . "thuc-don" ?>">XEM THÊM SẢN PHẨM</a></button>
-            <button class="cart__button"><a href="<?= ROOT_CLIENT . "thanh-toan" ?>">THANH TOÁN</a></button>
+            <?php 
+              if (count($cart_items) > 0 && $cart_total > 0) { ?>
+                <button class="cart__button"><a href="<?= ROOT_CLIENT . "thanh-toan" ?>">THANH TOÁN</a></button>
+            <?php } ?>
           </div>
         </div>
       </div>

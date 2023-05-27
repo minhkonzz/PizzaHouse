@@ -6,7 +6,24 @@
     ] as $shared) include_once __ROOT__ . "views/shared/" . $shared; 
   ?>
   <main>
+    <?php 
+      $body_response = $response->getBody(); 
+      if (!empty($body_response["paid"])) { ?>
+        <script>
+          $(document).ready(() => {
+            $("#dialog").fadeIn(230)
+            $("#dialog__title").html("Đặt đơn thành công")
+            $("#dialog-redirect-btn a").html("Xem thêm sản phẩm") 
+            $("#dialog-redirect-btn a").attr("href", `${host}`) 
+            $("body").css("overflow-y", "hidden")
+            $("#spinner").css("display", "none")
+            $("#dialog__main").css("display", "initial") 
+            setTimeout(() => { window.location.href = `${host}` }, 2000)
+          })
+        </script>
+    <?php } ?>
     <div class="checkout__main">
+      <?php $user = isset($_COOKIE["user"]) ? json_decode($_COOKIE["user"]) : null; ?>
       <div class="checkout__main-left">
         <div class="checkout__section">
           <div class="checkout__section__header">
@@ -17,9 +34,9 @@
             <div class="customer__detail">
               <div>
                 <p class="checkout__section__main__title">NGƯỜI MUA HÀNG</p>
-                <input type="text" name="buyer_name" placeholder="Họ và tên">
-                <input type="text" name="buyer_email" placeholder="Email">
-                <input type="text" name="buyer_phone" placeholder="Điện thoại">
+                <input type="text" name="buyer_name" placeholder="Họ và tên" <?php if ($user !== null) echo 'value="' . $user->name . '"' ?>>
+                <input type="text" name="buyer_email" placeholder="Email" <?php if ($user !== null) echo 'value="' . $user->email . '"' ?>>
+                <input type="text" name="buyer_phone" placeholder="Điện thoại" <?php if ($user !== null) echo 'value="' . $user->phone . '"' ?>>
                 <div style="display: flex; align-items: center; margin-top: 6px;">
                   <label style="font-size: 13px;">Bạn muốn nhận hàng trực tiếp tại shop?</label>
                   <input style="margin-left: 10px;" name="get-in-shop-checker" type="checkbox">
@@ -34,7 +51,7 @@
             <div style="margin-top: 22px;">
               <p class="checkout__section__main__title">ĐỊA CHỈ NHẬN HÀNG</p>
               <div class="address__detail">
-                <input type="text" name="buyer_address" placeholder="Địa chỉ">
+                <input type="text" name="buyer_address" placeholder="Địa chỉ" <?php if ($user !== null) echo 'value="' . $user->address . '"' ?>>
                 <select name="checkout_district">
                   <option value="Đống Đa">Đống Đa</option>
                   <option value="Cầu Giấy">Cầu Giấy</option>
@@ -140,4 +157,4 @@
   </main>
   <?php include_once __ROOT__ . "views/shared/footer/footer.view.php"; ?>
 </div>
-<script src="<?= ROOT_CLIENT . "public/scripts/checkout/checkout4.js" ?>"></script>
+<script src="<?= ROOT_CLIENT . "public/scripts/checkout/checkout5.js" ?>"></script>

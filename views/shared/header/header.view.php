@@ -13,13 +13,16 @@
             <li><button><ion-icon name="heart"></ion-icon></button></li>
          </ul>
          <div class="header-above__right">
+            <?php 
+               $user = isset($_COOKIE["user"]) ? json_decode($_COOKIE["user"]) : null;
+            ?>
             <div>
                <span><ion-icon name="person-outline"></ion-icon></span>
-               <p>Tài khoản</p>
+               <?php echo $user !== null ? '<p>Xin chào ' . $user->name . '</p>' : '<a href="' . ROOT_CLIENT . 'dang-nhap">Đăng nhập</a>' ?> 
             </div>
             <div>
                <span><ion-icon name="heart-outline"></ion-icon></span>
-               <p>Danh sách yêu thích</p>
+               <a href="<?= ROOT_CLIENT . "wishlist" ?>">Danh sách yêu thích</a>
             </div>
          </div>
       </div>
@@ -70,8 +73,11 @@
                   <span><?= number_format($cart_total) ?>đ</span>
                </div>
                <div class="nav__cart__options">
-                  <button class="nav__cart__option"><a href="./gio-hang" href="#">GIỎ HÀNG</a></button>
-                  <button class="nav__cart__option"><a href="./thanh-toan" href="#">THANH TOÁN</a></button>
+                  <button class="nav__cart__option"><a href="./gio-hang">GIỎ HÀNG</a></button>
+                  <?php 
+                     if (count($cart_items) > 0 && $cart_total > 0) { ?>
+                        <button class="nav__cart__option"><a href="./thanh-toan">THANH TOÁN</a></button>
+                  <?php } ?>
                </div>
             </div>
          </div>
@@ -82,4 +88,4 @@
       </div>
    </nav>
 </header>
-<script src="<?= ROOT_CLIENT . "public/scripts/cart.js" ?>"></script>
+<script src="<?= ROOT_CLIENT . "public/scripts/cart1.js" ?>"></script>

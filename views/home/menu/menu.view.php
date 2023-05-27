@@ -6,11 +6,11 @@
       <div class="header">
          <p class="home__menu-title">Khám phá thực đơn</p>
          <ul class="home__menu-tabs">
-         <?php
-            foreach ($categories as $category):
-               list("id" => $category_id, "category_name" => $category_name) = $category; ?> 
-                  <li class="home__menu-tab"><button data-category-id="<?= $category_id ?>"><?= $category_name ?></button></li>
-         <?php endforeach ?>
+   <?php
+      foreach ($categories as $category):
+         list("id" => $category_id, "category_name" => $category_name) = $category; ?> 
+            <li class="home__menu-tab"><button data-category-id="<?= $category_id ?>"><?= $category_name ?></button></li>
+   <?php endforeach ?>
          </ul>
       </div>
       <div class="list">
@@ -28,8 +28,8 @@
                         </div>
                         <p class="item__name"><?= $product_name ?></p>
                         <p class="item__price"><?= number_format($product_price) ?>đ</p>
-                        <p class="item__desc"><?= $product_desc ?></p>
-                        <button class="item__detail-button"><a href="/pizza-complete-version/thuc-don/<?= $product_id ?>">Xem chi tiết</a></button>
+                        <p class="item__desc"><?= substr($product_desc, 0, 200); ?>...</p>
+                        <button class="item__detail-button"><a href="<?= ROOT_CLIENT . "thuc-don/$product_id" ?>">Xem chi tiết</a></button>
                      </div>
             <?php endforeach ?>
             </div>
@@ -40,4 +40,4 @@
       </div>
    </div>
 </section>
-<script src="<?= ROOT_CLIENT . "public/scripts/slick.js" ?>"></script>
+<script src="<?= ROOT_CLIENT . "public/scripts/slick1.js" ?>"></script>

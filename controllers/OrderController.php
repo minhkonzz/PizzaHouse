@@ -61,17 +61,24 @@
 		public function redirectToPaymentResultPage(Request $req, $params = []) {
 			try {
 				$payloads = $req->getPayloads();
-				$_SESSION["ORDER"]["EXTRA"]["is_paid"] = $this->isPaid($payloads); 
+				$_SESSION["ORDER"]["EXTRA"]["is_paid"] = $this->isPaid($payloads);
 				if ($_SESSION["ORDER"]["EXTRA"]["is_paid"]) if (!OrderModel::addOrder($_SESSION["ORDER"]["EXTRA"])) throw new InternalErrorException();
+				$body_response = [
+					"paid" => $_SESSION["ORDER"]["EXTRA"]["is_paid"],
+					"pay_methods" => PaymentModel::getAllPaymentMethods()
+				];
 				parent::view(
-					ROOT_ADMIN, 
+					__ROOT__, 
 					["title" => "Thanh toán", "path" => ["Trang chủ", "Giỏ hàng", "Thanh toán"]],
 					"checkout/checkout.view.php",
 					"checkout/checkout.style.css",
 					"bundle.view.php", 
-					new Response(["paid" => $_SESSION["ORDER"]["EXTRA"]["is_paid"]])
+					new Response($body_response)
 				);
+				unset($_SESSION["ORDER"]);
+				$_SESSION[__CART_SESSION_KEY__] = __CART_INITIAL__;
 			} catch (InternalErrorException $e) {
+				echo "thrown to InternalErrorException";
 				return (new Response([], $e->getCode(), $e->getMessage()))->withJson();
 			}
 		}
@@ -79,9 +86,10 @@
 		public function createNewOrder(Request $req, $params = []) {
 			try {
 				$payloads = $req->getPayloads();
+				$customer = isset($_COOKIE["user"]) ? json_decode($_COOKIE["user"]) : null;
 				list("items" => $cart_items, "cart_total" => $cart_total) = $_SESSION[__CART_SESSION_KEY__];
 				$new_order = new Order(array_merge(
-					["customer_id" => $_SESSION["customer"]["id"] ?? null],
+					["customer_id" => $customer !== null ? $customer->id : null],
 					$payloads["order"],
 					["order_items" => $cart_items],
 					["total" => $cart_total]
@@ -102,7 +110,7 @@
 					"state_id" => $new_order->getStateId(),
 					"note" => $new_order->getNote(), 
 					"is_paid" => $new_order->getIsPaid(), 
-					"is_take_in_shop" => $new_order->getIsTakeInShop(), 
+					"is_take_in_shop" => (int)$new_order->getIsTakeInShop(), 
 					"total" => $new_order->getTotal(),
 					"order_items" => $new_order->getOrderItems()
 				];
@@ -122,6 +130,7 @@
 				}
 				if (!OrderModel::addOrder($_SESSION["ORDER"]["EXTRA"])) throw new InternalErrorException();
 				return (new Response())->withJson();
+				echo json_encode($_SESSION["ORDER"]["EXTRA"]);
 			} catch (InternalErrorException $e) {
 				return (new Response([], $e->getCode(), $e->getMessage()))->withJson();
 			}

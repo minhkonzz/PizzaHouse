@@ -76,19 +76,22 @@
                   <?php 
                     foreach ($addon_options as $addon_val_id => $addon_val_meta): 
                       list("addon_val" => $addon_val, "addon_val_price" => $addon_val_price) = $addon_val_meta;
-                      $data_addon_selection = json_encode([
-                        "addon_id" => $addon_id,
-                        "addon_val_id" => $addon_val_id, 
+                      $data_addon_extra = json_encode([ 
                         "addon_val" => $addon_val,
                         "addon_val_price" => $addon_val_price, 
                         "apply_product_price" => $apply_product_price
                       ]); ?>
-                      <li><button class="product-detail__addon-option" data-addon="<?= htmlspecialchars($data_addon_selection, ENT_QUOTES, "UTF-8") ?>" ><?= $addon_val ?></button></li>
+                      <li>
+                        <button 
+                          class="product-detail__addon-option" 
+                          data-addon-id="<?= $addon_id ?>" 
+                          data-addon-val-id="<?= $addon_val_id ?>" 
+                          data-addon-val-extra="<?= htmlspecialchars($data_addon_extra, ENT_QUOTES, "UTF-8") ?>" ><?= $addon_val ?></button></li>
                   <?php endforeach ?>
                 </ul>
               </div>
           <?php endforeach ?>
-          <p class="product-detail__price"><b>Giá</b>: <span><?= number_format($price) ?></span></p>
+          <p class="product-detail__price"><b>Giá</b>: <span></span></p>
           <div class="product-detail__actions">
             <p>Chọn số lượng</p>
             <div>
@@ -104,5 +107,5 @@
     </div>
   </main>
 </div>
-<script src="<?= ROOT_CLIENT . "public/scripts/product-detail.js"?>"></script>
+<script src="<?= ROOT_CLIENT . "public/scripts/product.js"?>"></script>
 

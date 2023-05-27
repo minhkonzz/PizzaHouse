@@ -36,18 +36,20 @@
      public function login(Request $req, array $params = []) {
         try {
            list("customerEmail" => $email, "customerPassword" => $password) = $req->getPayloads();
-           $customer = new Customer(CustomerModel::selectCustomerByEmail($email));
+           $c = CustomerModel::selectCustomerByEmail($email);
+           $customer = new Customer($c);
            if (!isset($customer) || empty($customer)) throw new AuthException("Không tìm thấy user có email đã nhập");
            if (!password_verify($password, $customer->getPassword())) throw new AuthException("Mật khẩu đăng nhập không đúng");
-           $token = new JWTToken([], $customer, '', time() + 300);
+           $token = new JWTToken([], $customer, '', time() + 3000);
            $encryptor = new JWEEncryptor();
            if (!isset($encryptor) || empty($encryptor)) throw new EncryptException();
            $secret_key = bin2hex(random_bytes(__SECRET_KEY_LENGTH__));
            $encrypted_token = $encryptor->encode($token->getPayload(), $secret_key);
            $token->setToken($encrypted_token);
-           setcookie("auth_token", "aaa", $token->getExpireAt(), "/");
+         //   setcookie("auth_token", "aaa", $token->getExpireAt(), "/");
            setcookie("user", json_encode([
               "id" => $customer->getId(), 
+              "access_token" => "aaa",
               "name" => $customer->getName(), 
               "phone" => $customer->getPhone(), 
               "email" => $customer->getEmail(),
