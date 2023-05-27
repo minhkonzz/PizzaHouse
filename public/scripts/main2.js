@@ -3,7 +3,7 @@ $(document).ready(() => {
       
    // } 
 
-   $("#loading").css("display", "none")
+   // $("#loading").css("display", "none")
    $("#content").css("display", "initial")
 
    $(window).scroll(() => {

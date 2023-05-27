@@ -21,7 +21,7 @@
    <body>
       <div id="content"><?= $PAGE_CONTENT ?></div>
       <?php include_once __ROOT__ . "views/shared/sidebar-nav/sidebar-nav.view.php"; ?>
-      <div id="loading"></div>
+      <!-- <div id="loading"></div> -->
       <div id="dialog">
          <div id="spinner" class="center"></div>
          <div id="dialog__main">
