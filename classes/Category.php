@@ -12,8 +12,8 @@
       return $this->category_name;
     }
 
-    function __construct($category_name) {
-      parent::__construct(CATEGORY_ID_PREFIX);
+    function __construct($category_name, $id = "") {
+      parent::__construct(CATEGORY_ID_PREFIX, $id);
       $this->category_name = $category_name; 
     }
   }

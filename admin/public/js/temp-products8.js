@@ -1,5 +1,11 @@
 $(document).ready(() => {
-   let currentProduct = null
+   let currentProduct = {
+      name: "", 
+      price: "", 
+      category: "", 
+      description: ""
+   }
+
    let currentProductCopy = null 
    const currentProductAddonOptionIds = []
    let addons = null
@@ -16,23 +22,43 @@ $(document).ready(() => {
    })
 
    function resetProductForm() {
-     if (currentProduct) currentProduct = null
+     currentProduct = {
+        name: "", 
+        price: "", 
+        category: "", 
+        description: "",
+        addon_options: []
+     }
      $(".modal-title").html("Thêm sản phẩm mới")
-     $("#product-id-float-inp").val(`P${Math.floor(Math.random() * 10000).toString().padStart(5, 0)}`)
-     $("#product-name-float-inp").val("")
-     $("#product-price-float-inp").val("")
-     $("#product-description-textarea").val("")
-     $("#product-addons__list").html('<p style="opacity: .8; text-align: center;">Chưa có dữ liệu</p>')
+     $('.field__wrapper[data-ident=product-id]').css("display", "none")
+     $("#product__image").html(`
+        <i class="bi bi-image-fill"></i>
+        <p id="title">Kích thước ảnh giới hạn 2048px, định dạng PNG hoặc JPEG</p>
+     `)
+     $("#product-addons__list").html('<p style="opacity: .8; text-align: center; font-size: 13px; font-style: italic;">Chưa có dữ liệu</p>')
    }
+
+   $("#product__image-container #upload-btn").click(() => {
+      const uploadOptions = {
+         success: function(files) {
+            const { link, thumbnailLink } = files[0]
+            $("#product__image").html(`<img src="${link}" alt="product__image">`)
+            currentProduct["image"] = thumbnailLink
+         },
+         linkType: "direct", 
+         extensions: ["png", "jpeg", "jpg"]
+      }
+      Dropbox.choose(uploadOptions)
+   })
  
    callAjax(
      "admin/quan-ly-thuc-don/danh-muc?json_only=1", 
      (body) => {
        $('.select__wrapper[data-ident="categories"] .options__box').html("")
-       const categories = body
+       const { categories } = body
        $.each(categories, (i, category) => {
-         const { id, category_name } = category
-         $('.select__wrapper[data-ident=categories] .options__box').append(`<p class="option" data-value="${id}">${category_name}</p>`)
+         const { category_id, category_name } = category
+         $('.select__wrapper[data-ident=categories] .options__box').append(`<p class="option" data-value="${category_id}">${category_name}</p>`)
        })
      }
    )
@@ -56,7 +82,7 @@ $(document).ready(() => {
    )
  
    $("#add-product-btn").click(() => {
-     if (currentProduct) currentProduct = null 
+     resetProductForm()
      $(".modal").modal("show") 
    })
  
@@ -77,7 +103,14 @@ $(document).ready(() => {
        `admin/quan-ly-thuc-don/san-pham/${productId}?json_only=1`, 
        (body) => {
          const { id, product_name, price, image, description, category_id, addons: productAddons } = body 
-         currentProduct = { id, product_name, price, image, description, category_id }
+         currentProduct = {
+            id, 
+            image, 
+            name: product_name,
+            category: category_id, 
+            price, 
+            description,
+         }
          currentProductCopy = { ...currentProduct }
          Object.values(productAddons).forEach((addon) => {
            Object.keys(addon["addon_options"]).forEach((addonOptionId) => {
@@ -91,19 +124,18 @@ $(document).ready(() => {
    })
  
    $("#product-id-float-inp").prop("disabled", true)
+
+
  
    $(".modal").on("hidden.bs.modal", resetProductForm)
    $(".modal").on("show.bs.modal", () => {
-     if (currentProduct) {
-       const { id, product_name, price, category_id, image, description } = currentProduct
-       $(".modal-title").html(`Cập nhật sản phẩm ${id}`)
+     const { id, name, price, category, image, description } = currentProduct
+     if (id) {
+       $('.field__wrapper[data-ident=product-id]').css("display", "block")
+       $(".modal-title").html(`Cập nhật sản phẩm ${name}`)
        $("#product-id-float-inp").val(id)
-       $("#product-name-float-inp").val(product_name)
-       $("#product-price-float-inp").val(price)
-      //  $(`#category-selection option[value="${category_id}"]`).attr("selected", true)
-       $("#product-description-textarea").val(description)
+       $("#product__image").html(`<img style="transform: scale(1.5, 1.5);" src="${image}" alt="product__image">`)
        $("#product-addons__list").html("")
- 
        $.each(Object.keys(addons).filter((e) => addons[e]["is_current"]), (i, productAddonOptionId) => {
          const { addon_val, addon_val_price, addon_name } = addons[productAddonOptionId]
         $("#product-addons__list").append(`
@@ -125,13 +157,25 @@ $(document).ready(() => {
            $(`.product-addon[data-addon-val-id="${productAddonOptionId}"]`).remove()
          })        
        })
-       return
      }
-     resetProductForm()
+     $("#product-name-float-inp").val(name)
+     $("#product-price-float-inp").val(price)
+     $("#product-description-textarea").val(description)
+   })
+
+   $("#category__selection .select__box").click(function() {
+      if ($(this).next(".options__box").css("display") === "none") {
+         const ident = $(this).closest(".select__wrapper").data("ident")
+         if (ident !== currentSelectionIdent) {
+            hideOptionsBox(currentSelectionIdent)
+            currentSelectionIdent = ident
+         } 
+         $(`.select__wrapper[data-ident=${ident}] .options__box`).fadeIn(150)
+         $(`.select__wrapper[data-ident=${ident}] .select__box i`).css("transform", "rotate(180deg)")
+      }
    })
 
   $("#product-addons").delegate(".select__box", "click", function() {
-
     if ($(this).next(".options__box").css("display") === "none") {
       const ident = $(this).closest(".select__wrapper").data("ident")
       if (ident !== currentSelectionIdent) {
@@ -180,6 +224,17 @@ $(document).ready(() => {
      })
    })
 
+   $("#category__selection").delegate(".option", "click", function(e) {
+      e.preventDefault() 
+      const optionText = $(this).html()
+      const optionValue = $(this).data("value")
+      const ident = $(this).closest(".select__wrapper").data("ident")
+      $(`.select__wrapper[data-ident=${ident}] .value`).attr("data-value", optionValue)
+      $(`.select__wrapper[data-ident=${ident}] .value`).html(optionText)
+      currentProduct["category"] = optionValue
+      hideOptionsBox(ident)
+   })
+
   $("#product-addons").delegate(".option", "click", function(e) {
     e.preventDefault()
     const optionText = $(this).html()
@@ -191,9 +246,20 @@ $(document).ready(() => {
     $(`.select__wrapper[data-ident=${ident}] .value`).html(optionText)
     addons[prevAddonOptionId]["is_current"] = false
     addons[optionValue]["is_current"] = true
-
     hideOptionsBox(ident)
   })
+
+   $("#product-name-float-inp").change((e) => {
+      currentProduct["name"] = e.target.value
+   })
+
+   $("#product-description-textarea").change((e) => {
+      currentProduct["description"] = e.target.value
+   })
+
+   $("#product-price-float-inp").change((e) => {
+      currentProduct["price"] = Number(e.target.value)
+   })
  
    $("#save-product-btn").click(() => {
      const ajaxConfig = {
@@ -202,16 +268,8 @@ $(document).ready(() => {
        data: null
      }
  
-     if (currentProduct) {
-       // update current product fields
-       currentProduct = {
-         ...currentProduct, 
-         product_name: $("#product-name-float-inp").val(),
-         price: Number($("#product-price-float-inp").val()),
-         category_id: $("#category__selection .value").data("value"), 
-         description: $("#product-description-textarea").val()
-       }
- 
+     if (currentProduct["id"]) {
+
        const payload = {}
        const addonOptionIdsSelected = Object.keys(addons).filter((e) => addons[e]["is_current"])
        const addonOptionIdsCompare = new Set([...addonOptionIdsSelected, ...currentProductAddonOptionIds])
@@ -230,19 +288,11 @@ $(document).ready(() => {
        ajaxConfig["method"] = "PUT"
        ajaxConfig["data"] = JSON.stringify(payload)
      } else {
+       currentProduct["addon_options"] = Object.keys(addons).filter((e) => addons[e]["is_current"])
        ajaxConfig["url"] = "admin/quan-ly-thuc-don/san-pham"
        ajaxConfig["method"] = "POST"
-       ajaxConfig["data"] = {
-         product_id: $("#product-id-float-inp").val(), 
-         product_name: $("#product-name-float-inp").val(),
-         product_image: "",
-         product_price: Number($("#product-price-float-inp").val()),
-         product_category: $("#category__selection .value").data("value"),
-         product_description: $("#product-description-textarea").val(),
-         addon_options: Object.keys(addons).filter((e) => addons[e]["is_current"])
-       }
-     }
- 
+       ajaxConfig["data"] = currentProduct
+     } 
      callAjax(
        ajaxConfig["url"], 
        null,

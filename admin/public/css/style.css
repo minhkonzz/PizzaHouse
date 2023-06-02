@@ -2,7 +2,7 @@
 # General
 --------------------------------------------------------------*/
 :root {
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; 
 }
 
 body {
@@ -83,6 +83,12 @@ table td {
   padding: 14px 0;
 }
 
+.table__actions {
+  display: flex; 
+  height: 100%;
+  column-gap: .5rem;
+}
+
 .table__row.filters {
   background-color: rgb(245, 245, 245);
 }
@@ -102,10 +108,6 @@ table td {
 
 .table__row.filters td > select {
   padding: 8px;
-}
-
-.table__row td:last-child {
-  display: flex;
 }
 
 .table__row td:last-child button i {
@@ -186,10 +188,52 @@ section {
   animation: spinner 0.8s ease-in-out infinite;
 }
 
+#side__message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: .8rem;
+  position: fixed;
+  top: 20px; 
+  right: -1000px;
+  height: 55px;
+  padding: 12px 18px;
+  border: 1px solid gray;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 2px 18px rgb(200, 200, 200);
+  border-radius: 13px;
+  opacity: 0;
+}
+
+#side__message i {
+  font-size: 20px;
+}
+
+#side__message i.bi-check-circle-fill {
+  color: rgb(38, 214, 138);
+}
+
+#side__message i.bi-exclamation-diamond-fill {
+  color: rgb(235, 222, 80);
+}
+
+#side__message i.bi-x-circle-fill {
+  color: rgb(215, 82, 82);
+}
+
 @keyframes spinner {
   to {
     transform: rotate(360deg);
   }
+}
+
+.modal-content {
+  max-height: 750px !important;
+}
+
+.modal-body {
+  overflow-y: scroll !important;
 }
 
 /*--------------------------------------------------------------

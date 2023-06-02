@@ -20,20 +20,12 @@
       return $this->headers[$name] ?? "";
     }
 
-    private function sanitize($payloads) {
-      $filters = array(
-        "string" => FILTER_SANITIZE_SPECIAL_CHARS,
-        "int" => FILTER_SANITIZE_NUMBER_INT,
-        "float" => FILTER_SANITIZE_NUMBER_FLOAT
-      );
-      if (is_array($payloads) || is_object($payloads)) {
-        foreach ($payloads as &$v) {
-          $type = gettype($v); 
-          if (isset($filters[$type])) $v = filter_var($v, $filters[$type]);      
-        }
-      }
-      else $payloads = filter_var($payloads, FILTER_SANITIZE_SPECIAL_CHARS);
-      return $payloads;
+    public function sanitize($payloads) {
+       foreach ($payloads as &$v) {
+          if (is_string($v)) $v = filter_var($v, FILTER_SANITIZE_SPECIAL_CHARS);
+          if (is_numeric($v)) $v = floatval($v) > intval($v) ? floatval($v) : intval($v);
+       }
+       return $payloads;
     }
 
     public function getMethod() {

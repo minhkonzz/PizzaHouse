@@ -30,3 +30,43 @@ function callAjax(
       failureCallback()
    })
 } 
+
+function openSideMessage(status, message) {
+   switch (status.toUpperCase()) {
+      case "SUCCESS": {
+         $("#side__message").html(`
+            <i class="bi bi-check-circle-fill"></i>
+            ${message}
+         `)
+         break
+      }
+      case "WARN": {
+         $("#side__message").html(`
+            <i class="bi bi-exclamation-diamond-fill"></i>
+            ${message}
+         `)
+         break
+      }
+      case "FAILED": {
+         $("#side__message").html(`
+            <i class="bi bi-x-circle-fill"></i>
+            ${message}
+         `)
+         break
+      }
+   }
+   $("#side__message").css("display", "flex")
+   $("#side__message").animate({
+      right: "1%", 
+      opacity: 1
+   }, 500, () => {
+      setTimeout(() => {
+         $("#side__message").animate({
+            right: "-1000px", 
+            opacity: 0
+         }, 500, () => {
+            $("#side__message").fadeOut()
+         })
+      }, 2000)
+   })
+}

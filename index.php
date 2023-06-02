@@ -34,7 +34,7 @@
    $_SESSION[__CART_SESSION_KEY__] = $_SESSION[__CART_SESSION_KEY__] ?? __CART_INITIAL__;
 
    $router = new Router();
-   foreach (glob("apis/*.php") as $file_path) {
+   foreach (glob("routes/*.php") as $file_path) {
       if (file_exists($file_path)) require_once $file_path;
    }
 ?>

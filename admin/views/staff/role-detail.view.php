@@ -7,7 +7,7 @@
          <li class="breadcrumb-item active">Cập nhật bộ phận <?= $role_id ?></li>
       </ol>
    </nav>
-  <h1>Cập nhật bộ phận <?= $role_id ?></h1>
+   <h1>Cập nhật bộ phận <?= $role_id ?></h1>
 </div>
 <section class="section add-role" data-role-id="<?= $role_id ?>">
    <div class="add-role__section">

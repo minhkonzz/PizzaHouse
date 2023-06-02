@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS tbl_product (
   category_id VARCHAR(10),
   price BIGINT,  
   description LONGTEXT, 
-  image VARCHAR(255),
+  image LONGTEXT,
   currency VARCHAR(8),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS tbl_customer (
   address VARCHAR(255), 
   email VARCHAR(50), 
   phone VARCHAR(50), 
-  password VARCHAR(16), 
+  password LONGTEXT, 
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -59,8 +59,9 @@ CREATE TABLE IF NOT EXISTS tbl_customer (
 CREATE TABLE IF NOT EXISTS tbl_order_state (
   id VARCHAR(10) PRIMARY KEY NOT NULL, 
   order_state VARCHAR(25), 
-  back_color VARCHAR(20), 
-  text_color VARCHAR(20),
+  back_color VARCHAR(255), 
+  text_color VARCHAR(255),
+  ord INT, 
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -106,7 +107,7 @@ CREATE TABLE IF NOT EXISTS tbl_order_item (
   id VARCHAR(10) PRIMARY KEY NOT NULL, 
   order_id VARCHAR(10) NOT NULL,
   order_product_name VARCHAR(50), 
-  order_product_image VARCHAR(255),
+  order_product_image LONGTEXT,
   order_product_category VARCHAR(50), 
   order_product_price BIGINT, 
   order_product_currency VARCHAR(8), 
@@ -138,7 +139,7 @@ CREATE TABLE IF NOT EXISTS tbl_staff (
   gender ENUM('Nam', 'Nữ'), 
   born DATE, 
   email VARCHAR(50),
-  password VARCHAR(16),
+  password LONGTEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
   FOREIGN KEY (role_id) REFERENCES tbl_role(id) ON DELETE SET NULL
@@ -208,33 +209,11 @@ INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV010
 INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV011', 'PD002');
 INSERT INTO tbl_product_addon_value (addon_value_id, product_id) VALUES ('ADV012', 'PD002');
 
-INSERT INTO tbl_order_state (id, order_state) VALUES ('ODS001', 'Chờ tiếp nhận');
-INSERT INTO tbl_order_state (id, order_state) VALUES ('ODS002', 'Đang xử lý');
-INSERT INTO tbl_order_state (id, order_state) VALUES ('ODS003', 'Giao thành công');
+INSERT INTO tbl_order_state (id, order_state, back_color, text_color, ord) VALUES ('ODS001', 'Chờ tiếp nhận', '#fee685', 'gray', 0);
+INSERT INTO tbl_order_state (id, order_state, back_color, text_color, ord) VALUES ('ODS002', 'Đang xử lý', '#99deea', 'gray', 1);
+INSERT INTO tbl_order_state (id, order_state, back_color, text_color, ord) VALUES ('ODS003', 'Giao thành công', '#70e17b', 'gray', 2);
 
 INSERT INTO tbl_pay_method (id, pay_method, is_activated) VALUES ('PM001', 'Thanh toán khi nhận hàng', 1);
 INSERT INTO tbl_pay_method (id, pay_method, is_activated, is_online_pay, thumbnail, payment_endpoint, type) VALUES ('PM002', 'Thanh toán qua Momo', 1, 1, 'momo1.png', 'https://test-payment.momo.vn/v2/gateway/api/create', 'Momo');
 INSERT INTO tbl_pay_method (id, pay_method, is_activated, is_online_pay, thumbnail, payment_endpoint, type) VALUES ('PM003', 'Thanh toán qua VNPAY', 1, 1, 'vnpay.png', 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html', 'VnPay'); 
 INSERT INTO tbl_pay_method (id, pay_method, is_activated, is_online_pay, thumbnail) VALUES ('PM004', 'Thanh toán qua PayPal', 1, 1, 'paypal.png');
-
-INSERT INTO tbl_customer (id, name, usr, address, email, phone, password) VALUES ('CM001', 'Phạm Quang Minh', 'minhkonzz', 'Số 94 ngõ 73 Nguyễn Lương Bằng', 'minhphm37@gmail.com', '0967105498', '@12345');
-
-insert into tbl_order (id, customer_id, buyer_name, buyer_phone, buyer_email, receiver_name, receiver_phone, receive_address, city, ward, order_state_id, pay_method_id, total, note) VALUES ('OD001', 'CM001', 'Phạm Quang Minh', '0967105498', 'minhphm37@gmail.com', 'Trần Bách', '0824083468', 'Số 94 ngõ 73 Nguyễn Lương Bằng', 'Hà Nội', 'Nam Đồng', 'ODS001', 'PM001', 486000, 'Lorem isum bobota');
-insert into tbl_order_item (id, order_id, order_product_name, order_product_image, order_product_category, order_product_price, quantity) VALUES ('ODI001', 'OD001', 'Pizza 5 loại thịt thượng hạng', 'pizza-5-loai-thit-thuong-hang.png', 'Pizza', 239000, 2);
-
-INSERT INTO tbl_order_item_option VALUES ('ODI001', 'Đế mỏng giòn');
-INSERT INTO tbl_order_item_option VALUES ('ODI001', 'Cỡ 7 inch');
-INSERT INTO tbl_order_item_option VALUES ('ODI001', 'Thêm pho mai');
-
-insert into tbl_order_item (id, order_id, order_product_name, order_product_image, order_product_category, order_product_price, quantity) VALUES ('ODI002', 'OD001', 'Pizza bò Mê-hi-cô thượng hạng', 'pizza-bo-me-hi-co-thuong-hang.png', 'Pizza', 250000, 1);
-
-INSERT INTO tbl_order_item_option VALUES ('ODI002', 'Đế dày xốp');
-INSERT INTO tbl_order_item_option VALUES ('ODI002', 'Cỡ 12 inch');
-INSERT INTO tbl_order_item_option VALUES ('ODI002', 'Gấp 3 phô mai');
-
-INSERT INTO tbl_role (id, role) VALUES ('R001', 'Đầu bếp'); 
-INSERT INTO tbl_role (id, role) VALUES ('R002', 'Bán hàng'); 
-INSERT INTO tbl_role (id, role) VALUES ('R003', 'Trực hotline');
-INSERT INTO tbl_role (id, role) VALUES ('R004', 'Quản lý');
-
-INSERT INTO tbl_staff (id, name, role_id, address, phone, gender, born, email, password) VALUES ('ST001', 'Phạm Minh Trí', 'R001', '294 ngõ chợ Khâm Thiên', '098232323', 'Nam', '2001-06-01', 'triduc201@gmail.com', '@01062001');

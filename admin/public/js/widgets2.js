@@ -1,20 +1,20 @@
 $(document).ready(() => {
    $(".fields").delegate(".custom__field", "focusin focusout", function(e) {
       const parent = $(this).closest(".field__wrapper")
-      const styleSet = e.type === "focusin" ? 
-      {
-         top: 0, 
-         background: "#fff", 
-         "font-size": "12px", 
-         padding: "0 5px", 
-         "margin-left": "-5px"
-      } : 
+      const styleSet = e.type === "focusout" && !e.target.value ?  
       {
          top: parent.hasClass("txtarea") ? "20px" : "50%", 
          background: "transparent", 
          "font-size": "14px", 
          padding: 0, 
          "margin-left": 0
+      } : 
+      {
+         top: 0, 
+         background: "#fff", 
+         "font-size": "12px", 
+         padding: "0 5px", 
+         "margin-left": "-5px"
       }
       Object.keys(styleSet).forEach((c) => $(`.field__wrapper[data-ident="${parent.data("ident")}"] .field__placeholder`).css(c, styleSet[c]))  
    })

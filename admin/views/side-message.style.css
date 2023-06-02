@@ -1,0 +1,28 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+#side__message {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   column-gap: .8rem;
+   position: fixed;
+   top: 20px; 
+   right: -1000px;
+   height: 55px;
+   padding: 12px 18px;
+   border: 1px solid gray;
+   color: #fff;
+   background: rgba(0, 0, 0, 0.7);
+   box-shadow: 0 2px 18px rgb(200, 200, 200);
+   border-radius: 13px;
+   opacity: 0;
+}
+
+#side__message i {
+   color: rgb(38, 214, 138);
+   font-size: 20px;
+}

@@ -1,7 +1,4 @@
 <?php 
-
-  // namespace PZHouse\Core;
-
   class QueryBuilder {
 
     private $behavior; // select, insert, update, delete, ...
@@ -12,6 +9,7 @@
     private $options = [];
     private $updates = [];
     private $group_by = [];
+    private $limit = [];
 
     private $column_gmin = "";
     private $column_gmax = "";
@@ -27,6 +25,7 @@
       $where = $this->wheres ? "WHERE " . implode(" AND ", $this->wheres) : "";
       $group_by = $this->group_by ? "GROUP BY " . implode(", ", $this->group_by) : "";
       $join = $this->joins ? implode(" ", $this->joins) : ""; 
+      $limit = $this->limit ? "LIMIT " . implode(", ", $this->limit) : "";
       switch (strtoupper($this->behavior)) {
         case "UPDATE": {
           $update = $this->updates ? implode(", ", $this->updates) : "";
@@ -35,7 +34,7 @@
         case "DELETE": 
           return sprintf("DELETE FROM %s %s", $this->table_name, $where);
         default:
-          return sprintf("SELECT %s FROM %s %s %s %s", $select, $this->table_name, $join, $where, $group_by);
+          return sprintf("SELECT %s FROM %s %s %s %s %s", $select, $this->table_name, $join, $where, $group_by, $limit);
       }
     }
 
@@ -89,6 +88,11 @@
 
     public function groupBy(...$columns) {
       $this->group_by = $columns;
+      return $this;
+    }
+
+    public function limit($start, $max) {
+      $this->limit = [$start, $max];
       return $this;
     }
   }

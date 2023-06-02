@@ -1,6 +1,4 @@
 <?php 
-  // namespace PZHouse\Admin\Controllers;
-
   class ProductController extends Controller {
     public function init(Request $req, $params = []) {
       $this->getAllProducts($req, $params);
@@ -8,15 +6,22 @@
 
     public function getAllProducts(Request $req, array $params = []) {
       try {
-        $products = ProductModel::selectAllProducts(); 
-        if (parent::isJsonOnly($req, $products)) return (new Response($products))->withJson();
+        $payloads = $req->getPayloads(); 
+        $total_products = ProductModel::selectTotalProducts(); 
+        list("total_pages" => $total_pages, "limit" => $limit, "page" => $page) = parent::paging($payloads, $total_products); 
+        $body_response = [
+           "products" => ProductModel::selectAllProducts(($page - 1) * $limit, $limit), 
+           "current_page" => $page, 
+           "total_pages" => $total_pages
+        ]; 
+        if (parent::isJsonOnly($req, $body_response)) return (new Response($body_response))->withJson();
         parent::view(
           ROOT_ADMIN,
           ["title" => "Quản lý sản phẩm"],
           "catalog/products/products1.view.php",
           "catalog/products/products.style.css",
           "bundle.view.php",
-          new Response(["products" => $products])
+          new Response($body_response)
         );
       } catch (InternalErrorException $e) {
         return (new Response([], $e->getCode(), $e->getMessage()))->withJson();
@@ -35,15 +40,14 @@
     public function createNewProduct(Request $req, array $params = []) {
       try {
         list(
-          "product_id" => $product_id, 
-          "product_name" => $product_name, 
-          "product_image" => $product_image, 
-          "product_price" => $product_price,
-          "product_category" => $category_id, 
-          "product_description" => $product_description,
+          "name" => $name, 
+          "image" => $image, 
+          "price" => $price,
+          "category" => $category_id, 
+          "description" => $description,
           "addon_options" => $addon_options 
         ) = $req->getPayloads();
-        $new_product = new Product($product_name, $product_image, $product_price, $category_id, $product_description, $addon_options, $product_id);
+        $new_product = new Product($name, $image, $price, $category_id, $description, $addon_options);
         if (!ProductModel::addProduct($new_product)) throw new InternalErrorException();
         return (new Response())->withJson();
       } catch (InternalErrorException $e) {

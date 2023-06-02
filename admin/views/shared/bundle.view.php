@@ -28,7 +28,7 @@
       }
     ?>
     <main id="main" class="main"><?= $PAGE_CONTENT ?></main>
-    <!-- <p id="alert">Thêm danh mục thành công</p> -->
+    <div id="side__message"></div>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.3.2/tinymce.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"></script>

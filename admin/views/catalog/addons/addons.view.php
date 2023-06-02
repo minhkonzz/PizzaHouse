@@ -20,35 +20,19 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body fields">
-            <!-- <div class="form-floating">
-              <input type="text" class="form-control" name="addon_id" id="addon-id-float-inp" placeholder="Mã đặc tính">
-              <label for="addon-id-float-inp">Mã thuộc tính</label>
-            </div> -->
             <div class="field__wrapper" data-ident="addon-id">
               <input id="addon-id-float-inp" class="custom__field" type="text">
               <label for="addon-id-float-inp" class="field__placeholder">Mã đặc tính</label>
             </div>
-            <!-- <div class="form-floating">
-              <input type="text" class="form-control" name="addon_name" id="addon-name-float-inp" placeholder="Tên đặc tính">
-              <label for="addon-name-float-inp">Tên thuộc tính</label>
-            </div> -->
             <div class="field__wrapper" data-ident="addon-name">
               <input id="addon-name-float-inp" class="custom__field" type="text">
               <label for="addon-id-float-inp" class="field__placeholder">Tên đặc tính</label>
             </div>
             <div id="et" style="display: none; grid-template-columns: 1fr 1fr; column-gap: .5rem; transition: .5s all;">
-              <!-- <div class="form-floating">
-                <input type="text" class="form-control" name="addon_val" id="addon-val-float-inp" placeholder="Tên của tùy chọn">
-                <label for="addon-val-float-inp">Tên của tùy chọn</label>
-              </div> -->
               <div class="field__wrapper" data-ident="addon-val">
                 <input id="addon-val-float-inp" class="custom__field" type="text">
                 <label for="addon-val-float-inp" class="field__placeholder">Tên của tùy chọn</label>
               </div>
-              <!-- <div class="form-floating">
-                <input type="text" class="form-control" name="addon_val_price" id="addon-val-price-float-inp" placeholder="Giá của tùy chọn">
-                <label for="addon-val-price-float-inp">Giá của tùy chọn</label>
-              </div> -->
               <div class="field__wrapper" data-ident="addon-val-price">
                 <input id="addon-val-price-float-inp" class="custom__field" type="text">
                 <label for="addon-val-price-float-inp" class="field__placeholder">Giá của tùy chọn</label>
@@ -95,7 +79,7 @@
         <td><button id="table__filter-btn">Tìm kiếm</button></td>
       </tr>
       <?php 
-        list("addons" => $addons) = $response->getBody();
+        list("addons" => $addons, "total_pages" => $total_pages, "current_page" => $current_page) = $response->getBody();
         foreach ($addons as $addon): 
           list("addon_id" => $addon_id, "addon_name" => $addon_name, "addon_value_count" => $addon_value_count, "created_at" => $created_at) = $addon; ?>
           <tr class="table__row">
@@ -105,30 +89,35 @@
             <td><?= $addon_value_count ?></td>
             <td><?= $created_at ?></td>
             <td>
-              <button class="addon-update-btn" data-addon-id="<?= $addon_id ?>"><i class="bi bi-pencil-square"></i></button>
-              <button class="addon-remove-btn" data-addon-id="<?= $addon_id ?>"><i class="bi bi-trash2-fill"></i></button>
+              <div class="table__actions">
+                <button class="addon-update-btn table__action" data-addon-id="<?= $addon_id ?>"><i class="bi bi-pencil-square"></i></button>
+                <button class="addon-remove-btn table__action" data-addon-id="<?= $addon_id ?>"><i class="bi bi-trash2-fill"></i></button>
+              </div>
             </td>
           </tr>
       <?php endforeach ?>
     </table>
-    <div class="pages__list">
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">«</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">»</span>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <?php if ($current_page < $total_pages) { ?>
+      <div class="pages__list">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">«</span>
+            </a>
+          </li>
+          <?php 
+            for ($i = 0; $i < $total_pages; $i++): ?>
+              <li class="page-item"><a class="page-link" <?php if($i === $current_page - 1) echo 'style="background: rgb(220, 220, 220);"' ?> href="<?= ROOT_ADMIN_CLIENT . "quan-ly-thuc-don/thuoc-tinh?page=" . ($i + 1) ?>"><?= $i + 1 ?></a></li>
+          <?php endfor ?>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">»</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    <?php } ?>
   </div>
 </section>
-<script src="<?= ROOT_ADMIN_CLIENT . "public/js/widgets1.js" ?>"></script>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/widgets2.js" ?>"></script>
 <script src="<?= ROOT_ADMIN_CLIENT . "public/js/addons.js" ?>"></script>

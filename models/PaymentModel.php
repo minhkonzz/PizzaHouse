@@ -15,7 +15,7 @@
 		public static function processVnpayPayment($endpoint, $new_order) {
 			$vnp_TmnCode = "WE6AD37V";
 			$vnp_HashSecret = "QGJSRPICZPLMFPBJJUQIVQYXYWLXCIMJ";
-			$vnp_Returnurl = "http://localhost/pizza-complete-version/thanh-toan/resp";
+			$vnp_Returnurl = "http://" . ($_SERVER["SERVER_NAME"] == "localhost" ? "localhost/pizza-complete-version" : $_SERVER["SERVER_NAME"]). "/thanh-toan/resp";
 			$vnp_TxnRef = $new_order["id"]; 
 			$vnp_Amount = $new_order["total"] * 100;
 			$vnp_Locale = "vn"; 

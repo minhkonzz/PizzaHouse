@@ -1,16 +1,31 @@
 <?php 
-
-  // namespace PZHouse\Admin\Models;
-
   class ProductModel extends Model {
-    public static function selectAllProducts() {
+    public static function selectAllProducts($start, $max) {
       $res = parent::performQuery([[
         "query_str" => Database::table("tbl_product")
-          ->select("tbl_product.id as product_id", "product_name", "tbl_category.id as category_id", "category_name", "price", "image", "currency", "tbl_product.created_at as product_created_at")
-          ->join("tbl_category", "tbl_product.category_id", "=", "tbl_category.id"),
+          ->select(
+            "tbl_product.id as product_id", 
+            "product_name", 
+            "tbl_category.id as category_id", 
+            "category_name", 
+            "price", 
+            "image", 
+            "currency", 
+            "tbl_product.created_at as product_created_at"
+          )
+          ->join("tbl_category", "tbl_product.category_id", "=", "tbl_category.id")
+          ->limit($start, $max),
         "is_fetch" => "products"
       ]]);
       return $res["products"];
+    }
+
+    public static function selectTotalProducts() {
+       $res = parent::performQuery([[
+          "query_str" => "SELECT COUNT(*) as total_records FROM tbl_product", 
+          "is_fetch" => "count"
+       ]]); 
+       return $res["count"][0]["total_records"];
     }
 
     public static function selectProductsByCategory($category_id) { 

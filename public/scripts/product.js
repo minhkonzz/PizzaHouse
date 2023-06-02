@@ -1,7 +1,9 @@
 $(document).ready(() => {
    const { id: product_id, product_name, image: product_image, category_name, price} = $(".product-detail__main").data("product")
 
-   let productPrice = price, lastPrice = 0, quantity = 1
+   let productPrice = Number(price), lastPrice = 0, quantity = 1
+
+   console.log(price, typeof price)
    
    const productAddCart = {
       product_id, 
@@ -23,11 +25,11 @@ $(document).ready(() => {
          $(`.product-detail__addon-option[data-addon-val-id=${productAddCart.addons[addon_id]["addon_val_id"]}]`).closest("li").css("border", "none")
 
       if (apply_product_price && apply_product_price === 1) {
-         productPrice = addon_val_price
+         productPrice = Number(addon_val_price)
          productAddCart.addons[addon_id] = { addon_val_id, addon_val, addon_val_price: 0 }
       }
       else productAddCart.addons[addon_id] = { addon_val_id, addon_val, addon_val_price }
-      lastPrice = productPrice + Object.values(productAddCart.addons).reduce((acc, cur) => acc + cur["addon_val_price"], 0)
+      lastPrice = productPrice + Object.values(productAddCart.addons).reduce((acc, cur) => acc + Number(cur["addon_val_price"]), 0)
       $(`.product-detail__addon-option[data-addon-val-id=${addon_val_id}]`).closest("li").css("border", "1px solid var(--primary-color)")
       $(".product-detail__price span").html(`${(lastPrice * quantity).toLocaleString('en-US')}đ`)
    })

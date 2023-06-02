@@ -1,26 +1,27 @@
 $(document).ready(() => {
+
   const p1 = /^[a-zA-ZÀ-ỹ\s]+$/ig
   const p2 = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ig
   const p3 = /^[a-zA-Z0-9À-ỹ\s]+$/ig
   const p4 = /^[0-9]+$/ig
 
   $("#make-order-btn").click(() => {
-    $("#dialog").fadeIn(230)
     try {
       const errs = []
-      const customerName = $("input[name=buyer_name]").val().match(p1)[0] || (errs.push("Tên người mua hàng không hợp lệ") && "")
-      const customerEmail = $("input[name=buyer_email]").val().match(p2)[0] || (errs.push("Email người mua không hợp lệ") && "")
-      const customerPhone = $("input[name=buyer_phone]").val().match(p4)[0] || (errs.push("Điện thoại người mua không hợp lệ") && "")
-      const shipAddressDetail = $("input[name=buyer_address]").val().match(p3)[0] || (errs.push("Địa chỉ nhận hàng không hợp lệ") && "")
+      const customerName = $("input[name=buyer_name]").val().match(p1) && $("input[name=buyer_name]").val().match(p1)[0] || (errs.push("Tên người mua hàng không hợp lệ") && "")
+      const customerEmail = $("input[name=buyer_email]").val().match(p2) && $("input[name=buyer_email]").val().match(p2)[0] || (errs.push("Email người mua không hợp lệ") && "")
+      const customerPhone = $("input[name=buyer_phone]").val().match(p4) && $("input[name=buyer_phone]").val().match(p4)[0] || (errs.push("Điện thoại người mua không hợp lệ") && "")
+      const shipAddressDetail = $("input[name=buyer_address]").val().match(p3) && $("input[name=buyer_address]").val().match(p3)[0] || (errs.push("Địa chỉ nhận hàng không hợp lệ") && "")
       const checkoutDistrict = $("select[name=checkout_district] option:selected").val()
       const checkoutCity = $("select[name=checkout_city] option:selected").val()
       const checkoutWard = $("select[name=checkout_ward] option:selected").val()
-      const receiverName = $("input[name=receiver_name]").val().match(p1)[0] || (errs.push("Tên người nhận hàng không hợp lệ") && "")
-      const receiverPhone = $("input[name=receiver_phone]").val().match(p4)[0] || (errs.push("Điện thoại người nhận hàng") && "")
+      const receiverName = $("input[name=receiver_name]").val().match(p1) && $("input[name=receiver_name]").val().match(p1)[0] || (errs.push("Tên người nhận hàng không hợp lệ") && "")
+      const receiverPhone = $("input[name=receiver_phone]").val().match(p4) && $("input[name=receiver_phone]").val().match(p4)[0] || (errs.push("Điện thoại người nhận hàng") && "")
       const getInShopCheck = $("input[name=get-in-shop-checker][type=checkbox]").prop("checked")
-      const payMethod = JSON.parse($("input[name=checkout-pay-method]:checked").val())
-      const checkoutOrderNote = $("#checkout__order-note").val().match(p3)[0] || (errs.push("Ghi chú đơn hàng chứa ký tự không hợp lệ") && "")
+      const payMethod = JSON.parse($("input[name=checkout-pay-method]:checked").val() || errs.push("Vui lòng chọn phương thức thanh toán") && "{}")
+      const checkoutOrderNote = $("#checkout__order-note").val().match(p3) && $("#checkout__order-note").val().match(p3)[0] || (errs.push("Ghi chú đơn hàng chứa ký tự không hợp lệ") && "")
       if (errs.length > 0) throw new Error(errs.join("\n"))
+      $("#dialog").fadeIn(230)
       const orderPayloads = {
         "order": {
           "buyer_name": customerName, 

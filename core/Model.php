@@ -1,6 +1,4 @@
 <?php
-  // namespace PZHouse\Core;
-  // use PZHouse\Core\Database;
   class Model {
     public static function performQuery($queries) {
       $is_query_success = false;
@@ -29,14 +27,6 @@
       }
       unset($connection);
       return $is_fetch ? $fetch_result : $is_query_success;
-    }
-
-    public static function fetchRecordsWithLimit($select_query, $start_index, $max_records) {
-      $res = self::performQuery([[
-        "query_str" => $select_query . " LIMIT ${start_index}, ${max_records}", 
-        "is_fetch" => "records"
-      ]]);
-      return $res["records"];
     }
   }
 ?>

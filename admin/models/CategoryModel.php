@@ -1,19 +1,19 @@
 <?php 
-
-  // namespace PZHouse\Admin\Models;
-
   class CategoryModel extends Model {
-    public static function selectAllCategories() {
+    public static function selectAllCategories($start, $max) {
+      $query_str = Database::table("tbl_category")
+        ->select(
+          "tbl_category.id as category_id", 
+          "category_name", 
+          "tbl_category.created_at as created_at", 
+          "ifnull(count(tbl_product.id), 0) as total_products", 
+        )
+        ->join("tbl_product", "tbl_category.id", "=", "tbl_product.category_id", "LEFT")
+        ->groupBy("tbl_category.id")
+        ->limit($start, $max);
+
       $res = parent::performQuery([[
-        "query_str" => Database::table("tbl_category")
-          ->select(
-            "tbl_category.id as category_id", 
-            "category_name", 
-            "tbl_category.created_at as created_at", 
-            "ifnull(count(tbl_product.id), 0) as total_products", 
-          )
-          ->join("tbl_product", "tbl_category.id", "=", "tbl_product.category_id", "LEFT")
-          ->groupBy("tbl_category.id"),
+        "query_str" => $query_str,
         "is_fetch" => "categories"
       ]]);
       return $res["categories"];
@@ -54,9 +54,16 @@
 
     public static function deleteCategoryById($id) {
       return parent::performQuery([[
-        "query_str" => "UPDATE tbl_category SET is_deleted = 1 WHERE id = :id", 
+        "query_str" => "DELETE FROM tbl_category WHERE id = :id", 
         "params" => [ "id" => $id ]
       ]]);
+    }
+
+    public static function deleteCategories($remove_ids) {
+      $ids = array_map(fn($e) => "'$e'", $remove_ids);
+       return parent::performQuery([[
+          "query_str" => "DELETE FROM tbl_category WHERE id IN (" . implode(", ", $ids) . ")"
+       ]]); 
     }
 
     public static function selectTotalCategories() {
@@ -65,22 +72,6 @@
           "is_fetch" => "count"
        ]]);
        return $res["count"][0]["total_records"];
-    }
-
-    public static function selectCategoriesWithLimit($start_index, $max_records) {
-      return parent::fetchRecordsWithLimit(
-        Database::table("tbl_category")
-          ->select(
-            "tbl_category.id as category_id", 
-            "category_name", 
-            "tbl_category.created_at as created_at", 
-            "ifnull(count(tbl_product.id), 0) as total_products", 
-          )
-          ->join("tbl_product", "tbl_category.id", "=", "tbl_product.category_id", "LEFT")
-          ->groupBy("tbl_category.id"), 
-        $start_index, 
-        $max_records
-      );
     }
   }
 ?>

@@ -28,33 +28,23 @@
          try {
             $payloads = $req->getPayloads();
             if (empty($payloads['state']) || $payloads['state'] != $_SESSION['oauth_state']) throw new Exception("state does not match");
-            if (!empty($payloads['error'])) throw new Exception("authorization server returned an error: ".$_GET['error']);
+            if (!empty($payloads['error'])) throw new Exception("authorization server returned an error: " . $payloads['error']);
             if (empty($payloads['code'])) throw new Exception("this is unexpected, the authorization server redirected without a code or an error");
              // Exchange the authorization code for an access token and ID token 
              // by making a request to the token endpoint
             $token_endpoint = $_ENV["OKTA_OAUTH2_ISSUER"] . "/v1/token";
-            
-            echo "<pre>";
-            print_r([
-               'grant_type' => 'authorization_code',
-               'code' => $payloads['code'],
-               'code_verifier' => $_SESSION['oauth_code_verifier'],
-               'redirect_uri' => OKTA_REDIRECT_URI,
-               'client_id' => $_ENV['OKTA_OAUTH2_CLIENT_ID'],
-               'client_secret' => $_ENV['OKTA_OAUTH2_CLIENT_SECRET'],
-            ]);
 
             $req_sender = new RequestSender($token_endpoint);
             $response = json_decode($req_sender->post(http_build_query([
                'grant_type' => 'authorization_code',
                'code' => $payloads['code'],
                'code_verifier' => $_SESSION['oauth_code_verifier'],
-               'redirect_uri' => $_ENV['OKTA_OAUTH2_REDIRECT_URI'],
+               'redirect_uri' => OKTA_REDIRECT_URI,
                'client_id' => $_ENV['OKTA_OAUTH2_CLIENT_ID'],
                'client_secret' => $_ENV['OKTA_OAUTH2_CLIENT_SECRET'],
             ])), true);
            
-            if (isset($response['error'])) throw new Exception("token endpoint returned an error: " . $response['error']);
+            if (isset($response['error'])) throw new Exception("token endpoint returned an error: " . $response['error'] . " " . $response["description"]);
             if (!isset($response['access_token'])) throw new Exception("token endpoint did not return an error or an access token");
            
             $access_token = $response['access_token'];

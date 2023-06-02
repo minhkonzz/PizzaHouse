@@ -31,6 +31,6 @@
   require_once "../controllers/ExceptionController.php";
 
   $router = new Router();
-  foreach (glob("apis/*.php") as $file_path)
+  foreach (glob("routes/*.php") as $file_path)
     if (file_exists($file_path)) require_once $file_path;
 ?>

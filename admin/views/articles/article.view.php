@@ -44,5 +44,5 @@
    </button>
 </section>
 <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/super-build/ckeditor.js"></script>
-<script src="<?= ROOT_ADMIN_CLIENT . "public/js/widgets.js" ?>"></script>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/widgets2.js" ?>"></script>
 <script src="<?= ROOT_ADMIN_CLIENT . "public/js/article6.js" ?>"></script>

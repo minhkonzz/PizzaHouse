@@ -1,8 +1,4 @@
 <?php 
-  // namespace PZHouse\Classes;
-
-  // use PZHouse\Core\DataInstance;
-
   include_once __ROOT__ . "core/DataInstance.php";
 
   class Product extends DataInstance {

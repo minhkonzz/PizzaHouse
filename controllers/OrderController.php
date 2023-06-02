@@ -129,8 +129,9 @@
 					return (new Response(["payment_url" => $payment_url]))->withJson();
 				}
 				if (!OrderModel::addOrder($_SESSION["ORDER"]["EXTRA"])) throw new InternalErrorException();
+				unset($_SESSION["ORDER"]);
+				$_SESSION[__CART_SESSION_KEY__] = __CART_INITIAL__;
 				return (new Response())->withJson();
-				echo json_encode($_SESSION["ORDER"]["EXTRA"]);
 			} catch (InternalErrorException $e) {
 				return (new Response([], $e->getCode(), $e->getMessage()))->withJson();
 			}

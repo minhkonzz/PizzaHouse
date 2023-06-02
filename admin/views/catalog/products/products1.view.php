@@ -20,26 +20,26 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body fields">
-            <p style="font-size: 14px; font-weight: 600;">Hình ảnh sản phẩm</p>
-            <div style="display: grid; grid-template-columns: 1fr 2fr; column-gap: .5rem; margin-top: 10px;">
-              <div>
-                <div id="image-add-product">
-                  <div id="image-add-product-btn">
-                    <input hidden type="file" name="product_image" id="btn-upload-file">
-                    <label for="btn-upload-file" style="outline: none; border: none; width: 150px; height: 120px; background-color: rgb(230, 230, 230);" class="d-flex flex-column justify-content-center align-items-center"><i class="bi bi-image-fill"></i><p style="margin-top: 10px;">Upload image</p></label>
-                  </div>
+            <div>
+              <p class="modal-body__title">Hình ảnh sản phẩm</p>
+              <div id="product__image-container">
+                <div id="product__image">
+                  <i class="bi bi-image-fill"></i>
+                  <p id="title">Kích thước ảnh giới hạn 2048px, định dạng PNG hoặc JPEG</p>
+                </div>
+                <div id="mask"></div>
+                <div id="product__image-buttons">
+                  <button id="upload-btn"><i class="bi bi-file-earmark-arrow-up"></i></button>
                 </div>
               </div>
-              <div>
-                <div class="field__wrapper" data-ident="product-id">
-                  <input id="product-id-float-inp" class="custom__field" type="text">
-                  <label for="product-id-float-inp" class="field__placeholder">Mã sản phẩm</label>
-                </div>
-                <div style="margin-top: 10px;" class="field__wrapper" data-ident="product-name">
-                  <input id="product-name-float-inp" class="custom__field" type="text">
-                  <label for="product-name-float-inp" class="field__placeholder">Tên sản phẩm</label>
-                </div>
-              </div>
+            </div>
+            <div class="field__wrapper" data-ident="product-id">
+              <input id="product-id-float-inp" class="custom__field" type="text">
+              <label for="product-id-float-inp" class="field__placeholder">Mã sản phẩm</label>
+            </div>
+            <div style="margin-top: 10px;" class="field__wrapper" data-ident="product-name">
+              <input id="product-name-float-inp" class="custom__field" type="text">
+              <label for="product-name-float-inp" class="field__placeholder">Tên sản phẩm</label>
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: .5rem;" class="selects">
               <div class="field__wrapper" data-ident="product-price">
@@ -48,7 +48,7 @@
               </div>
               <div class="select__wrapper" id="category__selection" data-ident="categories">
                 <div class="select__box">
-                  <p class="value">Chọn danh mục</p>
+                  <p class="value">Danh mục</p>
                   <i class="bi bi-chevron-down"></i>
                 </div>
                 <div class="options__box"></div>
@@ -59,7 +59,7 @@
               <label for="product-description-text-area">Mô tả cho sản phẩm</label>
             </div>
             <div id="product-addons">
-              <p class="product-addons__title" style="font-size: 14px; font-weight: 600;">Thuộc tính sản phẩm</p>
+              <p class="modal-body__title">Thuộc tính sản phẩm</p>
               <div id="product-addons__list"></div>
               <button style="width: 100%; margin-top: 12px; height: 45px;" id="add-addon-btn" type="button" class="btn btn-outline-primary">Thêm thuộc tính sản phẩm</button>
             </div>
@@ -93,8 +93,8 @@
         <!-- <td><select name="product__list__categories" id=""></select></td> -->
         <td class="selects">
           <div class="select__wrapper" data-ident="categories">
-              <div class="select__box">
-                <p class="value">Chọn danh mục</p>
+              <div style="width: 140px; height: 36px;" class="select__box">
+                <p class="value">Danh mục</p>
                 <i class="bi bi-chevron-down"></i>
               </div>
               <div class="options__box"></div>
@@ -108,7 +108,7 @@
         </td>
         <td><button id="table__filter-btn">Tìm kiếm</button></td>
       </tr>
-        <?php list("products" => $products) = $response->getBody();
+      <?php list("products" => $products, "total_pages" => $total_pages, "current_page" => $current_page) = $response->getBody();
         foreach ($products as $product):
           list(
             "product_id" => $id, 
@@ -124,7 +124,7 @@
             <td><?= $id ?></td>
             <td>
               <div style="display: flex; align-items: center">
-                <img width="60" src="<?= ROOT_CLIENT . "public/images/products/" . $product_image ?>" alt="">
+                <img width="60" src="<?= $product_image ?>" alt="">
                 <p style="margin-left: 12px;"><?= $product_name ?></p>
               </div>
             </td>
@@ -133,30 +133,36 @@
             <td>121</td>
             <td><?= $product_created_at ?></td>
             <td>
-              <button class="product-update-btn" data-product-id="<?= $id ?>"><i class="bi bi-pencil-square"></i></button>
-              <button class="product-delete-btn" data-product-id="<?= $id ?>"><i class="bi bi-trash2-fill"></i></button>
+              <div class="table__actions">
+                <button class="product-update-btn table__action" data-product-id="<?= $id ?>"><i class="bi bi-pencil-square"></i></button>
+                <button class="product-delete-btn table__action" data-product-id="<?= $id ?>"><i class="bi bi-trash2-fill"></i></button>
+              </div>
             </td>
           </tr>
       <?php endforeach ?>
     </table>
-    <div class="pages__list">
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">«</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">»</span>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <?php if ($current_page < $total_pages) { ?>
+      <div class="pages__list">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">«</span>
+            </a>
+          </li>
+          <?php 
+            for ($i = 0; $i < $total_pages; $i++): ?>
+              <li class="page-item"><a class="page-link" <?php if($i === $current_page - 1) echo 'style="background: rgb(220, 220, 220);"' ?> href="<?= ROOT_ADMIN_CLIENT . "quan-ly-thuc-don/san-pham?page=" . ($i + 1) ?>"><?= $i + 1 ?></a></li>
+          <?php endfor ?>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">»</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    <?php } ?>
   </div>
 </section>
-<script src="<?= ROOT_ADMIN_CLIENT . "public/js/widgets1.js" ?>"></script>
-<script src="<?= ROOT_ADMIN_CLIENT . "public/js/temp-products3.js" ?>"></script>
+<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="vdmdyn3kxq3v1e2"></script>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/widgets2.js" ?>"></script>
+<script src="<?= ROOT_ADMIN_CLIENT . "public/js/temp-products8.js" ?>"></script>

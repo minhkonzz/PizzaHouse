@@ -46,7 +46,6 @@
            $secret_key = bin2hex(random_bytes(__SECRET_KEY_LENGTH__));
            $encrypted_token = $encryptor->encode($token->getPayload(), $secret_key);
            $token->setToken($encrypted_token);
-         //   setcookie("auth_token", "aaa", $token->getExpireAt(), "/");
            setcookie("user", json_encode([
               "id" => $customer->getId(), 
               "access_token" => "aaa",

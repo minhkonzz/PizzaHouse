@@ -78,7 +78,7 @@
           <div class="checkout__section__main payments">
             <?php list("pay_methods" => $pay_methods) = $response->getBody(); ?>
             <div>
-              <?php foreach (array_filter($pay_methods, fn($e) => $e["is_online_pay"] === 0) as $pay_method): 
+              <?php foreach (array_filter($pay_methods, fn($e) => $e["is_online_pay"] == 0) as $pay_method): 
                 list("id" => $pay_method_id, "pay_method" => $method_name) = $pay_method ?>
                 <div style="display: flex;">
                   <input type="radio" name="checkout-pay-method" value="<?= htmlspecialchars(json_encode(["pay_method_id" => $pay_method_id])) ?>">
@@ -95,7 +95,7 @@
                 <p class="payment-button__txt">Thanh toán trực tuyến</p>
               </button>
               <ul id="online-payments">
-                <?php foreach (array_filter($pay_methods, fn($e) => $e["is_online_pay"] === 1) as $online_pay_method): 
+                <?php foreach (array_filter($pay_methods, fn($e) => $e["is_online_pay"] == 1) as $online_pay_method): 
                   list("id" => $online_pay_method_id, "pay_method" => $method_name, "thumbnail" => $pay_method_thumbnail, "payment_endpoint" => $payment_endpoint, "type" => $type) = $online_pay_method ?>
                   <li class="online-payment">
                     <div class="online-payment__select">

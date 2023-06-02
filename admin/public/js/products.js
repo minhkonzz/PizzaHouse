@@ -19,7 +19,7 @@ $(document).ready(() => {
   callAjax(
     "admin/quan-ly-thuc-don/danh-muc?json_only=1", 
     (body) => {
-      const categories = body
+      const { categories } = body
       $.each(categories, (i, category) => {
         const { id, category_name } = category
         $('select[name="product__list__categories"]').append(`<option value="${id}">${category_name}</option>`)

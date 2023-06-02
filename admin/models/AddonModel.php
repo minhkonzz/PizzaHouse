@@ -1,17 +1,23 @@
 <?php 
-  // namespace PZHouse\Admin\Models;
-
   class AddonModel extends Model {
-    public static function selectAllAddons() {
-      $query_str = Database::table("tbl_addon")
-        ->select("tbl_addon.id as addon_id", "addon_name", "count(tbl_addon_value.id) as addon_value_count", "tbl_addon.created_at")
-        ->join("tbl_addon_value", "tbl_addon.id", "=", "tbl_addon_value.addon_id")
-        ->groupBy("tbl_addon.id");
+    public static function selectAllAddons($start, $max) {
       $res = parent::performQuery([[
-        "query_str" => $query_str,
+        "query_str" => Database::table("tbl_addon")
+          ->select("tbl_addon.id as addon_id", "addon_name", "count(tbl_addon_value.id) as addon_value_count", "tbl_addon.created_at")
+          ->join("tbl_addon_value", "tbl_addon.id", "=", "tbl_addon_value.addon_id")
+          ->groupBy("tbl_addon.id")
+          ->limit($start, $max),
         "is_fetch" => "addons"
       ]]); 
       return $res["addons"];
+    }
+
+    public static function selectTotalAddons() {
+       $res = parent::performQuery([[
+           "query_str" => "SELECT COUNT(*) as total_records FROM tbl_addon", 
+           "is_fetch" => "count"
+       ]]);
+       return $res["count"][0]["total_records"];
     }
 
     public static function selectAddonById($id) {
